@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView textViewTramo, textViewTiempoRestante, textViewProximoTramo;
+    private TextView textViewTramo, textViewTiempoRestante;
     private Handler handler = new Handler();
     private Runnable actualizarDatosRunnable;
 
@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
 
         textViewTramo = findViewById(R.id.textViewTramo);
         textViewTiempoRestante = findViewById(R.id.textViewRestante);
-
 
         // Runnable que actualiza los datos cada minuto
         actualizarDatosRunnable = new Runnable() {
@@ -51,7 +50,10 @@ public class MainActivity extends AppCompatActivity {
         handler.removeCallbacks(actualizarDatosRunnable); // Parar el handler cuando se destruye la actividad
     }
 
-    // Método que actualiza los TextViews en tiempo real
+    /**
+     * Actualiza los datos de la interfaz de usuario con la información actualizada.
+     *
+     */
     private void actualizarDatos() {
         // Obtener la hora actual
         Calendar calendario = Calendar.getInstance();
@@ -68,7 +70,13 @@ public class MainActivity extends AppCompatActivity {
         textViewTiempoRestante.setText(tramoYProximo[1] +" en " + tiempoFormateado );
     }
 
-    // Método para obtener el tramo horario actual y el siguiente basado en la hora actual
+    /**
+     * Determina en qué tramo horario estamos y cuál es el siguiente.
+     *
+     * @param hora   el valor de la hora actual (0-23).
+     * @param minuto el valor del minuto actual (0-59).
+     * @return un array de dos elementos con el tramo actual y el siguiente.
+     */
     private String[] obtenerTramoYProximoTramo(int hora, int minuto) {
         if ((hora >= 0 && hora < 8) || (hora == 23 && minuto >= 0)) {
             return new String[]{"Valle", "Llano"};
@@ -86,11 +94,18 @@ public class MainActivity extends AppCompatActivity {
         return new String[]{"Desconocido", "Desconocido"};
     }
 
-    // Método para calcular cuánto falta para el próximo tramo
+    /**
+     *
+     * Calcula el tiempo restante hasta el próximo tramo horario
+     *
+     *
+     * @param hora   el valor de la hora actual (0-23).
+     * @param minuto el valor del minuto actual (0-59).
+     * @return el tiempo restante en minutos hasta el próximo tramo horario.
+     */
     private long obtenerTiempoHastaProximoTramo(int hora, int minuto) {
         // Definir los cambios de tramo en minutos desde la medianoche
         int[] cambiosDeTramo = {0, 480, 600, 840, 1080, 1320, 1440}; // (00:00, 08:00, 10:00, 14:00, 18:00, 22:00)
-
         // Convertir la hora actual en minutos desde la medianoche
         int minutosActuales = hora * 60 + minuto;
 
@@ -104,7 +119,12 @@ public class MainActivity extends AppCompatActivity {
         return (1440 - minutosActuales); // 1440 son los minutos en 24 horas
     }
 
-    // Método para formatear el tiempo restante en horas y minutos
+    /**
+     * Formatea el tiempo restante en horas y minutos.
+     *
+     * @param minutosRestantes Tiempo restante en minutos.
+     * @return String con el tiempo formateado en horas y minutos.
+     */
     private String formatearTiempoRestante(long minutosRestantes) {
         long horas = TimeUnit.MINUTES.toHours(minutosRestantes);
         long minutos = minutosRestantes - TimeUnit.HOURS.toMinutes(horas);
