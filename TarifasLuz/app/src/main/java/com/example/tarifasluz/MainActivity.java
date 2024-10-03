@@ -34,12 +34,9 @@ public class MainActivity extends AppCompatActivity {
         textViewTiempoRestante = findViewById(R.id.textViewRestante);
 
         // Runnable que actualiza los datos cada minuto
-        actualizarDatosRunnable = new Runnable() {
-            @Override
-            public void run() {
-                actualizarDatos();
-                handler.postDelayed(this, TimeUnit.MINUTES.toMillis(1)); // Actualizar cada minuto
-            }
+        actualizarDatosRunnable = () -> {
+            actualizarDatos();
+            handler.postDelayed(actualizarDatosRunnable, TimeUnit.MINUTES.toMillis(1)); // Actualizar cada minuto
         };
         handler.post(actualizarDatosRunnable); // Iniciar la actualización
     }
@@ -78,17 +75,35 @@ public class MainActivity extends AppCompatActivity {
      * @return un array de dos elementos con el tramo actual y el siguiente.
      */
     private String[] obtenerTramoYProximoTramo(int hora, int minuto) {
+        //cambia el color segun el tramo (amarillo verde y azul)
+
         if ((hora >= 0 && hora < 8) || (hora == 23 && minuto >= 0)) {
+            textViewTramo.setBackgroundResource(R.color.verde);
+            textViewTiempoRestante.setBackgroundResource(R.color.amarillo);
             return new String[]{"Valle", "Llano"};
         } else if ((hora >= 8 && hora < 10)) {
+            textViewTramo.setBackgroundResource(R.color.amarillo);
+            textViewTiempoRestante.setBackgroundResource(R.color.rojo);
             return new String[]{"Llano", "Punta"};
         } else if (hora >= 10 && hora < 14) {
+            textViewTramo.setBackgroundResource(R.color.rojo);
+            textViewTiempoRestante.setBackgroundResource(R.color.amarillo);
+
             return new String[]{"Punta", "Llano"};
         } else if (hora >= 14 && hora < 18) {
+            textViewTramo.setBackgroundResource(R.color.amarillo);
+            textViewTiempoRestante.setBackgroundResource(R.color.rojo);
+
             return new String[]{"Llano", "Punta"};
         } else if (hora >= 18 && hora < 22) {
+            textViewTramo.setBackgroundResource(R.color.rojo);
+            textViewTiempoRestante.setBackgroundResource(R.color.amarillo);
+
             return new String[]{"Punta", "Llano"};
         } else if (hora >= 22 && hora < 24) {
+            textViewTramo.setBackgroundResource(R.color.amarillo);
+            textViewTiempoRestante.setBackgroundResource(R.color.verde);
+
             return new String[]{"Llano", "Valle"};
         }
         return new String[]{"Desconocido", "Desconocido"};
