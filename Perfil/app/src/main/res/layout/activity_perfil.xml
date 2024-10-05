@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context=".PerfilActivity">
-
 
     <Button
         android:id="@+id/btnVolver"
         android:layout_width="107dp"
         android:layout_height="74dp"
+        android:backgroundTint="#FF5722"
         android:text="Volver"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,6 +24,7 @@
         android:id="@+id/btnGuardar"
         android:layout_width="111dp"
         android:layout_height="74dp"
+        android:backgroundTint="#FF5722"
         android:text="Guardar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnVolver"
@@ -38,14 +40,13 @@
         android:ems="10"
         android:inputType="number"
         android:text="Edad"
+        android:textColor="#FF5722"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.364" />
-
-
 
     <EditText
         android:id="@+id/editTextNombre"
@@ -55,6 +56,7 @@
         android:ems="10"
         android:inputType="text"
         android:text="Name"
+        android:textColor="#FF5722"
         app:layout_constraintBottom_toTopOf="@+id/editTextEdad"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.505"
@@ -81,12 +83,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
         android:text="Casad@"
+        android:textColor="#FF5722"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.276"
+        app:layout_constraintHorizontal_bias="0.301"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextEdad"
         app:layout_constraintVertical_bias="0.0" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

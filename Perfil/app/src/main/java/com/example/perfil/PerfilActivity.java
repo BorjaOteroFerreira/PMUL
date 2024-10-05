@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -39,15 +40,15 @@ public class PerfilActivity extends AppCompatActivity {
         btnVolver.setOnClickListener(v -> {
             volverAlMainActivity();
         });
+
         cargarDatos();
         btnGuardar.setOnClickListener(v -> {
             almacenarDatos();
             Toast.makeText(this, "Los datos han sido guardados", Toast.LENGTH_SHORT).show();
             cargarDatos();
         });
-
-
     }
+
     public void almacenarDatos() {
         String nombre = editTextNombre.getText().toString();
         int edad = Integer.parseInt(editTextEdad.getText().toString());
@@ -73,5 +74,4 @@ public class PerfilActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
-
 }

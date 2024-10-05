@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
         textViewTramo = findViewById(R.id.textViewTramo);
         textViewTiempoRestante = findViewById(R.id.textViewRestante);
 
@@ -75,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
      * @return un array de dos elementos con el tramo actual y el siguiente.
      */
     private String[] obtenerTramoYProximoTramo(int hora, int minuto) {
-        //cambia el color segun el tramo (amarillo verde y azul)
+        //cambia el color segun el tramo (amarillo verde y rojo)
 
         if ((hora >= 0 && hora < 8) || (hora == 23 && minuto >= 0)) {
             textViewTramo.setBackgroundResource(R.color.verde);
@@ -88,17 +87,14 @@ public class MainActivity extends AppCompatActivity {
         } else if (hora >= 10 && hora < 14) {
             textViewTramo.setBackgroundResource(R.color.rojo);
             textViewTiempoRestante.setBackgroundResource(R.color.amarillo);
-
             return new String[]{"Punta", "Llano"};
         } else if (hora >= 14 && hora < 18) {
             textViewTramo.setBackgroundResource(R.color.amarillo);
             textViewTiempoRestante.setBackgroundResource(R.color.rojo);
-
             return new String[]{"Llano", "Punta"};
         } else if (hora >= 18 && hora < 22) {
             textViewTramo.setBackgroundResource(R.color.rojo);
             textViewTiempoRestante.setBackgroundResource(R.color.amarillo);
-
             return new String[]{"Punta", "Llano"};
         } else if (hora >= 22 && hora < 24) {
             textViewTramo.setBackgroundResource(R.color.amarillo);
@@ -108,7 +104,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return new String[]{"Desconocido", "Desconocido"};
     }
-
     /**
      *
      * Calcula el tiempo restante hasta el próximo tramo horario
@@ -123,7 +118,6 @@ public class MainActivity extends AppCompatActivity {
         int[] cambiosDeTramo = {0, 480, 600, 840, 1080, 1320, 1440}; // (00:00, 08:00, 10:00, 14:00, 18:00, 22:00)
         // Convertir la hora actual en minutos desde la medianoche
         int minutosActuales = hora * 60 + minuto;
-
         // Encontrar el siguiente cambio de tramo
         for (int cambio : cambiosDeTramo) {
             if (minutosActuales < cambio) {
