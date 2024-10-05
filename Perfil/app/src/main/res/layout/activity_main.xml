@@ -9,8 +9,8 @@
 
     <TextView
         android:id="@+id/lblNombre"
-        android:layout_width="491dp"
-        android:layout_height="73dp"
+        android:layout_width="502dp"
+        android:layout_height="81dp"
         android:textAlignment="center"
         android:textSize="34sp"
         app:layout_constraintBottom_toTopOf="@+id/btnPerfil"
@@ -22,13 +22,15 @@
 
     <Button
         android:id="@+id/btnPerfil"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="79dp"
         android:text="Perfil"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.536"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.906" />
+        app:layout_constraintVertical_bias="0.904" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
