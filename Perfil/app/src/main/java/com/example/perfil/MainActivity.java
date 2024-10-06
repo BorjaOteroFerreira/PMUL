@@ -1,11 +1,9 @@
 package com.example.perfil;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -26,22 +24,22 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        lblNombre = (TextView) findViewById(R.id.lblNombre);
+        lblNombre = findViewById(R.id.lblNombre);
         btnPerfil = findViewById(R.id.btnPerfil);
-        btnPerfil.setOnClickListener(v -> {
-            abrirPerfil();
-        });
-
-        SharedPreferences sp = getSharedPreferences("sp.xml", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit();
-        String nombre = sp.getString("nombre", "Hola amigo");
-        lblNombre.setText("¡Hola " + nombre + "!");
-
+        btnPerfil.setOnClickListener(v -> abrirPerfil());
+        cargarNombre();
     }
 
     private void abrirPerfil() {
         // Abrir la actividad del perfil
         Intent intent = new Intent(this, PerfilActivity.class);
         startActivity(intent);
+    }
+
+    private void cargarNombre() {
+        SharedPreferences sp = getSharedPreferences("sp.xml", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        String nombre = sp.getString("nombre", "amig@");
+        lblNombre.setText("¡Hola " + nombre + "!");
     }
 }

@@ -37,14 +37,12 @@ public class PerfilActivity extends AppCompatActivity {
         checkBox = findViewById(R.id.checkBox);
         btnGuardar = findViewById(R.id.btnGuardar);
         btnVolver = findViewById(R.id.btnVolver);
-        btnVolver.setOnClickListener(v -> {
-            volverAlMainActivity();
-        });
+        btnVolver.setOnClickListener(v -> volverAlMainActivity());
 
         cargarDatos();
         btnGuardar.setOnClickListener(v -> {
             almacenarDatos();
-            Toast.makeText(this, "Los datos han sido guardados", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Datos almacenados", Toast.LENGTH_SHORT).show();
             cargarDatos();
         });
     }
