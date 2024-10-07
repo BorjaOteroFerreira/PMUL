@@ -15,7 +15,7 @@ public class Ajustes {
 
     private Ajustes(Context c) {
             this.sp = c.getSharedPreferences("sp.xml", c.MODE_PRIVATE);
-            cargarDatos();
+            cargar();
     }
 
     public static Ajustes getInstance(Context c){
@@ -26,7 +26,7 @@ public class Ajustes {
     }
 
     public String getNombre() {
-        return nombre.isEmpty() ?  nombre : "amig@";
+        return !nombre.isEmpty() ? nombre : "amig@";
     }
 
     public void setNombre(String nombre) {
@@ -49,7 +49,7 @@ public class Ajustes {
         this.casado = casado;
     }
 
-    public void guardarDatos(){
+    public void guardar(){
         SharedPreferences.Editor editor = sp.edit();
         editor.putString(CLAVE_NOMBRE, nombre)
                 .putInt(CLAVE_EDAD, edad)
@@ -57,7 +57,7 @@ public class Ajustes {
                 .apply();
     }
 
-    private void cargarDatos(){
+    private void cargar(){
         nombre = sp.getString("nombre", "");
         edad = sp.getInt("edad", 0);
         casado = sp.getBoolean("casado", false);

@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void abrirPerfil() {
-        // Abrir la actividad del perfil
         Intent intent = new Intent(this, PerfilActivity.class);
         startActivity(intent);
     }

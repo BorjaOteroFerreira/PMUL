@@ -18,7 +18,8 @@ public class PerfilActivity extends AppCompatActivity {
     Ajustes ajustes;
     EditText editTextNombre, editTextEdad;
     CheckBox checkBox;
-    Button btnGuardar, btnVolver;
+    Button btnGuardar;
+    Button btnVolver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +31,6 @@ public class PerfilActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
         ajustes = Ajustes.getInstance(this);
         editTextNombre = findViewById(R.id.editTextNombre);
         editTextEdad = findViewById(R.id.editTextEdad);
@@ -38,22 +38,22 @@ public class PerfilActivity extends AppCompatActivity {
         btnGuardar = findViewById(R.id.btnGuardar);
         btnVolver = findViewById(R.id.btnVolver);
         btnVolver.setOnClickListener(v -> volverAlMainActivity());
-        cargarDatos();
+        cargarAjustes();
         btnGuardar.setOnClickListener(v -> {
-            almacenarDatos();
+            guardarAjustes();
             Toast.makeText(this, "Datos almacenados", Toast.LENGTH_SHORT).show();
-            cargarDatos();
+            cargarAjustes();
         });
     }
 
-    public void almacenarDatos() {
+    public void guardarAjustes() {
         ajustes.setNombre(editTextNombre.getText().toString());
         ajustes.setEdad(Integer.parseInt(editTextEdad.getText().toString()));
         ajustes.setCasado(checkBox.isChecked());
-        ajustes.guardarDatos();
+        ajustes.guardar();
     }
 
-    public void cargarDatos() {
+    public void cargarAjustes() {
         editTextNombre.setText(ajustes.getNombre());
         editTextEdad.setText(String.valueOf(ajustes.getEdad()));
         checkBox.setChecked(ajustes.getCasado());
