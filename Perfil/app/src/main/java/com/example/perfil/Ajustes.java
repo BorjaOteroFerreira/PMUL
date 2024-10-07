@@ -14,7 +14,7 @@ public class Ajustes {
     private boolean casado = false ;
 
     private Ajustes(Context c) {
-            this.sp = c.getSharedPreferences("sp.xml", c.MODE_PRIVATE);
+            this.sp = c.getSharedPreferences("sp.xml", Context.MODE_PRIVATE);
             cargar();
     }
 

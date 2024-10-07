@@ -1,7 +1,6 @@
 package com.example.perfil;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -9,17 +8,15 @@ import android.widget.EditText;
 import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class PerfilActivity extends AppCompatActivity {
-    Ajustes ajustes;
-    EditText editTextNombre, editTextEdad;
-    CheckBox checkBox;
-    Button btnGuardar;
-    Button btnVolver;
+    private Ajustes ajustes;
+    private EditText editTextNombre, editTextEdad;
+    private CheckBox checkBox;
+    private Button btnGuardar, btnVolver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
