@@ -31,7 +31,6 @@ public class PerfilActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        ajustes = Ajustes.getInstance(this);
         editTextNombre = findViewById(R.id.editTextNombre);
         editTextEdad = findViewById(R.id.editTextEdad);
         checkBox = findViewById(R.id.checkBox);
@@ -47,6 +46,7 @@ public class PerfilActivity extends AppCompatActivity {
     }
 
     public void guardarAjustes() {
+        ajustes = Ajustes.getInstance(this);
         ajustes.setNombre(editTextNombre.getText().toString());
         ajustes.setEdad(Integer.parseInt(editTextEdad.getText().toString()));
         ajustes.setCasado(checkBox.isChecked());
@@ -54,6 +54,7 @@ public class PerfilActivity extends AppCompatActivity {
     }
 
     public void cargarAjustes() {
+        ajustes = Ajustes.getInstance(this);
         editTextNombre.setText(ajustes.getNombre());
         editTextEdad.setText(String.valueOf(ajustes.getEdad()));
         checkBox.setChecked(ajustes.getCasado());
