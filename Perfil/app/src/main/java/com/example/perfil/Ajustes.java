@@ -4,8 +4,7 @@ import android.content.Context;
 
 public class Ajustes {
 
-    private SharedPreferences sp;
-    private Context c ;
+    private final SharedPreferences sp;
     private static Ajustes instancia;
     private final String CLAVE_NOMBRE = "nombre";
     private final String CLAVE_EDAD = "edad";
@@ -14,10 +13,7 @@ public class Ajustes {
     private int edad;
     private boolean casado = false ;
 
-
-    //PATRON SINGLETON
     private Ajustes(Context c) {
-            this.c = c;
             this.sp = c.getSharedPreferences("sp.xml", c.MODE_PRIVATE);
             cargarDatos();
     }
@@ -30,7 +26,7 @@ public class Ajustes {
     }
 
     public String getNombre() {
-        return !nombre.equals("") ?  nombre : "amig@";
+        return nombre.isEmpty() ?  nombre : "amig@";
     }
 
     public void setNombre(String nombre) {
@@ -42,7 +38,7 @@ public class Ajustes {
     }
 
     public void setEdad(int edad) {
-        this.edad = edad > 0 ? edad : 0 ;
+        this.edad = Math.max(edad, 0);
     }
 
     public boolean getCasado() {
@@ -57,10 +53,11 @@ public class Ajustes {
         SharedPreferences.Editor editor = sp.edit();
         editor.putString(CLAVE_NOMBRE, nombre)
                 .putInt(CLAVE_EDAD, edad)
-                .putBoolean(CLAVE_CASADO, casado).apply();
+                .putBoolean(CLAVE_CASADO, casado)
+                .apply();
     }
 
-    public void cargarDatos(){
+    private void cargarDatos(){
         nombre = sp.getString("nombre", "");
         edad = sp.getInt("edad", 0);
         casado = sp.getBoolean("casado", false);

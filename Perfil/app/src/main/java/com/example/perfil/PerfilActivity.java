@@ -18,8 +18,7 @@ public class PerfilActivity extends AppCompatActivity {
     Ajustes ajustes;
     EditText editTextNombre, editTextEdad;
     CheckBox checkBox;
-    Button btnGuardar;
-    Button btnVolver;
+    Button btnGuardar, btnVolver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +30,7 @@ public class PerfilActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
         ajustes = Ajustes.getInstance(this);
         editTextNombre = findViewById(R.id.editTextNombre);
         editTextEdad = findViewById(R.id.editTextEdad);

@@ -1,6 +1,5 @@
 package com.example.perfil;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -9,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
 public class MainActivity extends AppCompatActivity {
     Button btnPerfil;
     TextView lblNombre;
@@ -37,9 +35,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void cargarNombre() {
-        SharedPreferences sp = getSharedPreferences("sp.xml", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit();
-        String nombre = sp.getString("nombre", "amig@");
+        Ajustes ajustes = Ajustes.getInstance(this);
+        String nombre = ajustes.getNombre();
         lblNombre.setText("¡Hola " + nombre + "!");
     }
 }
