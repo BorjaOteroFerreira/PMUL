@@ -7,7 +7,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
@@ -16,11 +15,12 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class PerfilActivity extends AppCompatActivity {
-
+    Ajustes ajustes;
     EditText editTextNombre, editTextEdad;
     CheckBox checkBox;
     Button btnGuardar;
     Button btnVolver;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,14 +31,13 @@ public class PerfilActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
+        ajustes = Ajustes.getInstance(this);
         editTextNombre = findViewById(R.id.editTextNombre);
         editTextEdad = findViewById(R.id.editTextEdad);
         checkBox = findViewById(R.id.checkBox);
         btnGuardar = findViewById(R.id.btnGuardar);
         btnVolver = findViewById(R.id.btnVolver);
         btnVolver.setOnClickListener(v -> volverAlMainActivity());
-
         cargarDatos();
         btnGuardar.setOnClickListener(v -> {
             almacenarDatos();
@@ -48,24 +47,16 @@ public class PerfilActivity extends AppCompatActivity {
     }
 
     public void almacenarDatos() {
-        String nombre = editTextNombre.getText().toString();
-        int edad = Integer.parseInt(editTextEdad.getText().toString());
-        boolean casado = checkBox.isChecked();
-        SharedPreferences sp = getSharedPreferences("sp.xml", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putString("nombre", nombre)
-                .putInt("edad", edad)
-                .putBoolean("casado", casado).apply();
+        ajustes.setNombre(editTextNombre.getText().toString());
+        ajustes.setEdad(Integer.parseInt(editTextEdad.getText().toString()));
+        ajustes.setCasado(checkBox.isChecked());
+        ajustes.guardarDatos();
     }
 
     public void cargarDatos() {
-        SharedPreferences sp = getSharedPreferences("sp.xml", MODE_PRIVATE);
-        String nombre = sp.getString("nombre", "");
-        int edad = sp.getInt("edad", 0);
-        boolean casado = sp.getBoolean("casado", false);
-        editTextNombre.setText(nombre);
-        editTextEdad.setText(String.valueOf(edad));
-        checkBox.setChecked(casado);
+        editTextNombre.setText(ajustes.getNombre());
+        editTextEdad.setText(String.valueOf(ajustes.getEdad()));
+        checkBox.setChecked(ajustes.getCasado());
     }
 
     public void volverAlMainActivity() {
