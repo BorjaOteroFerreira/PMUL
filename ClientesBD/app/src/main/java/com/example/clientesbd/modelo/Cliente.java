@@ -40,15 +40,13 @@ public class Cliente {
         return provincia;
     }
 
-    public boolean isVip() {
-        return vip;
+    public int isVip() {
+        return (vip) ? 1 : 0;
     }
 
     public int getId() {
         return id;
-    }
-    public void setId(int id) {
-        this.id = id;
+
     }
 
     public String getLongitud() {
@@ -59,13 +57,6 @@ public class Cliente {
         return latitud;
     }
 
-    public void setLongitud(String longitud) {
-        this.longitud = longitud;
-    }
-
-    public void setLatitud(String latitud) {
-        this.latitud = latitud;
-    }
 
     @Override
     public String toString() {

@@ -89,7 +89,7 @@ public class AsistenteBD extends SQLiteOpenHelper {
                 "VALUES ('" + cliente.getNombre() + "', '" +
                 cliente.getApellido() + "', '" +
                 cliente.getProvincia() + "', " +
-                (cliente.isVip() ? 1 : 0) + ", '" +
+                cliente.isVip() + ", '" +
                 cliente.getLongitud() + "', '" +
                 cliente.getLatitud() + "')");
     }
@@ -100,7 +100,7 @@ public class AsistenteBD extends SQLiteOpenHelper {
                 cliente.getNombre() + "', " +
                 "apellido = '" + cliente.getApellido() + "', " +
                 "provincia = '" + cliente.getProvincia() + "', " +
-                "vip = " + (cliente.isVip() ? 1 : 0) + ", " +
+                "vip = " + cliente.isVip() + ", " +
                 "longitud = '" + cliente.getLongitud() + "', " +
                 "latitud = '" + cliente.getLatitud() + "' " +
                 "WHERE id = " + cliente.getId());
