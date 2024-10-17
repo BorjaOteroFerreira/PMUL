@@ -17,7 +17,16 @@ public class PerfilActivity extends AppCompatActivity {
     private EditText editTextNombre, editTextEdad;
     private CheckBox checkBox;
     private Button btnGuardar, btnVolver;
-
+    /**
+     * Layout Secundario
+    Nombre apellido nif,
+    Spinner provincias,
+    VIP (check),
+    Latitud,
+    longitud,
+    boton miubicacion,
+    boton guardar
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
