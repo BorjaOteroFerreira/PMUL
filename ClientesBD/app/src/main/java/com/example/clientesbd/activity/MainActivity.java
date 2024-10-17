@@ -7,11 +7,9 @@ import com.example.clientesbd.R;
 import com.example.clientesbd.databinding.ActivityMainBinding;
 import com.example.clientesbd.modelo.AsistenteBD;
 import com.example.clientesbd.modelo.Cliente;
-
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
-
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
@@ -26,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
         binding.fab.setOnClickListener(v -> cambiarActivity() );
         lista = findViewById(R.id.listaClientes);
         asistenteBd = AsistenteBD.getInstance(this);
-        crearClientesFicticios();
         mostrarClientes();
     }
 
@@ -51,18 +48,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void crearClientesFicticios(){
-        Cliente cliente = new Cliente("Borja", "Otero", "Madrid", true);
+        Cliente cliente = new Cliente("Borja",
+                                      "Otero",
+                                     "Orense",
+                                          true,
+                                      "40.416775",
+                                        "-3.703790");
         asistenteBd.addCliente(cliente);
 
     }
 
     private void mostrarClientes(){
         lista.setAdapter(asistenteBd.getClientes(this));
+
+
     }
 
     private void cambiarActivity() {
-        Intent intent = new Intent(this,
-                                    FormularioCliente.class);
+        Intent intent = new Intent(this, FormularioCliente.class);
         startActivity(intent);
     }
+
+
 }

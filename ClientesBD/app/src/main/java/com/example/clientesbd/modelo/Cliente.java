@@ -6,19 +6,26 @@ public class Cliente {
     private String apellido;
     private String provincia;
     private boolean vip;
+    private String longitud;
+    private String latitud;
 
-    public Cliente(int id , String nombre, String apellido, String provincia, boolean vip) {
+    public Cliente(int id , String nombre, String apellido, String provincia, boolean vip, String longitud, String latitud) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.provincia = provincia;
         this.vip = vip;
+        this.longitud = longitud;
+        this.latitud = latitud;
     }
-    public Cliente(String nombre, String apellido, String provincia, boolean vip) {
+
+    public Cliente(String nombre, String apellido, String provincia, boolean vip, String longitud, String latitud) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.provincia = provincia;
         this.vip = vip;
+        this.longitud = longitud;
+        this.latitud = latitud;
     }
 
     public String getNombre() {
@@ -42,6 +49,22 @@ public class Cliente {
     }
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getLongitud() {
+        return longitud;
+    }
+
+    public String getLatitud() {
+        return latitud;
+    }
+
+    public void setLongitud(String longitud) {
+        this.longitud = longitud;
+    }
+
+    public void setLatitud(String latitud) {
+        this.latitud = latitud;
     }
 
     @Override

@@ -1,5 +1,13 @@
 package com.example.clientesbd.activity;
+import android.content.Context;
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.Spinner;
+
+import com.example.clientesbd.modelo.AsistenteBD;
+import com.example.clientesbd.modelo.Cliente;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -9,6 +17,12 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.clientesbd.R;
 
 public class FormularioCliente extends AppCompatActivity {
+
+    EditText etNombre, etApellido, etLongitud, etLatitud;
+    Spinner etProvincia;
+    CheckBox etVip;
+    Button btnGuardar , btnVolver;
+    AsistenteBD asistenteBd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,5 +34,28 @@ public class FormularioCliente extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        etNombre = findViewById(R.id.etNombre);
+        etApellido = findViewById(R.id.etApellido);
+        etProvincia = findViewById(R.id.spinnerProvincia);
+        etVip = findViewById(R.id.cbVip);
+        etLongitud = findViewById(R.id.etLongitud);
+        etLatitud = findViewById(R.id.etLatitud);
+        btnGuardar = findViewById(R.id.btnGuardar);
+        btnVolver = findViewById(R.id.btnVolver);
+        asistenteBd = AsistenteBD.getInstance(this);
+        btnVolver.setOnClickListener(v -> finish());
+        btnGuardar.setOnClickListener(v -> guardarFormulario());
+    }
+
+    private void guardarFormulario(){
+            String nombre = etNombre.getText().toString();
+            String apellido = etApellido.getText().toString();
+            String provincia = etProvincia.getSelectedItem().toString();
+            boolean vip = etVip.isChecked();
+            String longitud = etLongitud.getText().toString();
+            String latitud = etLatitud.getText().toString();
+            Cliente cliente = new Cliente(nombre, apellido, provincia, vip, longitud, latitud);
+            asistenteBd.addCliente(cliente);
     }
 }

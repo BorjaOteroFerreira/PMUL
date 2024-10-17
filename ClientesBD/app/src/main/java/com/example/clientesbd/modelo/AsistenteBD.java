@@ -5,10 +5,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 
 public class AsistenteBD extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "clientes.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2; // Incremented version to force onCreate
     private static AsistenteBD instance;
 
     private AsistenteBD(Context context) {
@@ -20,6 +21,25 @@ public class AsistenteBD extends SQLiteOpenHelper {
             instance = new AsistenteBD(context.getApplicationContext());
         }
         return instance;
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE clientes (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "nombre TEXT," +
+                "apellido TEXT," +
+                "provincia TEXT," +
+                "vip INTEGER," +
+                "longitud TEXT," +
+                "latitud TEXT" +
+                ")");
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS clientes");
+        onCreate(db);
     }
 
     public ArrayAdapter<String> getClientes(Context context) {
@@ -34,19 +54,20 @@ public class AsistenteBD extends SQLiteOpenHelper {
             String apellido = cursor.getString(2);
             String provincia = cursor.getString(3);
             boolean vip = cursor.getInt(4) == 1;
-            Cliente cliente = new Cliente(id, nombre, apellido, provincia, vip);
+            String longitud = cursor.getString(5);
+            String latitud = cursor.getString(6);
+            Cliente cliente = new Cliente(id, nombre, apellido, provincia, vip, longitud, latitud);
             clientes[i] = cliente.toString();
             cursor.moveToNext();
         }
         cursor.close();
-        return new ArrayAdapter<String>(context,
-                android.R.layout.simple_list_item_1, clientes);
+        return new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, clientes);
     }
 
     public ArrayAdapter<String> getClientePorId(Context context, int idCliente) {
         SQLiteDatabase db = getReadableDatabase();
-        String sql = "SELECT * FROM clientes WHERE id = " + idCliente;
-        Cursor cursor = db.rawQuery(sql, null);
+        String query = "SELECT * FROM clientes WHERE id = " + idCliente;
+        Cursor cursor = db.rawQuery(query, null);
         cursor.moveToFirst();
         String[] clientes = new String[cursor.getCount()];
         int id = cursor.getInt(0);
@@ -54,21 +75,23 @@ public class AsistenteBD extends SQLiteOpenHelper {
         String apellido = cursor.getString(2);
         String provincia = cursor.getString(3);
         boolean vip = cursor.getInt(4) == 1;
-        Cliente cliente = new Cliente(id, nombre, apellido, provincia, vip);
+        String longitud = cursor.getString(5);
+        String latitud = cursor.getString(6);
+        Cliente cliente = new Cliente(id, nombre, apellido, provincia, vip, longitud, latitud);
         clientes[0] = cliente.toString();
         cursor.close();
-        return new ArrayAdapter<String>(context,
-                android.R.layout.simple_list_item_1, clientes);
+        return new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, clientes);
     }
 
     public void addCliente(Cliente cliente) {
         this.getWritableDatabase().execSQL("INSERT INTO clientes " +
-                "(nombre, apellido, provincia, vip) " +
-                "VALUES ('" + cliente.getNombre() + "', " + "'" +
-                              cliente.getApellido() + "'," + " '" +
-                              cliente.getProvincia() + "', " + "" +
-                         (cliente.isVip() ? 1 : 0) + ")");
-
+                "(nombre, apellido, provincia, vip, longitud, latitud) " +
+                "VALUES ('" + cliente.getNombre() + "', '" +
+                cliente.getApellido() + "', '" +
+                cliente.getProvincia() + "', " +
+                (cliente.isVip() ? 1 : 0) + ", '" +
+                cliente.getLongitud() + "', '" +
+                cliente.getLatitud() + "')");
     }
 
     public void updateCliente(Cliente cliente) {
@@ -77,30 +100,24 @@ public class AsistenteBD extends SQLiteOpenHelper {
                 cliente.getNombre() + "', " +
                 "apellido = '" + cliente.getApellido() + "', " +
                 "provincia = '" + cliente.getProvincia() + "', " +
-                "vip = " + (cliente.isVip() ? 1 : 0) + "" +
-                " WHERE id = " + cliente.getId());
+                "vip = " + (cliente.isVip() ? 1 : 0) + ", " +
+                "longitud = '" + cliente.getLongitud() + "', " +
+                "latitud = '" + cliente.getLatitud() + "' " +
+                "WHERE id = " + cliente.getId());
+    }
+
+    public void deleteTable() {
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("DROP TABLE IF EXISTS clientes");
+    }
+
+    public void createTable() {
+        SQLiteDatabase db = getWritableDatabase();
+        onCreate(db);
     }
 
     public void deleteCliente(Cliente cliente) {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("DELETE FROM clientes WHERE id = " + cliente.getId());
-    }
-
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-        // Implement database creation here
-        String sql = "CREATE TABLE clientes (" +
-                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "nombre TEXT," +
-                "apellido TEXT," +
-                "provincia TEXT," +
-                "vip INTEGER)";
-        db.execSQL(sql);
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Implement database upgrade here
-
     }
 }

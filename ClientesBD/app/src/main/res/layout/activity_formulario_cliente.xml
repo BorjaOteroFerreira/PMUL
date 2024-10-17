@@ -6,4 +6,75 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.FormularioCliente">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- Campo de texto para Nombre -->
+        <EditText
+            android:id="@+id/etNombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nombre"
+            android:inputType="textPersonName" />
+
+        <!-- Campo de texto para Apellido -->
+        <EditText
+                android:id="@+id/etApellido"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Apellido"
+            android:inputType="textPersonName" />
+
+        <!-- Spinner para Provincias -->
+        <Spinner
+            android:id="@+id/spinnerProvincia"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:entries="@array/provincias_array" />
+
+        <!-- CheckBox para VIP -->
+        <CheckBox
+            android:id="@+id/cbVip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="VIP" />
+
+        <!-- Campo de texto para Longitud -->
+        <EditText
+            android:id="@+id/etLongitud"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Longitud"
+            android:inputType="numberDecimal" />
+
+        <!-- Campo de texto para Latitud -->
+        <EditText
+            android:id="@+id/etLatitud"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Latitud"
+            android:inputType="numberDecimal" />
+
+        <!-- Botón para Guardar -->
+        <Button
+            android:id="@+id/btnGuardar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Guardar" />
+
+        <!-- Botón para Volver a MainActivity -->
+        <Button
+            android:id="@+id/btnVolver"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Volver" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
