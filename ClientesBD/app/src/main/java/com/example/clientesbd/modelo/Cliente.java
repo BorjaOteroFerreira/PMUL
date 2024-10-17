@@ -1,11 +1,19 @@
 package com.example.clientesbd.modelo;
 
 public class Cliente {
+    private int id  = -1;
     private String nombre;
     private String apellido;
     private String provincia;
     private boolean vip;
 
+    public Cliente(int id , String nombre, String apellido, String provincia, boolean vip) {
+        this.id = id;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.provincia = provincia;
+        this.vip = vip;
+    }
     public Cliente(String nombre, String apellido, String provincia, boolean vip) {
         this.nombre = nombre;
         this.apellido = apellido;
@@ -27,5 +35,17 @@ public class Cliente {
 
     public boolean isVip() {
         return vip;
+    }
+
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return nombre + " " + apellido + " (" + provincia + ")";
     }
 }

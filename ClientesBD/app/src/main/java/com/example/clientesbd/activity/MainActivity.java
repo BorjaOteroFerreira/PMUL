@@ -3,20 +3,20 @@ package com.example.clientesbd.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.clientesbd.R;
 import com.example.clientesbd.databinding.ActivityMainBinding;
+import com.example.clientesbd.modelo.AsistenteBD;
 import com.example.clientesbd.modelo.Cliente;
 
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     private ListView lista;
+    AsistenteBD asistenteBd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,10 +25,10 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(binding.toolbar);
         binding.fab.setOnClickListener(v -> cambiarActivity() );
         lista = findViewById(R.id.listaClientes);
+        asistenteBd = AsistenteBD.getInstance(this);
         crearClientesFicticios();
+        mostrarClientes();
     }
-
-    Cliente cliente = new Cliente("Borja", "Lorena", "Eva", true);
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -51,10 +51,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void crearClientesFicticios(){
-        String[] filas = { "Borja", "Lorena", "Eva"};
-        lista.setAdapter(new ArrayAdapter<String>(this,
-                                                        android.R.layout.simple_list_item_1,
-                                                        filas));
+        Cliente cliente = new Cliente("Borja", "Otero", "Madrid", true);
+        asistenteBd.addCliente(cliente);
+
+    }
+
+    private void mostrarClientes(){
+        lista.setAdapter(asistenteBd.getClientes(this));
     }
 
     private void cambiarActivity() {
@@ -62,7 +65,4 @@ public class MainActivity extends AppCompatActivity {
                                     FormularioCliente.class);
         startActivity(intent);
     }
-
-
-
 }
