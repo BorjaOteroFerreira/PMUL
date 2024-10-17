@@ -1,4 +1,4 @@
-package com.example.clientesbd;
+package com.example.clientesbd.modelo;
 
 public class AsistenteBD {
     //Campo nombre ,

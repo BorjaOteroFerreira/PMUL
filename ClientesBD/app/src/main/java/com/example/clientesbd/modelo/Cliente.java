@@ -1,4 +1,4 @@
-package com.example.clientesbd;
+package com.example.clientesbd.modelo;
 
 public class Cliente {
     private String nombre;

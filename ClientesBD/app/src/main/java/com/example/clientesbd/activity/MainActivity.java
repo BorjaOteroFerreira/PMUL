@@ -1,9 +1,13 @@
-package com.example.clientesbd;
+package com.example.clientesbd.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.clientesbd.R;
 import com.example.clientesbd.databinding.ActivityMainBinding;
+import com.example.clientesbd.modelo.Cliente;
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
@@ -23,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
         lista = findViewById(R.id.listaClientes);
         crearClientesFicticios();
     }
+
+    Cliente cliente = new Cliente("Borja", "Lorena", "Eva", true);
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
