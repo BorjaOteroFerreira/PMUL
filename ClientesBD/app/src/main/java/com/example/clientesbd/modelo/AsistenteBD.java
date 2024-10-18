@@ -9,7 +9,7 @@ import android.widget.ListAdapter;
 
 public class AsistenteBD extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "clientes.db";
-    private static final int DATABASE_VERSION = 2; // Incremented version to force onCreate
+    private static final int DATABASE_VERSION = 1; 
     private static AsistenteBD instance;
 
     private AsistenteBD(Context context) {
@@ -44,11 +44,12 @@ public class AsistenteBD extends SQLiteOpenHelper {
 
     public ArrayAdapter<String> getClientes(Context context) {
         SQLiteDatabase db = getReadableDatabase();
-        String sql = "SELECT * FROM clientes";
+        String sql = "SELECT id, nombre, apellido, provincia, vip, longitu, latitud FROM clientes";
         Cursor cursor = db.rawQuery(sql, null);
         cursor.moveToFirst();
         String[] clientes = new String[cursor.getCount()];
-        for (int i = 0; i < cursor.getCount(); i++) {
+        int i = 0;
+        do{
             int id = cursor.getInt(0);
             String nombre = cursor.getString(1);
             String apellido = cursor.getString(2);
@@ -58,8 +59,10 @@ public class AsistenteBD extends SQLiteOpenHelper {
             String latitud = cursor.getString(6);
             Cliente cliente = new Cliente(id, nombre, apellido, provincia, vip, longitud, latitud);
             clientes[i] = cliente.toString();
-            cursor.moveToNext();
-        }
+            i++;
+
+        }while (cursor.moveToNext());
+
         cursor.close();
         return new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, clientes);
     }

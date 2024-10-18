@@ -1,6 +1,7 @@
 package com.example.clientesbd.activity;
 
 import android.content.Intent;
+import android.content.pm.LauncherActivityInfo;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.clientesbd.R;
@@ -21,10 +22,9 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.toolbar);
-        binding.fab.setOnClickListener(v -> cambiarActivity() );
+        binding.fab.setOnClickListener(v -> cambiarActivity());
         lista = findViewById(R.id.listaClientes);
         asistenteBd = AsistenteBD.getInstance(this);
-        mostrarClientes();
     }
 
     @Override
