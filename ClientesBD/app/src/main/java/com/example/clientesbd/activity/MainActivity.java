@@ -30,12 +30,7 @@ public class MainActivity extends AppCompatActivity {
         binding.fab.setOnClickListener(v -> cambiarActivity());
         lista = findViewById(R.id.listaClientes);
         asistenteBd = AsistenteBD.getInstance(this);
-        lista.setOnItemClickListener((parent, view, position, id) -> {
-            Cliente cliente = (Cliente) lista.getItemAtPosition(position);
-            Intent intent = new Intent(this, FormularioCliente.class);
-            intent.putExtra("idCliente", cliente.getId());
-            resultLauncher.launch(intent);
-        });
+        lista.setOnItemClickListener((parent, view, position, id) -> cargarFormularioCliente(position));
         resultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> EstamosDeVuelta(result.getResultCode())
@@ -44,7 +39,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
+    private void cargarFormularioCliente(int position) {
+        Cliente cliente = (Cliente) lista.getItemAtPosition(position);
+        Intent intent = new Intent(this, FormularioCliente.class);
+        intent.putExtra("idCliente", cliente.getId());
+        resultLauncher.launch(intent);
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

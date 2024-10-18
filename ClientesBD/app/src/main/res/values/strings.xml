@@ -45,10 +45,4 @@
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
     <string name="boton">Boton</string>
-    <string-array name="provincias_array">
-        <item>Coruña</item>
-        <item>Lugo</item>
-        <item>Orense</item>
-        <item>Pontevedra</item>
-    </string-array>
 </resources>

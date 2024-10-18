@@ -36,23 +36,13 @@ public class FormularioCliente extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        etNombre = findViewById(R.id.etNombre);
-        etApellido = findViewById(R.id.etApellido);
-        etProvincia = findViewById(R.id.spinnerProvincia);
-        etVip = findViewById(R.id.cbVip);
-        etLongitud = findViewById(R.id.etLongitud);
-        etLatitud = findViewById(R.id.etLatitud);
-        btnEditar = findViewById(R.id.btnEditar);
-        btnGuardar = findViewById(R.id.btnGuardar);
-        btnVolver = findViewById(R.id.btnVolver);
-        asistenteBd = AsistenteBD.getInstance(this);
-
+        cargarComponentes();
+        montarInterfaz();
         btnVolver.setOnClickListener(v -> { setResult(RESULT_OK);
                                             finish();});
         btnGuardar.setOnClickListener(v -> guardarFormulario());
         btnEditar.setOnClickListener(v -> insertarFormulario());
 
-        montarInterfaz();
     }
 
     private void insertarFormulario() {
@@ -69,44 +59,48 @@ public class FormularioCliente extends AppCompatActivity {
         finish();
     }
 
+    private void guardarFormulario(){
+        String nombre = etNombre.getText().toString();
+        String apellido = etApellido.getText().toString();
+        String provincia = etProvincia.getSelectedItem().toString();
+        boolean vip = etVip.isChecked();
+        String longitud = etLongitud.getText().toString();
+        String latitud = etLatitud.getText().toString();
+        Cliente cliente = new Cliente(nombre, apellido, provincia, vip, longitud, latitud);
+        asistenteBd.addCliente(cliente);
+    }
+
+    private void cargarComponentes(){
+        etNombre = findViewById(R.id.etNombre);
+        etApellido = findViewById(R.id.etApellido);
+        etProvincia = findViewById(R.id.spinnerProvincia);
+        etVip = findViewById(R.id.cbVip);
+        etLongitud = findViewById(R.id.etLongitud);
+        etLatitud = findViewById(R.id.etLatitud);
+        btnEditar = findViewById(R.id.btnEditar);
+        btnGuardar = findViewById(R.id.btnGuardar);
+        btnVolver = findViewById(R.id.btnVolver);
+        asistenteBd = AsistenteBD.getInstance(this);
+    }
+
     private void montarInterfaz(){
+        cargarProvincias();
         int idCliente = extras != null ? extras.getInt("idCliente", -1) : -1;
-        if (idCliente != -1) {
-            intercambiarBotones();
-            cargarProvincias();
+        boolean modoEdicion = idCliente != -1;
+        if (modoEdicion) {
+            btnGuardar.setVisibility(View.GONE);
             rellenarFormulario(idCliente);
         }
-        else{
-            btnEditar.setVisibility(View.GONE);
-        }
+        else{ btnEditar.setVisibility(View.GONE); }
     }
 
-    private void intercambiarBotones(){
-        btnGuardar.setVisibility(View.GONE);
-        btnEditar.setVisibility(View.VISIBLE);
-    }
-
-    private void guardarFormulario(){
-            String nombre = etNombre.getText().toString();
-            String apellido = etApellido.getText().toString();
-            String provincia = etProvincia.getSelectedItem().toString();
-            boolean vip = etVip.isChecked();
-            String longitud = etLongitud.getText().toString();
-            String latitud = etLatitud.getText().toString();
-            Cliente cliente = new Cliente(nombre, apellido, provincia, vip, longitud, latitud);
-            asistenteBd.addCliente(cliente);
-    }
     private void cargarProvincias() {
         ArrayList<String> provincias = asistenteBd.getProvincias();
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, provincias);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                                                          android.R.layout.simple_spinner_item,
+                                                          provincias);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         etProvincia.setAdapter(adapter);
-    }
-
-    private void marcarProvinciaCliente(String provincia) {
-        ArrayAdapter<String> adapter = (ArrayAdapter<String>) etProvincia.getAdapter();
-        int position = adapter.getPosition(provincia);
-        etProvincia.setSelection(position);
     }
 
     private void rellenarFormulario(int idCliente){
@@ -117,6 +111,12 @@ public class FormularioCliente extends AppCompatActivity {
         etVip.setChecked(cliente.isVip() == 1);
         etLongitud.setText(cliente.getLongitud());
         etLatitud.setText(cliente.getLatitud());
+    }
+
+    private void marcarProvinciaCliente(String provincia) {
+        ArrayAdapter<String> adapter = (ArrayAdapter<String>) etProvincia.getAdapter();
+        int position = adapter.getPosition(provincia);
+        etProvincia.setSelection(position);
     }
 
 }

@@ -46,7 +46,7 @@
             android:id="@+id/spinnerProvincia"
             android:layout_width="match_parent"
             android:layout_height="78dp"
-            android:entries="@array/provincias_array" />
+             />
 
         <!-- CheckBox para VIP -->
         <CheckBox
