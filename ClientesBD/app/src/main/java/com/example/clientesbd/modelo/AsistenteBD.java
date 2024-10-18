@@ -6,6 +6,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.ArrayAdapter;
 
+import java.util.ArrayList;
+
 
 public class AsistenteBD extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "clientes.db";
@@ -48,27 +50,31 @@ public class AsistenteBD extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public ArrayAdapter<Cliente> getClientes(Context context) {
+    public ArrayList<Cliente> getClientes(Context context) {
         SQLiteDatabase db = getReadableDatabase();
         String sql = "SELECT id, nombre, apellido, provincia, vip, longitud, latitud FROM clientes";
         Cursor cursor = db.rawQuery(sql, null);
-        cursor.moveToFirst();
-        Cliente[] clientes = new Cliente[cursor.getCount()];
 
-        for(int i = 0; i < cursor.getCount(); i++) {
-            int id = cursor.getInt(0);
-            String nombre = cursor.getString(1);
-            String apellido = cursor.getString(2);
-            String provincia = cursor.getString(3);
-            boolean vip = cursor.getInt(4) == 1;
-            String longitud = cursor.getString(5);
-            String latitud = cursor.getString(6);
-            Cliente cliente = new Cliente(id, nombre, apellido, provincia, vip, longitud, latitud);
-            clientes[i] = cliente;
-            cursor.moveToNext();
+        ArrayList<Cliente> clientes = new ArrayList<>();
+        if(cursor.moveToNext()){
+         do{
+             int id = cursor.getInt(0);
+             String nombre = cursor.getString(1);
+             String apellido = cursor.getString(2);
+             String provincia = cursor.getString(3);
+             boolean vip = cursor.getInt(4) == 1;
+             String longitud = cursor.getString(5);
+             String latitud = cursor.getString(6);
+             Cliente cliente = new Cliente(id, nombre, apellido, provincia, vip, longitud, latitud);
+             clientes.add(cliente);
+         }while(cursor.moveToNext());
         }
+        else{
+            System.out.println("No hay clientes");
+        }
+
         cursor.close();
-        return new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, clientes);
+        return clientes;
     }
 
     public Cliente getClientePorId(Context context, int idCliente) {
