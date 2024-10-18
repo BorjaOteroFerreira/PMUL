@@ -32,7 +32,12 @@ public class AsistenteBD extends SQLiteOpenHelper {
                 "provincia TEXT," +
                 "vip INTEGER," +
                 "longitud TEXT," +
-                "latitud TEXT" +
+                "latitud TEXT," +
+                "provincia_id INTEGER," +
+                "FOREIGN KEY (provincia_id)REFERENCES provincias(id) )");
+        db.execSQL("CREATE TABLE PROVINCIAS (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "nombre TEXT" +
                 ")");
     }
 
@@ -44,12 +49,12 @@ public class AsistenteBD extends SQLiteOpenHelper {
 
     public ArrayAdapter<String> getClientes(Context context) {
         SQLiteDatabase db = getReadableDatabase();
-        String sql = "SELECT id, nombre, apellido, provincia, vip, longitu, latitud FROM clientes";
+        String sql = "SELECT id, nombre, apellido, provincia, vip, longitud, latitud FROM clientes";
         Cursor cursor = db.rawQuery(sql, null);
         cursor.moveToFirst();
         String[] clientes = new String[cursor.getCount()];
-        int i = 0;
-        do{
+
+        for(int i = 0; i < cursor.getCount(); i++) {
             int id = cursor.getInt(0);
             String nombre = cursor.getString(1);
             String apellido = cursor.getString(2);
@@ -59,10 +64,8 @@ public class AsistenteBD extends SQLiteOpenHelper {
             String latitud = cursor.getString(6);
             Cliente cliente = new Cliente(id, nombre, apellido, provincia, vip, longitud, latitud);
             clientes[i] = cliente.toString();
-            i++;
-
-        }while (cursor.moveToNext());
-
+            cursor.moveToNext();
+        }
         cursor.close();
         return new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, clientes);
     }
@@ -109,10 +112,6 @@ public class AsistenteBD extends SQLiteOpenHelper {
                 "WHERE id = " + cliente.getId());
     }
 
-    public void deleteTable() {
-        SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("DROP TABLE IF EXISTS clientes");
-    }
 
     public void createTable() {
         SQLiteDatabase db = getWritableDatabase();

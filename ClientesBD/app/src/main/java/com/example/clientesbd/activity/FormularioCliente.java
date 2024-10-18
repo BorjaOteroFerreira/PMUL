@@ -44,7 +44,9 @@ public class FormularioCliente extends AppCompatActivity {
         btnGuardar = findViewById(R.id.btnGuardar);
         btnVolver = findViewById(R.id.btnVolver);
         asistenteBd = AsistenteBD.getInstance(this);
-        btnVolver.setOnClickListener(v -> finish());
+        btnVolver.setOnClickListener(v -> { setResult(RESULT_OK);
+                                            finish();
+                                            });
         btnGuardar.setOnClickListener(v -> guardarFormulario());
     }
 

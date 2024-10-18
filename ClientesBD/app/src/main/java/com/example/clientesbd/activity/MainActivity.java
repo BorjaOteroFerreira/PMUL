@@ -3,6 +3,11 @@ package com.example.clientesbd.activity;
 import android.content.Intent;
 import android.content.pm.LauncherActivityInfo;
 import android.os.Bundle;
+
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.clientesbd.R;
 import com.example.clientesbd.databinding.ActivityMainBinding;
@@ -16,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private ListView lista;
     AsistenteBD asistenteBd;
+    ActivityResultLauncher<Intent> resultLauncher;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +32,12 @@ public class MainActivity extends AppCompatActivity {
         binding.fab.setOnClickListener(v -> cambiarActivity());
         lista = findViewById(R.id.listaClientes);
         asistenteBd = AsistenteBD.getInstance(this);
+        resultLauncher = registerForActivityResult(
+
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> EstamosDeVuelta(result.getResultCode())
+        );
+        mostrarClientes();
     }
 
     @Override
@@ -66,7 +79,15 @@ public class MainActivity extends AppCompatActivity {
 
     private void cambiarActivity() {
         Intent intent = new Intent(this, FormularioCliente.class);
-        startActivity(intent);
+        resultLauncher.launch(intent);
+
+    }
+
+    private void EstamosDeVuelta(int resultCode) {
+        if(resultCode==RESULT_OK){
+            mostrarClientes();
+        };
+
     }
 
 
