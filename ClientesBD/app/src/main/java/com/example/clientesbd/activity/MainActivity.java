@@ -3,6 +3,11 @@ package com.example.clientesbd.activity;
 import android.content.Intent;
 import android.content.pm.LauncherActivityInfo;
 import android.os.Bundle;
+
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.clientesbd.R;
 import com.example.clientesbd.databinding.ActivityMainBinding;
@@ -16,15 +21,30 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private ListView lista;
     AsistenteBD asistenteBd;
+    ActivityResultLauncher<Intent> resultLauncher;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        /*resultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        estamosDeVuelta(result.getResultCode());
+                    }
+                });*/
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.toolbar);
         binding.fab.setOnClickListener(v -> cambiarActivity());
         lista = findViewById(R.id.listaClientes);
         asistenteBd = AsistenteBD.getInstance(this);
+        mostrarClientes();
+    }
+    private void estamosDeVuelta(int resultCode){
+        if(resultCode == RESULT_OK){
+            mostrarClientes();
+        }
     }
 
     @Override
@@ -55,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
                                       "40.416775",
                                         "-3.703790");
         asistenteBd.addCliente(cliente);
-
     }
 
     private void mostrarClientes(){
@@ -66,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void cambiarActivity() {
         Intent intent = new Intent(this, FormularioCliente.class);
-        startActivity(intent);
+        resultLauncher.launch(intent);
     }
 
 
