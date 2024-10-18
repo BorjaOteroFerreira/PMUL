@@ -64,8 +64,7 @@ public class FormularioCliente extends AppCompatActivity {
             btnEditar.setVisibility(View.GONE);
         }
         btnVolver.setOnClickListener(v -> { setResult(RESULT_OK);
-                                            finish();
-                                            });
+                                            finish();});
         btnGuardar.setOnClickListener(v -> guardarFormulario());
         btnEditar.setOnClickListener(v -> insertarFormulario());
     }
