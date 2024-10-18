@@ -9,7 +9,9 @@ public class Cliente {
     private String longitud;
     private String latitud;
 
-    public Cliente(int id , String nombre, String apellido, String provincia, boolean vip, String longitud, String latitud) {
+    public Cliente(int id , String nombre, String apellido, String provincia, boolean vip,
+                                                                              String longitud,
+                                                                              String latitud) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -19,7 +21,8 @@ public class Cliente {
         this.latitud = latitud;
     }
 
-    public Cliente(String nombre, String apellido, String provincia, boolean vip, String longitud, String latitud) {
+    public Cliente(String nombre, String apellido, String provincia, boolean vip, String longitud,
+                                                                                  String latitud) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.provincia = provincia;

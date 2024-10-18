@@ -16,17 +16,37 @@ public class AsistenteBD extends SQLiteOpenHelper {
 
     private AsistenteBD(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+
     }
 
     public static synchronized AsistenteBD getInstance(Context context) {
         if (instance == null) {
             instance = new AsistenteBD(context.getApplicationContext());
+
         }
         return instance;
     }
 
+    public void insertarProvinciasIniciales() {
+        SQLiteDatabase db = getWritableDatabase();
+        String countQuery = "SELECT COUNT(*) FROM provincias";
+        Cursor cursor = db.rawQuery(countQuery, null);
+        cursor.moveToFirst();
+        int count = cursor.getInt(0);
+        cursor.close();
+
+        if (count == 0) {
+            db.execSQL("INSERT INTO provincias (nombre) VALUES ('Provincia1')");
+            db.execSQL("INSERT INTO provincias (nombre) VALUES ('Provincia2')");
+            db.execSQL("INSERT INTO provincias (nombre) VALUES ('Provincia3')");
+            db.execSQL("INSERT INTO provincias (nombre) VALUES ('Provincia4')");
+        }
+    }
+
+
     @Override
     public void onCreate(SQLiteDatabase db) {
+        insertarProvinciasIniciales();
         db.execSQL("CREATE TABLE clientes (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "nombre TEXT UNIQUE," +
@@ -49,6 +69,20 @@ public class AsistenteBD extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS clientes");
         onCreate(db);
     }
+    public ArrayList<String> getProvincias() {
+        SQLiteDatabase db = getReadableDatabase();
+        String sql = "SELECT nombre FROM provincias";
+        Cursor cursor = db.rawQuery(sql, null);
+
+        ArrayList<String> provincias = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            do {
+                provincias.add(cursor.getString(0));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return provincias;
+    }
 
     public ArrayList<Cliente> getClientes(Context context) {
         SQLiteDatabase db = getReadableDatabase();
@@ -69,10 +103,7 @@ public class AsistenteBD extends SQLiteOpenHelper {
              clientes.add(cliente);
          }while(cursor.moveToNext());
         }
-        else{
-            System.out.println("No hay clientes");
-        }
-
+        else{ System.out.println("No hay clientes"); }
         cursor.close();
         return clientes;
     }

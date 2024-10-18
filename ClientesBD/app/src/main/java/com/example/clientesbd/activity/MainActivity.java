@@ -1,5 +1,4 @@
 package com.example.clientesbd.activity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.activity.result.ActivityResultLauncher;
@@ -14,7 +13,6 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
         mostrarClientes();
     }
 
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -66,8 +66,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void mostrarClientes(){
-        ArrayAdapter<Cliente> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
-                                                            asistenteBd.getClientes(this));
+        ArrayAdapter<Cliente> adapter = new ArrayAdapter<>(
+                                                this, android.R.layout.simple_list_item_1,
+                                                asistenteBd.getClientes(this));
         lista.setAdapter(adapter);
     }
 
