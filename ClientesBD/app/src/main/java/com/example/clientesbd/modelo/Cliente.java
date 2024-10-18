@@ -31,24 +31,19 @@ public class Cliente {
     public String getNombre() {
         return nombre;
     }
-
     public String getApellido() {
         return apellido;
     }
-
     public String getProvincia() {
         return provincia;
     }
-
     public int isVip() {
         return (vip) ? 1 : 0;
     }
-
     public int getId() {
         return id;
 
     }
-
     public String getLongitud() {
         return longitud;
     }
@@ -56,7 +51,6 @@ public class Cliente {
     public String getLatitud() {
         return latitud;
     }
-
 
     @Override
     public String toString() {

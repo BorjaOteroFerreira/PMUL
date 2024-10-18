@@ -1,11 +1,7 @@
 package com.example.clientesbd.activity;
 
 import android.content.Intent;
-import android.content.pm.LauncherActivityInfo;
 import android.os.Bundle;
-
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,8 +28,13 @@ public class MainActivity extends AppCompatActivity {
         binding.fab.setOnClickListener(v -> cambiarActivity());
         lista = findViewById(R.id.listaClientes);
         asistenteBd = AsistenteBD.getInstance(this);
+        lista.setOnItemClickListener((parent, view, position, id) -> {
+            Cliente cliente = (Cliente) lista.getItemAtPosition(position);
+            Intent intent = new Intent(this, FormularioCliente.class);
+            intent.putExtra("idCliente", cliente.getId());
+            resultLauncher.launch(intent);
+        });
         resultLauncher = registerForActivityResult(
-
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> EstamosDeVuelta(result.getResultCode())
         );
@@ -60,35 +61,18 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void crearClientesFicticios(){
-        Cliente cliente = new Cliente("Borja",
-                                      "Otero",
-                                     "Orense",
-                                          true,
-                                      "40.416775",
-                                        "-3.703790");
-        asistenteBd.addCliente(cliente);
-
-    }
-
     private void mostrarClientes(){
         lista.setAdapter(asistenteBd.getClientes(this));
-
-
     }
 
     private void cambiarActivity() {
         Intent intent = new Intent(this, FormularioCliente.class);
         resultLauncher.launch(intent);
-
     }
 
     private void EstamosDeVuelta(int resultCode) {
         if(resultCode==RESULT_OK){
             mostrarClientes();
         };
-
     }
-
-
 }

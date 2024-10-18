@@ -5,7 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
+
 
 public class AsistenteBD extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "clientes.db";
@@ -27,14 +27,15 @@ public class AsistenteBD extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE clientes (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "nombre TEXT," +
+                "nombre TEXT UNIQUE," +
                 "apellido TEXT," +
                 "provincia TEXT," +
                 "vip INTEGER," +
                 "longitud TEXT," +
                 "latitud TEXT," +
                 "provincia_id INTEGER," +
-                "FOREIGN KEY (provincia_id)REFERENCES provincias(id) )");
+                "FOREIGN KEY (provincia_id) REFERENCES provincias(id) )");
+
         db.execSQL("CREATE TABLE PROVINCIAS (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "nombre TEXT" +
@@ -47,12 +48,12 @@ public class AsistenteBD extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public ArrayAdapter<String> getClientes(Context context) {
+    public ArrayAdapter<Cliente> getClientes(Context context) {
         SQLiteDatabase db = getReadableDatabase();
         String sql = "SELECT id, nombre, apellido, provincia, vip, longitud, latitud FROM clientes";
         Cursor cursor = db.rawQuery(sql, null);
         cursor.moveToFirst();
-        String[] clientes = new String[cursor.getCount()];
+        Cliente[] clientes = new Cliente[cursor.getCount()];
 
         for(int i = 0; i < cursor.getCount(); i++) {
             int id = cursor.getInt(0);
@@ -63,19 +64,18 @@ public class AsistenteBD extends SQLiteOpenHelper {
             String longitud = cursor.getString(5);
             String latitud = cursor.getString(6);
             Cliente cliente = new Cliente(id, nombre, apellido, provincia, vip, longitud, latitud);
-            clientes[i] = cliente.toString();
+            clientes[i] = cliente;
             cursor.moveToNext();
         }
         cursor.close();
         return new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, clientes);
     }
 
-    public ArrayAdapter<String> getClientePorId(Context context, int idCliente) {
+    public Cliente getClientePorId(Context context, int idCliente) {
         SQLiteDatabase db = getReadableDatabase();
         String query = "SELECT * FROM clientes WHERE id = " + idCliente;
         Cursor cursor = db.rawQuery(query, null);
         cursor.moveToFirst();
-        String[] clientes = new String[cursor.getCount()];
         int id = cursor.getInt(0);
         String nombre = cursor.getString(1);
         String apellido = cursor.getString(2);
@@ -84,9 +84,8 @@ public class AsistenteBD extends SQLiteOpenHelper {
         String longitud = cursor.getString(5);
         String latitud = cursor.getString(6);
         Cliente cliente = new Cliente(id, nombre, apellido, provincia, vip, longitud, latitud);
-        clientes[0] = cliente.toString();
         cursor.close();
-        return new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, clientes);
+        return cliente;
     }
 
     public void addCliente(Cliente cliente) {
@@ -111,7 +110,6 @@ public class AsistenteBD extends SQLiteOpenHelper {
                 "latitud = '" + cliente.getLatitud() + "' " +
                 "WHERE id = " + cliente.getId());
     }
-
 
     public void createTable() {
         SQLiteDatabase db = getWritableDatabase();
