@@ -77,8 +77,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void EstamosDeVuelta(int resultCode) {
-        if(resultCode==RESULT_OK){
-            mostrarClientes();
-        };
+        if(resultCode==RESULT_OK){ mostrarClientes(); };
     }
 }

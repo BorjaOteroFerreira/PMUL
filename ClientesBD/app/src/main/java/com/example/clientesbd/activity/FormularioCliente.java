@@ -38,7 +38,7 @@ public class FormularioCliente extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        cargarComponentes();
+        cargarWidgets();
         montarInterfaz();
         btnVolver.setOnClickListener(v -> { setResult(RESULT_OK);
                                             finish();});
@@ -47,7 +47,7 @@ public class FormularioCliente extends AppCompatActivity {
     }
 
 
-    private void cargarComponentes(){
+    private void cargarWidgets(){
         etNombre = findViewById(R.id.etNombre);
         etApellido = findViewById(R.id.etApellido);
         spProvincia = findViewById(R.id.spinnerProvincia);
@@ -108,7 +108,7 @@ public class FormularioCliente extends AppCompatActivity {
         Provincia provincia = new Provincia(idProvincia, nombreProvincia);
         Cliente cliente = new Cliente(idCliente, nombre, apellido, provincia, vip, longitud, latitud);
         asistenteBd.updateCliente(cliente);
-        Snackbar.make(findViewById(R.id.main), "Cliente guardado", Snackbar.LENGTH_LONG).show();
+        Snackbar.make(findViewById(R.id.main), "Cliente editado con éxito", Snackbar.LENGTH_LONG).show();
         setResult(RESULT_OK);
         finish();
     }
@@ -124,8 +124,6 @@ public class FormularioCliente extends AppCompatActivity {
         String latitud = etLatitud.getText().toString();
         Cliente cliente = new Cliente(nombre, apellido, provincia, vip, longitud, latitud);
         asistenteBd.addCliente(cliente);
-        Snackbar.make(findViewById(R.id.main), "Cliente guardado", Snackbar.LENGTH_LONG).show();
+        Snackbar.make(findViewById(R.id.main), "Cliente guardado con éxito", Snackbar.LENGTH_LONG).show();
     }
-
-
 }
