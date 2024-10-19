@@ -26,6 +26,14 @@
         app:layout_constraintVertical_bias="0.0">
 
         <!-- Campo de texto para Nombre -->
+        <Button
+            android:id="@+id/btnVolver"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#FFFFFF"
+            android:foreground="@android:drawable/ic_menu_revert"
+            app:srcCompat="@android:drawable/ic_menu_revert" />
+
         <EditText
             android:id="@+id/etNombre"
             android:layout_width="match_parent"
@@ -68,6 +76,7 @@
             android:id="@+id/etLatitud"
             android:layout_width="match_parent"
             android:layout_height="69dp"
+            android:layout_marginBottom="60dp"
             android:hint="Latitud"
             android:inputType="numberDecimal" />
 
@@ -77,7 +86,6 @@
             android:id="@+id/btnEditar"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_marginTop="60dp"
             android:backgroundTint="#8BC34A"
             android:text="Modificar" />
 
@@ -89,11 +97,5 @@
             android:text="Guardar" />
 
         <!-- Botón para Volver a MainActivity -->
-        <Button
-            android:id="@+id/btnVolver"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:backgroundTint="#009688"
-            android:text="Volver" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

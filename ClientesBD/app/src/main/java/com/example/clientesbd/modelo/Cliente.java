@@ -4,14 +4,14 @@ public class Cliente {
     private int id  = -1;
     private String nombre;
     private String apellido;
-    private String provincia;
+    private Provincia provincia;
     private boolean vip;
     private String longitud;
     private String latitud;
 
-    public Cliente(int id , String nombre, String apellido, String provincia, boolean vip,
+    public Cliente(int id , String nombre, String apellido, Provincia provincia, boolean vip,
                                                                               String longitud,
-                                                                              String latitud) {
+                   String latitud) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -20,8 +20,18 @@ public class Cliente {
         this.longitud = longitud;
         this.latitud = latitud;
     }
+    public Cliente(int id , String nombre, String apellido,  boolean vip,
+                   String longitud,
+                   String latitud) {
+        this.id = id;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.vip = vip;
+        this.longitud = longitud;
+        this.latitud = latitud;
+    }
 
-    public Cliente(String nombre, String apellido, String provincia, boolean vip, String longitud,
+    public Cliente(String nombre, String apellido, Provincia provincia, boolean vip, String longitud,
                                                                                   String latitud) {
         this.nombre = nombre;
         this.apellido = apellido;
@@ -37,7 +47,7 @@ public class Cliente {
     public String getApellido() {
         return apellido;
     }
-    public String getProvincia() {
+    public Provincia getProvincia() {
         return provincia;
     }
     public int isVip() {
@@ -53,6 +63,10 @@ public class Cliente {
 
     public String getLatitud() {
         return latitud;
+    }
+
+    public void setProvincia(Provincia provincia) {
+        this.provincia = provincia;
     }
 
     @Override

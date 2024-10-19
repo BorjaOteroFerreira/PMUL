@@ -27,19 +27,21 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.toolbar);
-        binding.fab.setOnClickListener(v -> cambiarActivity());
+        binding.fab.setOnClickListener(v -> cargarFormularioCrear());
         lista = findViewById(R.id.listaClientes);
         asistenteBd = AsistenteBD.getInstance(this);
-        lista.setOnItemClickListener((parent, view, position, id) -> cargarFormularioCliente(position));
+        asistenteBd.insertarProvinciasIniciales();
+        lista.setOnItemClickListener((parent, view, position, id) -> cargarFormularioEditar(position));
         resultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> EstamosDeVuelta(result.getResultCode())
         );
+
+
         mostrarClientes();
     }
 
-
-    private void cargarFormularioCliente(int position) {
+    private void cargarFormularioEditar(int position) {
         Cliente cliente = (Cliente) lista.getItemAtPosition(position);
         Intent intent = new Intent(this, FormularioCliente.class);
         intent.putExtra("idCliente", cliente.getId());
@@ -68,11 +70,11 @@ public class MainActivity extends AppCompatActivity {
     private void mostrarClientes(){
         ArrayAdapter<Cliente> adapter = new ArrayAdapter<>(
                                                 this, android.R.layout.simple_list_item_1,
-                                                asistenteBd.getClientes(this));
+                                                asistenteBd.getClientes());
         lista.setAdapter(adapter);
     }
 
-    private void cambiarActivity() {
+    private void cargarFormularioCrear() {
         Intent intent = new Intent(this, FormularioCliente.class);
         resultLauncher.launch(intent);
     }
