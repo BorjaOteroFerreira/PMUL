@@ -30,8 +30,9 @@
             android:id="@+id/btnVolver"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
-            android:backgroundTint="#FFFFFF"
+            android:backgroundTint="#E3EFEE"
             android:foreground="@android:drawable/ic_menu_revert"
+            app:iconPadding="15dp"
             app:srcCompat="@android:drawable/ic_menu_revert" />
 
         <EditText

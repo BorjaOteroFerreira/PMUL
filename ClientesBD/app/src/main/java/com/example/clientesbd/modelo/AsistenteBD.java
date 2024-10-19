@@ -18,9 +18,37 @@ public class AsistenteBD extends SQLiteOpenHelper {
     public static synchronized AsistenteBD getInstance(Context context) {
         if (instance == null) {
             instance = new AsistenteBD(context.getApplicationContext());
-
         }
         return instance;
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        crearTablas(db);
+    }
+
+    private void crearTablas(SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE clientes (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "nombre TEXT UNIQUE," +
+                "apellido TEXT," +
+                "provincia INTEGER," +
+                "vip INTEGER," +
+                "longitud TEXT," +
+                "latitud TEXT," +
+                "provincia_id INTEGER," +
+                "FOREIGN KEY (provincia_id) REFERENCES provincias(id) )");
+
+        db.execSQL("CREATE TABLE PROVINCIAS (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "nombre TEXT UNIQUE" +
+                ")");
+
+    }
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS clientes");
+        onCreate(db);
     }
 
     public void insertarProvinciasIniciales() {
@@ -38,35 +66,10 @@ public class AsistenteBD extends SQLiteOpenHelper {
         }
     }
 
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE clientes (" +
-                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "nombre TEXT UNIQUE," +
-                "apellido TEXT," +
-                "provincia INTEGER," +
-                "vip INTEGER," +
-                "longitud TEXT," +
-                "latitud TEXT," +
-                "provincia_id INTEGER," +
-                "FOREIGN KEY (provincia_id) REFERENCES provincias(id) )");
-
-        db.execSQL("CREATE TABLE PROVINCIAS (" +
-                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "nombre TEXT" +
-                ")");
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS clientes");
-        onCreate(db);
-    }
     public ArrayList<Provincia> getProvincias() {
         SQLiteDatabase db = getReadableDatabase();
         String sql = "SELECT id, nombre FROM provincias"; // Ahora selecciona ambas columnas
         Cursor cursor = db.rawQuery(sql, null);
-
         ArrayList<Provincia> provincias = new ArrayList<>();
         if (cursor.moveToFirst()) {
             do {
@@ -105,7 +108,6 @@ public class AsistenteBD extends SQLiteOpenHelper {
          }
         }
         else{ System.out.println("No hay clientes"); }
-
         return clientes;
     }
 
@@ -160,11 +162,6 @@ public class AsistenteBD extends SQLiteOpenHelper {
                 "longitud = '" + cliente.getLongitud() + "', " +
                 "latitud = '" + cliente.getLatitud() + "' " +
                 "WHERE id = " + cliente.getId());
-    }
-
-    public void createTable() {
-        SQLiteDatabase db = getWritableDatabase();
-        onCreate(db);
     }
 
     public void deleteCliente(Cliente cliente) {

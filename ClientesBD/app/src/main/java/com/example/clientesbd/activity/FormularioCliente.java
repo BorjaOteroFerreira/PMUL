@@ -15,6 +15,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import com.example.clientesbd.R;
 import com.example.clientesbd.modelo.Provincia;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
@@ -107,6 +108,7 @@ public class FormularioCliente extends AppCompatActivity {
         Provincia provincia = new Provincia(idProvincia, nombreProvincia);
         Cliente cliente = new Cliente(idCliente, nombre, apellido, provincia, vip, longitud, latitud);
         asistenteBd.updateCliente(cliente);
+        Snackbar.make(findViewById(R.id.main), "Cliente guardado", Snackbar.LENGTH_LONG).show();
         setResult(RESULT_OK);
         finish();
     }
@@ -122,6 +124,8 @@ public class FormularioCliente extends AppCompatActivity {
         String latitud = etLatitud.getText().toString();
         Cliente cliente = new Cliente(nombre, apellido, provincia, vip, longitud, latitud);
         asistenteBd.addCliente(cliente);
+        Snackbar.make(findViewById(R.id.main), "Cliente guardado", Snackbar.LENGTH_LONG).show();
     }
+
 
 }

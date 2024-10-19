@@ -15,7 +15,6 @@ import android.widget.ListView;
 
 
 public class MainActivity extends AppCompatActivity {
-
     private ActivityMainBinding binding;
     private ListView lista;
     AsistenteBD asistenteBd;
@@ -36,8 +35,6 @@ public class MainActivity extends AppCompatActivity {
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> EstamosDeVuelta(result.getResultCode())
         );
-
-
         mostrarClientes();
     }
 
