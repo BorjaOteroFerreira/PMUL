@@ -5,20 +5,17 @@ public class Usuario extends UsuarioLogin {
     private String apellido;
     private String email;
 
-
     public Usuario(int id, String nombre, String apellido, String email, String password) {
         super(nombre, password);
         this.id = id;
         this.apellido = apellido;
         this.email = email;
-
     }
 
     public Usuario(String nombre, String apellido, String email, String password) {
         super(nombre, password);
         this.apellido = apellido;
         this.email = email;
-
     }
 
     public int getId() {

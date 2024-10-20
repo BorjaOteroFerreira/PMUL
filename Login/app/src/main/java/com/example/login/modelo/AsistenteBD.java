@@ -27,7 +27,8 @@ public class AsistenteBD extends SQLiteOpenHelper {
         String[] args = new String[]{usuario, contraseña};
         String[] campos = new String[]{"nombre", "password"};
         String where = "nombre = ? AND password = ?";
-        Cursor cursor = db.query("usuarios", campos, where, args, null, null, null);
+        Cursor cursor = db.query("usuarios", campos, where, args, null, null,
+                                                                        null, null);
         if (cursor.moveToFirst()) {
             do {
                 datos.add(cursor.getString(0));
@@ -46,7 +47,13 @@ public class AsistenteBD extends SQLiteOpenHelper {
         int count = cursor.getInt(0);
         cursor.close();
         if (count == 0) {
-            db.execSQL("INSERT INTO usuarios (nombre, apellido, email, password) VALUES ('admin', 'adminApellido', 'admin@admin', 'admin123')");
+            db.execSQL("INSERT INTO usuarios (nombre, " +
+                                            "apellido, " +
+                                            "email, " +
+                                            "password) VALUES ('admin'," +
+                                                                "'adminApellido'," +
+                                                                "'admin@admin', " +
+                                                                "'admin123')");
         }
     }
 
