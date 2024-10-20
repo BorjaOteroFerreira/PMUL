@@ -8,12 +8,10 @@
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:layout_width="409dp"
-        android:layout_height="729dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="1dp"
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#AEAEAE"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,6 +42,7 @@
             android:layout_width="285dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="60dp"
+            android:backgroundTint="#03A9F4"
             android:text="Login" />
 
     </LinearLayout>

@@ -1,5 +1,4 @@
 package com.example.login.modelo;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -17,7 +16,7 @@ public class AsistenteBD extends SQLiteOpenHelper {
 
     public static synchronized AsistenteBD getInstance(Context context) {
         if (instance == null) {
-            instance = new AsistenteBD(context.getApplicationContext());
+            instance = new AsistenteBD(context);
         }
         return instance;
     }
@@ -66,9 +65,6 @@ public class AsistenteBD extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS usuarios");
         onCreate(db);
-
     }
-
-
 }
 

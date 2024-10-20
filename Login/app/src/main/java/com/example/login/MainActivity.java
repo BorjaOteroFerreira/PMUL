@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         String password = etPassword.getText().toString();
         AsistenteBD asistenteBD = AsistenteBD.getInstance(this);
         ArrayList<String> usuario = asistenteBD.getUsuarioYcontraseña(nombre, password);
-        if (usuario.size() < 1) {
+        if (usuario.isEmpty()) {
             Snackbar.make(findViewById(R.id.main), "Login Incorrecto", Snackbar.LENGTH_LONG).show();
         } else if (password.equals(usuario.get(1)) && nombre.equals(usuario.get(0))) {
                 Snackbar.make(findViewById(R.id.main), "Login correcto", Snackbar.LENGTH_LONG).show();
