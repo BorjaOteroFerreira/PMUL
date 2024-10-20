@@ -1,25 +1,24 @@
 package com.example.login.modelo;
 
-public class Usuario {
+public class Usuario extends UsuarioLogin {
     private int id;
-    private String nombre;
     private String apellido;
     private String email;
-    private String password;
+
 
     public Usuario(int id, String nombre, String apellido, String email, String password) {
+        super(nombre, password);
         this.id = id;
-        this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
-        this.password = password;
+
     }
 
     public Usuario(String nombre, String apellido, String email, String password) {
-        this.nombre = nombre;
+        super(nombre, password);
         this.apellido = apellido;
         this.email = email;
-        this.password = password;
+
     }
 
     public int getId() {
@@ -27,7 +26,7 @@ public class Usuario {
     }
 
     public String getNombre() {
-        return nombre;
+        return super.getNombre();
     }
 
     public String getApellido() {
@@ -39,6 +38,12 @@ public class Usuario {
     }
 
     public String getPassword() {
-        return password;
+        return super.getPassword();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Usuario && ((Usuario) obj).getId() == this.id;
+    }
+
 }
