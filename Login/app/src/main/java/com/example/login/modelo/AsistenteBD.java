@@ -4,12 +4,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
 import java.util.ArrayList;
 
 public class AsistenteBD extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "usaurios.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static  AsistenteBD instance = null;
 
     public AsistenteBD(Context context) {
@@ -40,7 +39,6 @@ public class AsistenteBD extends SQLiteOpenHelper {
         return datos;
     }
 
-
     public void insertarUsuarioInicial() {
         SQLiteDatabase db = getWritableDatabase();
         String countQuery = "SELECT COUNT(*) FROM usuarios";
@@ -57,10 +55,10 @@ public class AsistenteBD extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE usuarios (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "nombre TEXT," +
+                "nombre TEXT UNIQUE NOT NULL," +
                 "apellido TEXT," +
-                "email TEXT UNIQUE," +
-                "password TEXT" +
+                "email TEXT UNIQUE NOT NULL," +
+                "password TEXT NOT NULL" +
                 ")");
     }
 
