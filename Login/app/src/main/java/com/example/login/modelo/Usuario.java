@@ -1,4 +1,4 @@
-package com.example.login;
+package com.example.login.modelo;
 
 public class Usuario {
     private int id;

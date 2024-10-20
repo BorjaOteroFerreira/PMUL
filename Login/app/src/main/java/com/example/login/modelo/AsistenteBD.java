@@ -1,4 +1,4 @@
-package com.example.login;
+package com.example.login.modelo;
 
 import android.content.Context;
 import android.database.Cursor;
