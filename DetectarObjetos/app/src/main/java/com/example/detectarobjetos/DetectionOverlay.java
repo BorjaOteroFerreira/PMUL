@@ -33,6 +33,8 @@ public class DetectionOverlay extends View {
     public void setDetections(List<DetectionResult> detections) {
         this.detections = detections;
         invalidate(); // Solicita un redibujado de la vista
+        requestLayout(); // Solicita un rediseño de la vista
+
     }
 
     @Override
@@ -52,8 +54,8 @@ public class DetectionOverlay extends View {
     }
 
     private RectF scaleRect(RectF rect) {
-        float scaleX = getWidth() / (float) 640;
-        float scaleY = getHeight() / (float) 640;
+        float scaleX = getWidth() / (float) 720;
+        float scaleY = getHeight() / (float) 720;
         return new RectF(
                 rect.left * scaleX,
                 rect.top * scaleY,
@@ -62,19 +64,5 @@ public class DetectionOverlay extends View {
         );
     }
 
-    public static class DetectionResult {
-        private RectF boundingBox;
-        private String label;
-        private float confidence;
 
-        public DetectionResult(RectF boundingBox, String label, float confidence) {
-            this.boundingBox = boundingBox;
-            this.label = label;
-            this.confidence = confidence;
-        }
-
-        public RectF getBoundingBox() { return boundingBox; }
-        public String getLabel() { return label; }
-        public float getConfidence() { return confidence; }
-    }
 }
