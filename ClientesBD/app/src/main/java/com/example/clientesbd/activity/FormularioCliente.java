@@ -116,7 +116,7 @@ public class FormularioCliente extends AppCompatActivity {
     private void guardarDatosCliente(){
         String nombre = etNombre.getText().toString();
         String apellido = etApellido.getText().toString();
-        int idProvincia = ((Provincia)spProvincia.getSelectedItem()).getId();
+        int idProvincia = ((Provincia) spProvincia.getSelectedItem()).getId();
         String nombreProvincia = spProvincia.getSelectedItem().toString();
         Provincia provincia = new Provincia(idProvincia, nombreProvincia);
         boolean vip = etVip.isChecked();

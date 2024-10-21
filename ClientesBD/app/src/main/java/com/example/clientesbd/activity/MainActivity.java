@@ -19,10 +19,17 @@ public class MainActivity extends AppCompatActivity {
     private ListView lista;
     AsistenteBD asistenteBd;
     ActivityResultLauncher<Intent> resultLauncher;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        /*resultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        estamosDeVuelta(result.getResultCode());
+                    }
+                });*/
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.toolbar);

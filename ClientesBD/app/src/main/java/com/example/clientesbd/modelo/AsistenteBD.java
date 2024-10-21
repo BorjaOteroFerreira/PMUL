@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class AsistenteBD extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "clientes.db";
-    private static final int DATABASE_VERSION = 1; 
+    private static final int DATABASE_VERSION = 1;
     private static AsistenteBD instance;
 
     private AsistenteBD(Context context) {
