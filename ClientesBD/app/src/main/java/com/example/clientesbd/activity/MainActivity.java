@@ -1,11 +1,6 @@
 package com.example.clientesbd.activity;
-
 import android.content.Intent;
-import android.content.pm.LauncherActivityInfo;
 import android.os.Bundle;
-
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,9 +10,11 @@ import com.example.clientesbd.modelo.AsistenteBD;
 import com.example.clientesbd.modelo.Cliente;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
-public class MainActivity extends AppCompatActivity {
 
+
+public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private ListView lista;
     AsistenteBD asistenteBd;
@@ -36,17 +33,24 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.toolbar);
-        binding.fab.setOnClickListener(v -> cambiarActivity());
+        binding.fab.setOnClickListener(v -> cargarFormularioCrear());
         lista = findViewById(R.id.listaClientes);
         asistenteBd = AsistenteBD.getInstance(this);
+        asistenteBd.insertarProvinciasIniciales();
+        lista.setOnItemClickListener((parent, view, position, id) -> cargarFormularioEditar(position));
+        resultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> EstamosDeVuelta(result.getResultCode())
+        );
         mostrarClientes();
     }
-    private void estamosDeVuelta(int resultCode){
-        if(resultCode == RESULT_OK){
-            mostrarClientes();
-        }
-    }
 
+    private void cargarFormularioEditar(int position) {
+        Cliente cliente = (Cliente) lista.getItemAtPosition(position);
+        Intent intent = new Intent(this, FormularioCliente.class);
+        intent.putExtra("idCliente", cliente.getId());
+        resultLauncher.launch(intent);
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -67,26 +71,19 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void crearClientesFicticios(){
-        Cliente cliente = new Cliente("Borja",
-                                      "Otero",
-                                     "Orense",
-                                          true,
-                                      "40.416775",
-                                        "-3.703790");
-        asistenteBd.addCliente(cliente);
-    }
-
     private void mostrarClientes(){
-        lista.setAdapter(asistenteBd.getClientes(this));
-
-
+        ArrayAdapter<Cliente> adapter = new ArrayAdapter<>(
+                                                this, android.R.layout.simple_list_item_1,
+                                                asistenteBd.getClientes());
+        lista.setAdapter(adapter);
     }
 
-    private void cambiarActivity() {
+    private void cargarFormularioCrear() {
         Intent intent = new Intent(this, FormularioCliente.class);
         resultLauncher.launch(intent);
     }
 
-
+    private void EstamosDeVuelta(int resultCode) {
+        if(resultCode==RESULT_OK){ mostrarClientes(); };
+    }
 }

@@ -4,8 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
+import java.util.ArrayList;
 
 public class AsistenteBD extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "clientes.db";
@@ -25,64 +24,121 @@ public class AsistenteBD extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE clientes (" +
-                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "nombre TEXT," +
-                "apellido TEXT," +
-                "provincia TEXT," +
-                "vip INTEGER," +
-                "longitud TEXT," +
-                "latitud TEXT" +
-                ")");
+        crearTablas(db);
     }
 
+    private void crearTablas(SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE clientes (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "nombre TEXT UNIQUE," +
+                "apellido TEXT," +
+                "provincia INTEGER," +
+                "vip INTEGER," +
+                "longitud TEXT," +
+                "latitud TEXT," +
+                "provincia_id INTEGER," +
+                "FOREIGN KEY (provincia_id) REFERENCES provincias(id) )");
+
+        db.execSQL("CREATE TABLE PROVINCIAS (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "nombre TEXT UNIQUE" +
+                ")");
+
+    }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS clientes");
         onCreate(db);
     }
 
-    public ArrayAdapter<String> getClientes(Context context) {
+    public void insertarProvinciasIniciales() {
+        SQLiteDatabase db = getWritableDatabase();
+        String countQuery = "SELECT COUNT(*) FROM provincias";
+        Cursor cursor = db.rawQuery(countQuery, null);
+        cursor.moveToFirst();
+        int count = cursor.getInt(0);
+        cursor.close();
+        if (count == 0) {
+            db.execSQL("INSERT INTO provincias (nombre) VALUES ('Coruña')");
+            db.execSQL("INSERT INTO provincias (nombre) VALUES ('Lugo')");
+            db.execSQL("INSERT INTO provincias (nombre) VALUES ('Orense')");
+            db.execSQL("INSERT INTO provincias (nombre) VALUES ('Pontevedra')");
+        }
+    }
+
+    public ArrayList<Provincia> getProvincias() {
+        SQLiteDatabase db = getReadableDatabase();
+        String sql = "SELECT id, nombre FROM provincias"; // Ahora selecciona ambas columnas
+        Cursor cursor = db.rawQuery(sql, null);
+        ArrayList<Provincia> provincias = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(0); // Columna id
+                String nombre = cursor.getString(1); // Columna nombre
+                provincias.add(new Provincia(id, nombre));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return provincias;
+    }
+
+    public ArrayList<Cliente> getClientes() {
         SQLiteDatabase db = getReadableDatabase();
         String sql = "SELECT id, nombre, apellido, provincia, vip, longitud, latitud FROM clientes";
         Cursor cursor = db.rawQuery(sql, null);
-        cursor.moveToFirst();
-        String[] clientes = new String[cursor.getCount()];
-
-        for(int i = 0 ; i < cursor.getCount(); i++){
-            String nombre = cursor.getString(1);
-            String apellido = cursor.getString(2);
-            String provincia = cursor.getString(3);
-            boolean vip = cursor.getInt(4) == 1;
-            String longitud = cursor.getString(5);
-            String latitud = cursor.getString(6);
-            Cliente cliente = new Cliente(nombre, apellido, provincia, vip, longitud, latitud);
-            clientes[i] = cliente.toString();
-            cursor.moveToNext();
-
+        ArrayList<Cliente> clientes = new ArrayList<>();
+        ArrayList<Integer> idProvincias = new ArrayList<>();
+        if(cursor.moveToNext()){
+         do{
+             int id = cursor.getInt(0);
+             String nombre = cursor.getString(1);
+             String apellido = cursor.getString(2);
+             int idProvincia = cursor.getInt(3);
+             idProvincias.add(idProvincia);
+             boolean vip = cursor.getInt(4) == 1;
+             String longitud = cursor.getString(5);
+             String latitud = cursor.getString(6);
+             Cliente cliente = new Cliente(id, nombre, apellido, vip, longitud, latitud);
+             clientes.add(cliente);
+         }while(cursor.moveToNext());
+         cursor.close();
+         for (int i= 0 ; i < idProvincias.size(); i++)  {
+             Provincia provincia = getProvinciaPorId(idProvincias.get(i));
+             clientes.get(i).setProvincia(provincia);
+         }
         }
-
-        cursor.close();
-        return new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, clientes);
+        else{ System.out.println("No hay clientes"); }
+        return clientes;
     }
 
-    public ArrayAdapter<String> getClientePorId(Context context, int idCliente) {
+    public Cliente getClientePorId( int idCliente) {
         SQLiteDatabase db = getReadableDatabase();
         String query = "SELECT * FROM clientes WHERE id = " + idCliente;
         Cursor cursor = db.rawQuery(query, null);
         cursor.moveToFirst();
-        String[] clientes = new String[cursor.getCount()];
         int id = cursor.getInt(0);
         String nombre = cursor.getString(1);
         String apellido = cursor.getString(2);
-        String provincia = cursor.getString(3);
+        int idProvincia = cursor.getInt(3);
         boolean vip = cursor.getInt(4) == 1;
         String longitud = cursor.getString(5);
         String latitud = cursor.getString(6);
+        Provincia provincia = getProvinciaPorId(idProvincia);
         Cliente cliente = new Cliente(id, nombre, apellido, provincia, vip, longitud, latitud);
-        clientes[0] = cliente.toString();
         cursor.close();
-        return new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, clientes);
+        return cliente;
+    }
+
+    public Provincia getProvinciaPorId(int idProvincia) {
+        SQLiteDatabase db = getReadableDatabase();
+        String query = "SELECT * FROM provincias WHERE id = " + idProvincia;
+        Cursor cursor = db.rawQuery(query, null);
+        cursor.moveToFirst();
+        int id = cursor.getInt(0);
+        String nombre = cursor.getString(1);
+        Provincia provincia = new Provincia(id, nombre);
+        cursor.close();
+        return provincia;
     }
 
     public void addCliente(Cliente cliente) {
@@ -90,7 +146,7 @@ public class AsistenteBD extends SQLiteOpenHelper {
                 "(nombre, apellido, provincia, vip, longitud, latitud) " +
                 "VALUES ('" + cliente.getNombre() + "', '" +
                 cliente.getApellido() + "', '" +
-                cliente.getProvincia() + "', " +
+                cliente.getProvincia().getId() + "', " +
                 cliente.isVip() + ", '" +
                 cliente.getLongitud() + "', '" +
                 cliente.getLatitud() + "')");
@@ -101,21 +157,11 @@ public class AsistenteBD extends SQLiteOpenHelper {
         db.execSQL("UPDATE clientes SET nombre = '" +
                 cliente.getNombre() + "', " +
                 "apellido = '" + cliente.getApellido() + "', " +
-                "provincia = '" + cliente.getProvincia() + "', " +
+                "provincia = '" + cliente.getProvincia().getId() + "', " +
                 "vip = " + cliente.isVip() + ", " +
                 "longitud = '" + cliente.getLongitud() + "', " +
                 "latitud = '" + cliente.getLatitud() + "' " +
                 "WHERE id = " + cliente.getId());
-    }
-
-    public void deleteTable() {
-        SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("DROP TABLE IF EXISTS clientes");
-    }
-
-    public void createTable() {
-        SQLiteDatabase db = getWritableDatabase();
-        onCreate(db);
     }
 
     public void deleteCliente(Cliente cliente) {

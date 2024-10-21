@@ -9,13 +9,13 @@
 
     <ListView
         android:id="@+id/listaClientes"
-        android:layout_width="414dp"
-        android:layout_height="748dp"
+        android:layout_width="409dp"
+        android:layout_height="729dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintHorizontal_bias="0.75"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
