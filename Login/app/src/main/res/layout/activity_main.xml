@@ -35,7 +35,7 @@
             android:layout_marginLeft="60dp"
             android:ems="10"
             android:hint="Password"
-            android:inputType="text" />
+            android:inputType="textPassword" />
 
         <Button
             android:id="@+id/btnLogin"

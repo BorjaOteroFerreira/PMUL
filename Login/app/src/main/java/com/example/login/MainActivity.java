@@ -1,5 +1,4 @@
 package com.example.login;
-
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,10 +11,10 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.login.modelo.AsistenteBD;
 import com.google.android.material.snackbar.Snackbar;
 import java.util.ArrayList;
-
 public class MainActivity extends AppCompatActivity {
     Button btnLogin;
-    EditText etNombre, etPassword;
+    EditText etNombre,
+            etPassword;
     AsistenteBD asistenteBd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +38,13 @@ public class MainActivity extends AppCompatActivity {
         String nombre = etNombre.getText().toString();
         String password = etPassword.getText().toString();
         AsistenteBD asistenteBD = AsistenteBD.getInstance(this);
-        ArrayList<String> usuario = asistenteBD.getUsuarioYcontraseña(nombre, password);
+        ArrayList<String> usuario = asistenteBD.getUsuarioYPass(nombre, password);
         if (usuario.isEmpty()) {
-            Snackbar.make(findViewById(R.id.main), "Login Incorrecto", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(findViewById(R.id.main),
+                                        "Login Incorrecto", Snackbar.LENGTH_LONG).show();
         } else if (password.equals(usuario.get(1)) && nombre.equals(usuario.get(0))) {
-                Snackbar.make(findViewById(R.id.main), "Login correcto", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(findViewById(R.id.main),
+                                        "Login correcto", Snackbar.LENGTH_LONG).show();
             }
         }
 }

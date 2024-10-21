@@ -21,7 +21,7 @@ public class AsistenteBD extends SQLiteOpenHelper {
         return instance;
     }
 
-    public ArrayList<String> getUsuarioYcontraseña(String usuario, String contraseña) {
+    public ArrayList<String> getUsuarioYPass(String usuario, String contraseña) {
         SQLiteDatabase db = getWritableDatabase();
         ArrayList<String> datos = new ArrayList<>();
         String[] args = new String[]{usuario, contraseña};
