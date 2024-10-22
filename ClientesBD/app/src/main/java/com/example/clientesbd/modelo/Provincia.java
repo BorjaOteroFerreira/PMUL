@@ -17,9 +17,6 @@ public class Provincia {
         return id;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
 
     @Override
     public String toString() {
