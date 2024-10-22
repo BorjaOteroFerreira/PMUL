@@ -46,10 +46,20 @@ public class MainActivity extends AppCompatActivity {
     private static final int MODEL_INPUT_SIZE = 640;
     private static final int NUM_BOXES = 6300;
     private static final int NUM_CLASSES = 80;
-    private static final float SCORE_THRESHOLD = 0.0f;
+    private static final float SCORE_THRESHOLD = 0.009f;
 
     private final String[] labels = {"persona", "bicicleta", "carro", "motocicleta", "avión", "bus",
             "tren", "camión", "bote", "semáforo", "botella", "libro", "libreta", "mesa", "monitor",
+            "teclado", "raton" , "monitor",
+            "teclado", "raton"," persona", "bicicleta", "carro", "motocicleta", "avión", "bus",
+            "tren", "camión", "bote", "semáforo", "botella", "libro", "libreta", "mesa", "monitor",
+            "teclado", "raton" , "monitor",
+            "teclado", "raton","persona", "bicicleta", "carro", "motocicleta", "avión", "bus",
+            "tren", "camión", "bote", "semáforo", "botella", "libro", "libreta", "mesa", "monitor",
+            "teclado", "raton" , "monitor",
+            "teclado", "raton" ,"persona", "bicicleta", "carro", "motocicleta", "avión", "bus",
+            "tren", "camión", "bote", "semáforo", "botella", "libro", "libreta", "mesa", "monitor",
+            "teclado", "raton" , "monitor",
             "teclado", "raton" /* ... añadir resto de etiquetas ... */};
 
     @Override

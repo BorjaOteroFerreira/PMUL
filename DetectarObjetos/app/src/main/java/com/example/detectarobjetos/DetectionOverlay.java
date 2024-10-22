@@ -54,8 +54,8 @@ public class DetectionOverlay extends View {
     }
 
     private RectF scaleRect(RectF rect) {
-        float scaleX = getWidth() / (float) 720;
-        float scaleY = getHeight() / (float) 720;
+        float scaleX = getWidth() / (float) 640;
+        float scaleY = getHeight() / (float) 640;
         return new RectF(
                 rect.left * scaleX,
                 rect.top * scaleY,
