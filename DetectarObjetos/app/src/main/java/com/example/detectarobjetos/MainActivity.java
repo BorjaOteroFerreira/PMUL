@@ -46,21 +46,18 @@ public class MainActivity extends AppCompatActivity {
     private static final int MODEL_INPUT_SIZE = 640;
     private static final int NUM_BOXES = 6300;
     private static final int NUM_CLASSES = 80;
-    private static final float SCORE_THRESHOLD = 0.009f;
+    private static final float SCORE_THRESHOLD = 0.1f;
 
-    private final String[] labels = {"persona", "bicicleta", "carro", "motocicleta", "avión", "bus",
-            "tren", "camión", "bote", "semáforo", "botella", "libro", "libreta", "mesa", "monitor",
-            "teclado", "raton" , "monitor",
-            "teclado", "raton"," persona", "bicicleta", "carro", "motocicleta", "avión", "bus",
-            "tren", "camión", "bote", "semáforo", "botella", "libro", "libreta", "mesa", "monitor",
-            "teclado", "raton" , "monitor",
-            "teclado", "raton","persona", "bicicleta", "carro", "motocicleta", "avión", "bus",
-            "tren", "camión", "bote", "semáforo", "botella", "libro", "libreta", "mesa", "monitor",
-            "teclado", "raton" , "monitor",
-            "teclado", "raton" ,"persona", "bicicleta", "carro", "motocicleta", "avión", "bus",
-            "tren", "camión", "bote", "semáforo", "botella", "libro", "libreta", "mesa", "monitor",
-            "teclado", "raton" , "monitor",
-            "teclado", "raton" /* ... añadir resto de etiquetas ... */};
+    private final String[] labels = {"persona", "bicicleta", "coche", "motocicleta", "avión", "autobús", "tren", "camión", "barco", "semáforo",
+            "hidrante", "señal de stop", "parquímetro", "banco", "pájaro", "gato", "perro", "caballo", "oveja", "vaca",
+            "elefante", "oso", "cebra", "jirafa", "mochila", "paraguas", "bolso de mano", "corbata", "maleta", "frisbee",
+            "esquís", "snowboard", "pelota de deporte", "cometa", "bate de béisbol", "guante de béisbol", "monopatín", "tabla de surf",
+            "raqueta de tenis", "botella", "copa de vino", "taza", "tenedor", "cuchillo", "cuchara", "cuenco", "plátano", "manzana",
+            "sándwich", "naranja", "brócoli", "zanahoria", "perrito caliente", "pizza", "donut", "pastel", "silla", "sofá",
+            "planta en maceta", "cama", "mesa de comedor", "inodoro", "televisor", "portátil", "ratón", "mando", "teclado", "teléfono móvil",
+            "microondas", "horno", "tostadora", "fregadero", "nevera", "libro", "reloj", "jarrón", "tijeras", "oso de peluche",
+            "secador de pelo", "cepillo de dientes"
+            };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,8 +108,8 @@ public class MainActivity extends AppCompatActivity {
                 preview.setSurfaceProvider(viewFinder.getSurfaceProvider());
 
                 ImageAnalysis imageAnalysis = new ImageAnalysis.Builder()
-                        .setTargetResolution(new Size(640, 640))
-                        .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
+                        .setTargetResolution(new Size(MODEL_INPUT_SIZE, MODEL_INPUT_SIZE))
+                        //.setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
                         .build();
 
                 imageAnalysis.setAnalyzer(cameraExecutor, this::analyzeImage);
@@ -158,13 +155,12 @@ public class MainActivity extends AppCompatActivity {
                 float bestScore = 0;
                 for (int j = 0; j < NUM_CLASSES; j++) {
                     float score = outputBuffer[0][i][5 + j];
-                    if (score > bestScore) {
-                        bestScore = score;
-                        bestClass = j;
-                    }
+                    bestScore = score;
+                    bestClass = j;
+
                 }
 
-                if (bestClass >= 0) {
+
                     DetectionResult detection = new DetectionResult(
                             new RectF(x - w/2, y - h/2, x + w/2, y + h/2),
                             labels[bestClass],
@@ -175,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.d(TAG, "Detección: " + labels[bestClass] + " - Confianza: " + confidence);
                 }
             }
-        }
+
 
         // Actualizar overlay
         runOnUiThread(() -> {
