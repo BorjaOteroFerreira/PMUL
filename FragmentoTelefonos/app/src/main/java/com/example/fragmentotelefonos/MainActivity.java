@@ -10,13 +10,23 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.FragmentContainerView;
 
-public class MainActivity extends AppCompatActivity implements onTelefonoListener {
+import java.util.ArrayList;
+
+public class MainActivity extends AppCompatActivity {
     LinearLayout linearLayout;
     AsistenteBD asistenteBD;
+    onTelefonoFragmentListener telefonoListener;
+    onOperadoraListener operadoraListener;
+    ArrayList<Telefono> telefonos = new ArrayList<>();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         asistenteBD = asistenteBD.getInstance(this);
+
+
+
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -25,21 +35,31 @@ public class MainActivity extends AppCompatActivity implements onTelefonoListene
             return insets;
         });
         linearLayout = findViewById(R.id.fragment_container);
-        int num_telefonos = asistenteBD.obtenerTelefonos().getCount();
+        telefonoListener = new onTelefonoFragmentListener() {
+            @Override
+            public Telefono obtenerTelefono(String numTelefono) {
+                Telefono tel = new Telefono(numTelefono);
+                int idx = telefonos.indexOf(tel);
+                tel = telefonos.get(idx);
+                return tel;
+            }
+        };
+        telefonos = asistenteBD.obtenerTelefonos(asistenteBD.getReadableDatabase());
 
+        int num_telefonos = telefonos.size();
+        Operadora operadora = new Operadora(telefonos);
         for (int i = 0; i < num_telefonos; i++) {
             FragmentContainerView container = new FragmentContainerView(this);
             container.setId(View.generateViewId());
             FragmentoTelefono fragment = new FragmentoTelefono();
-            int finalI = i;
-            fragment.setListener(this , finalI + 1);
+            Telefono tel = telefonos.get(i);
+            tel.setOperadora(operadora);
+            tel.setListener(fragment);
+            fragment.setListener(telefonoListener , tel.getTelefono());
             getSupportFragmentManager().beginTransaction().add(container.getId(), fragment).commit();
             linearLayout.addView(container);
         }
     }
 
-    @Override
-    public String obtenerTelefono(int id) {
-        return asistenteBD.obtenerTelefono(id);
-    }
+
 }
