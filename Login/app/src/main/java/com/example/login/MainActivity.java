@@ -9,6 +9,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.login.modelo.AsistenteBD;
+import com.example.login.modelo.PasswordHasher;
 import com.google.android.material.snackbar.Snackbar;
 import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
@@ -36,9 +37,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void login() {
         String nombre = etNombre.getText().toString();
-        String password = etPassword.getText().toString();
+
         AsistenteBD asistenteBD = AsistenteBD.getInstance(this);
-        ArrayList<String> usuario = asistenteBD.getUsuarioYPass(nombre, password);
+        ArrayList<String> usuario = asistenteBD.getUsuarioYPass(nombre);
+        String salt = usuario.get(2);
+        String password = PasswordHasher.hashPassword(etPassword.getText().toString(),salt);
         if (usuario.isEmpty()) {
             Snackbar.make(findViewById(R.id.main),
                                         "Login Incorrecto", Snackbar.LENGTH_LONG).show();

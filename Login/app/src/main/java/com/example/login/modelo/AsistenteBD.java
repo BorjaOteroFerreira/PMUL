@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class AsistenteBD extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "usaurios.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 4;
     private static  AsistenteBD instance = null;
 
     public AsistenteBD(Context context) {
@@ -21,22 +21,38 @@ public class AsistenteBD extends SQLiteOpenHelper {
         return instance;
     }
 
-    public ArrayList<String> getUsuarioYPass(String usuario, String contraseña) {
+    public ArrayList<String> getUsuarioYPass(String usuario) {
         SQLiteDatabase db = getWritableDatabase();
         ArrayList<String> datos = new ArrayList<>();
-        String[] args = new String[]{usuario, contraseña};
-        String[] campos = new String[]{"nombre", "password"};
-        String where = "nombre = ? AND password = ?";
+        String[] campos = new String[]{"nombre", "password","salt"};
+        String where = "nombre = ? ";
+        String[] args = new String[]{usuario};
         Cursor cursor = db.query("usuarios", campos, where, args, null, null,
                                                                         null, null);
         if (cursor.moveToFirst()) {
             do {
                 datos.add(cursor.getString(0));
                 datos.add(cursor.getString(1));
+                datos.add(cursor.getString(2));
             } while (cursor.moveToNext());
         }
         cursor.close();
         return datos;
+    }
+
+    public void registrarUsuario(String nombre, String apellido, String email, String password) {
+        SQLiteDatabase db = getWritableDatabase();
+        // Generar un salt único para el usuario
+        String salt = PasswordHasher.generarSalt();  // Método para generar un salt aleatorio
+        // Hashear la contraseña con el salt
+        String hashedPassword = PasswordHasher.hashPassword(password, salt);
+        // Guardar el usuario en la base de datos (nombre, apellido, email, hashedPassword y salt)
+        db.execSQL("INSERT INTO usuarios (nombre, apellido, email, password, salt) VALUES ('"
+                + nombre + "', '"
+                + apellido + "', '"
+                + email + "', '"
+                + hashedPassword + "', '"
+                + salt + "')");
     }
 
     public void insertarUsuarioInicial() {
@@ -47,13 +63,15 @@ public class AsistenteBD extends SQLiteOpenHelper {
         int count = cursor.getInt(0);
         cursor.close();
         if (count == 0) {
+            String salt = PasswordHasher.generarSalt();
+            String pass = PasswordHasher.hashPassword("admin123",salt);
+
             db.execSQL("INSERT INTO usuarios (nombre, " +
-                                            "apellido, " +
-                                            "email, " +
-                                            "password) VALUES ('admin'," +
-                                                                "'adminApellido'," +
-                                                                "'admin@admin', " +
-                                                                "'admin123')");
+                    "apellido, " +
+                    "email, " +
+                    "password) VALUES ('admin', " +
+                    "'adminApellido', " +
+                    "'admin@admin', '" + pass + "',  + '"+ salt + "'+)");
         }
     }
 
@@ -64,7 +82,8 @@ public class AsistenteBD extends SQLiteOpenHelper {
                 "nombre TEXT UNIQUE NOT NULL," +
                 "apellido TEXT," +
                 "email TEXT UNIQUE NOT NULL," +
-                "password TEXT NOT NULL" +
+                "password TEXT NOT NULL," +
+                "salt TEXT NOT NULL" +
                 ")");
     }
 
