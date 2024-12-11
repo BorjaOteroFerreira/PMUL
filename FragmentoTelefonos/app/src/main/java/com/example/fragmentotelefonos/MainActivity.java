@@ -10,13 +10,13 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.FragmentContainerView;
 
-public class MainActivity extends AppCompatActivity implements onFragmentInteractionListener{
+public class MainActivity extends AppCompatActivity implements onTelefonoListener {
     LinearLayout linearLayout;
     AsistenteBD asistenteBD;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        asistenteBD = new AsistenteBD(this);
+        asistenteBD = asistenteBD.getInstance(this);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {

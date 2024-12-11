@@ -1,5 +1,7 @@
 package com.example.fragmentotelefonos;
 
-public interface onFragmentInteractionListener {
+public interface onTelefonoListener {
     String  obtenerTelefono(int id);
+
+
 }

@@ -11,14 +11,16 @@ import android.widget.TextView;
 
 
 public class FragmentoTelefono extends Fragment  {
-    private onFragmentInteractionListener mListener;
+    private onTelefonoListener mListener;
     TextView textView ;
     int idDispositivo;
+    Telefono telefono ;
     public FragmentoTelefono() {}
-    
-    public void setListener(onFragmentInteractionListener listener, int idDispositivo) {
+
+    public void setListener(onTelefonoListener listener, int idDispositivo) {
         mListener = listener;
         this.idDispositivo = idDispositivo;
+
     }
 
     @Override
@@ -32,10 +34,12 @@ public class FragmentoTelefono extends Fragment  {
         textView = view.findViewById(R.id.textView);
 
         if (mListener != null) {
-            String telefono = mListener.obtenerTelefono(idDispositivo);
+            this.telefono = new Telefono(mListener.obtenerTelefono(idDispositivo));
+            String telefono = this.telefono.getTelefono();
             textView.setText(telefono);
         }
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
