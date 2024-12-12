@@ -16,7 +16,6 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout linearLayout;
     AsistenteBD asistenteBD;
     onTelefonoFragmentListener telefonoListener;
-    onOperadoraListener operadoraListener;
     ArrayList<Telefono> telefonos = new ArrayList<>();
 
 
@@ -25,8 +24,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         asistenteBD = asistenteBD.getInstance(this);
 
-
-
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -34,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
         linearLayout = findViewById(R.id.fragment_container);
         telefonoListener = new onTelefonoFragmentListener() {
             @Override
@@ -45,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         telefonos = asistenteBD.obtenerTelefonos(asistenteBD.getReadableDatabase());
-
         int num_telefonos = telefonos.size();
         Operadora operadora = new Operadora(telefonos);
         for (int i = 0; i < num_telefonos; i++) {
@@ -60,6 +57,4 @@ public class MainActivity extends AppCompatActivity {
             linearLayout.addView(container);
         }
     }
-
-
 }

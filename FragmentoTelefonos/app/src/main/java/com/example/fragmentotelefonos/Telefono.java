@@ -5,6 +5,7 @@ public class Telefono implements onTelefonoAction {
     boolean ocupado = false;
     Operadora operadora;
     String telefonoDestino;
+    String telefonoOrigen;
     onTelefonoListener listener;
 
     public void setListener(onTelefonoListener listener) {
@@ -60,15 +61,20 @@ public class Telefono implements onTelefonoAction {
         if (telefonoDestino != null) {
             operadora.colgar(telefonoDestino);
             telefonoDestino = null;
-            listener.colgarIn();
         }
+        else  if (telefonoOrigen != null) {
+            operadora.colgar(telefonoOrigen);
+            telefonoOrigen = null;
+        }
+        listener.colgarIn();
     }
 
-    public void llamadaEstablecida() {
+    public void llamadaEstablecida(String telefonoOrigen) {
         this.ocupado = true;
         if (listener != null) {
             listener.recibirLlamada(telefonoDestino);
         }
+        this.telefonoOrigen = telefonoOrigen;
     }
 
     public void recibirColgar() {

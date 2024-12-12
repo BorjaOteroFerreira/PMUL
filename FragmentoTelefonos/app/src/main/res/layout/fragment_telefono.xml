@@ -5,16 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".FragmentoTelefono">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="72dp"
@@ -26,7 +23,6 @@
                 app:layout_constraintHorizontal_bias="0.695"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
             <EditText
                 android:id="@+id/etDestino"
                 android:layout_width="189dp"
@@ -38,7 +34,6 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/btnLlamar"
                 app:layout_constraintTop_toTopOf="parent" />
-
             <ImageButton
                 android:id="@+id/btnColgar"
                 android:layout_width="wrap_content"
@@ -48,7 +43,6 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
             <ImageButton
                 android:id="@+id/btnLlamar"
                 android:layout_width="wrap_content"
@@ -58,9 +52,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/btnColgar"
                 tools:layout_editor_absoluteY="341dp"
                 tools:ignore="MissingConstraints" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
-
 </FrameLayout>
 

@@ -17,12 +17,12 @@ public class FragmentoTelefono extends Fragment implements onTelefonoListener {
     private onTelefonoFragmentListener mListener;
     private onTelefonoAction mListenerAction;
     TextView textView ;
-
     Telefono telefono ;
     String numTelefono;
     ImageButton btnLlamar;
     ImageButton btnColgar;
     EditText etDestino;
+
     public FragmentoTelefono() {}
 
     public void setListener(onTelefonoFragmentListener listener, String numTelefono) {
@@ -48,7 +48,6 @@ public class FragmentoTelefono extends Fragment implements onTelefonoListener {
         btnColgar.setOnClickListener(v -> {
             telefono.colgar();
         });
-
         if (mListener != null) {
             this.telefono = mListener.obtenerTelefono(numTelefono);
             String telefono = this.telefono.getTelefono();

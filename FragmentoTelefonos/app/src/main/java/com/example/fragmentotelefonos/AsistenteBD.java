@@ -19,7 +19,7 @@ public class  AsistenteBD extends SQLiteOpenHelper {
 
     public static synchronized AsistenteBD getInstance(Context context) {
         if (instance == null) {
-            instance = new AsistenteBD(context.getApplicationContext());
+            instance = new AsistenteBD(context);
         }
         return instance;
     }
@@ -52,17 +52,13 @@ public class  AsistenteBD extends SQLiteOpenHelper {
     public ArrayList<Telefono> obtenerTelefonos(SQLiteDatabase db) {
         ArrayList<Telefono> listaTelefonos = new ArrayList<>();
         Cursor cursor = db.rawQuery("SELECT nombre, telefono FROM telefonos", null);
-
         if (cursor != null && cursor.moveToFirst()) {
             do {
                 String telefono = cursor.getString(cursor.getColumnIndexOrThrow("telefono"));
-
-                // Agrega el objeto Telefono a la lista
                 listaTelefonos.add(new Telefono(telefono));
             } while (cursor.moveToNext());
-            cursor.close(); // Siempre cierra el cursor después de usarlo
+            cursor.close();
         }
-
         return listaTelefonos;
 
     }

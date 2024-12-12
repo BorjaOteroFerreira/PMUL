@@ -13,20 +13,20 @@ public class Operadora {
         }
         return false;
     }
-
     public Operadora(ArrayList<Telefono> telefonos) {
         this.telefonos = telefonos;
     }
 
     public void llamar(Telefono telefonoOrigen , String telDestino){
         Telefono telefonoDestino = new Telefono(telDestino);
-        int idx = telefonos.indexOf(telefonoDestino);
-        telefonoDestino = telefonos.get(idx);
+
         if (comprobarTelefono(telefonoDestino)) {
+            int idx = telefonos.indexOf(telefonoDestino);
+            telefonoDestino = telefonos.get(idx);
             if(!telefonoDestino.isOcupado()) {
                 System.out.println(telefonoOrigen + " Llamando a " + telefonoDestino);
-                telefonoDestino.llamadaEstablecida();
-                telefonoOrigen.llamadaEstablecida();
+                telefonoDestino.llamadaEstablecida(telefonoOrigen.getTelefono());
+                telefonoOrigen.llamadaEstablecida(null);
                 telefonoOrigen.setOcupado();
                 telefonoDestino.setOcupado();
             }
