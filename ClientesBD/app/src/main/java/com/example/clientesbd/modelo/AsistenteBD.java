@@ -87,7 +87,7 @@ public class AsistenteBD extends SQLiteOpenHelper {
         String sql = "SELECT id, nombre, apellido, provincia, vip, longitud, latitud FROM clientes";
         Cursor cursor = db.rawQuery(sql, null);
         ArrayList<Cliente> clientes = new ArrayList<>();
-        ArrayList<Integer> idProvincias = new ArrayList<>();
+        ArrayList<Integer> idProvincias = new ArrayList<>(); 
         if(cursor.moveToNext()){
          do{
              int id = cursor.getInt(0);

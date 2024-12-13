@@ -11,28 +11,24 @@ public class Ajustes {
     private final String CLAVE_CASADO = "casado";
     private String nombre;
     private int edad;
-    private boolean casado = false ;
+    private boolean casado = false;
 
     private Ajustes(Context c) {
             this.sp = c.getSharedPreferences("sp.xml", Context.MODE_PRIVATE);
             cargar();
     }
-
     public static Ajustes getInstance(Context c){
         if(instancia == null ){
             instancia = new Ajustes(c);
         }
         return instancia;
     }
-
     public String getNombre() {
         return !nombre.isEmpty() ? nombre : "amig@";
     }
-
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
     public int getEdad() {
         return edad;
     }
@@ -62,5 +58,4 @@ public class Ajustes {
         edad = sp.getInt("edad", 0);
         casado = sp.getBoolean("casado", false);
     }
-
 }

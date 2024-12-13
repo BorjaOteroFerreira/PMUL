@@ -19,7 +19,6 @@ public class Operadora {
 
     public void llamar(Telefono telefonoOrigen , String telDestino){
         Telefono telefonoDestino = new Telefono(telDestino);
-
         if (comprobarTelefono(telefonoDestino)) {
             int idx = telefonos.indexOf(telefonoDestino);
             telefonoDestino = telefonos.get(idx);

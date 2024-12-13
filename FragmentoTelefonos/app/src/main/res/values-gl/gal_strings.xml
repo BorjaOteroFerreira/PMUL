@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="app_name">Fragmento Telefonos</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="numero_destino">numero sainte</string>
+    <string name="campo_vacio" >Campo baleiro</string>
+
+</resources>

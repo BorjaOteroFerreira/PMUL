@@ -1,15 +1,20 @@
 package com.example.fragmentotelefonos;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.google.android.material.textfield.TextInputLayout;
 
 
 public class FragmentoTelefono extends Fragment implements onTelefonoListener {
@@ -22,6 +27,7 @@ public class FragmentoTelefono extends Fragment implements onTelefonoListener {
     ImageButton btnLlamar;
     ImageButton btnColgar;
     EditText etDestino;
+    TextInputLayout textInputLayout ;
 
     public FragmentoTelefono() {}
 
@@ -42,12 +48,18 @@ public class FragmentoTelefono extends Fragment implements onTelefonoListener {
         btnLlamar = view.findViewById(R.id.btnLlamar);
         btnColgar = view.findViewById(R.id.btnColgar);
         etDestino = view.findViewById(R.id.etDestino);
+        textInputLayout = view.findViewById(R.id.inputLayout);
+        MyTextWatcher tw = new MyTextWatcher(textInputLayout);
+        etDestino.addTextChangedListener(tw);
         btnLlamar.setOnClickListener(v -> {
-            telefono.llamar(etDestino.getText().toString());
-        });
-        btnColgar.setOnClickListener(v -> {
-            telefono.colgar();
-        });
+                                            if(etDestino.getText().toString().isEmpty()){
+                                                textInputLayout.setError(getString(R.string.campo_vacio));
+                                                return;
+                                            }
+                                            telefono.llamar(etDestino.getText().toString());
+                                            });
+        btnColgar.setOnClickListener(v -> telefono.colgar());
+
         if (mListener != null) {
             this.telefono = mListener.obtenerTelefono(numTelefono);
             String telefono = this.telefono.getTelefono();
@@ -60,7 +72,6 @@ public class FragmentoTelefono extends Fragment implements onTelefonoListener {
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_telefono, container, false);
     }
-
 
     @Override
     public void recibirLlamada(String telefonoOrigen) {

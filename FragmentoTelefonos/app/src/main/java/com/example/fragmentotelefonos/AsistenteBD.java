@@ -4,13 +4,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
 import java.util.ArrayList;
 
 public class  AsistenteBD extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "telefonos.db";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 1;
     private static AsistenteBD instance;
 
     private AsistenteBD(Context context) {
@@ -23,11 +22,22 @@ public class  AsistenteBD extends SQLiteOpenHelper {
         }
         return instance;
     }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE telefonos (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT, telefono TEXT)");
         db.execSQL("INSERT INTO telefonos (nombre, telefono) VALUES ('Juan', '11')");
         db.execSQL("INSERT INTO telefonos (nombre, telefono) VALUES ('Pedro', '22')");
+        db.execSQL("INSERT INTO telefonos (nombre, telefono) VALUES ('Mariano', '33')");
+        db.execSQL("INSERT INTO telefonos (nombre, telefono) VALUES ('Maria', '44')");
+        db.execSQL("INSERT INTO telefonos (nombre, telefono) VALUES ('Pepe', '55')");
+        db.execSQL("INSERT INTO telefonos (nombre, telefono) VALUES ('Pepa', '66')");
+        db.execSQL("INSERT INTO telefonos (nombre, telefono) VALUES ('Juancho', '77')");
+        db.execSQL("INSERT INTO telefonos (nombre, telefono) VALUES ('Pedrosa', '88')");
+        db.execSQL("INSERT INTO telefonos (nombre, telefono) VALUES ('Juanito', '99')");
+        db.execSQL("INSERT INTO telefonos (nombre, telefono) VALUES ('Pedrito', '1010')");
+        db.execSQL("INSERT INTO telefonos (nombre, telefono) VALUES ('Juanito', '1111')");
+        db.execSQL("INSERT INTO telefonos (nombre, telefono) VALUES ('Pedrito', '1212')");
     }
 
     @Override
@@ -36,17 +46,7 @@ public class  AsistenteBD extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE telefonos (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT, telefono TEXT)");
         db.execSQL("INSERT INTO telefonos (nombre, telefono) VALUES ('Juan', '11')");
         db.execSQL("INSERT INTO telefonos (nombre, telefono) VALUES ('Pedro', '22')");
-    }
 
-    public String obtenerTelefono(int id) {
-        SQLiteDatabase db = getReadableDatabase();
-        String telefono = "";
-        Cursor c = db.rawQuery("SELECT telefono FROM telefonos WHERE id = '" + id + "'", null);
-        if (c.moveToFirst()) {
-            telefono = c.getString(0);
-        }
-        c.close();
-        return telefono;
     }
 
     public ArrayList<Telefono> obtenerTelefonos(SQLiteDatabase db) {
@@ -60,7 +60,6 @@ public class  AsistenteBD extends SQLiteOpenHelper {
             cursor.close();
         }
         return listaTelefonos;
-
     }
 }
 

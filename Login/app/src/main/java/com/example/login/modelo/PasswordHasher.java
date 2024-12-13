@@ -14,7 +14,7 @@ public class PasswordHasher {
         SecureRandom random = new SecureRandom();
         byte[] salt = new byte[16];  // Genera un salt de 16 bytes
         random.nextBytes(salt);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             return Base64.getEncoder().encodeToString(salt);  // Devuelve el salt codificado en Base64
         }
         return null;
@@ -25,7 +25,6 @@ public class PasswordHasher {
         try {
             // Crear instancia de MessageDigest para SHA-256
             MessageDigest md = MessageDigest.getInstance("SHA-256");
-
             // Combinar la contraseña con el salt
             String passwordConSalt = password + salt;
 

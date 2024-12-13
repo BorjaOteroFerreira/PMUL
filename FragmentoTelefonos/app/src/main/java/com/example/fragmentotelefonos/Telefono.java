@@ -62,7 +62,7 @@ public class Telefono implements onTelefonoAction {
             operadora.colgar(telefonoDestino);
             telefonoDestino = null;
         }
-        else  if (telefonoOrigen != null) {
+        else if (telefonoOrigen != null) {
             operadora.colgar(telefonoOrigen);
             telefonoOrigen = null;
         }

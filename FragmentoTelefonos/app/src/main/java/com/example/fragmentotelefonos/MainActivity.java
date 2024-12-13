@@ -12,10 +12,9 @@ import androidx.fragment.app.FragmentContainerView;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements onTelefonoFragmentListener {
     LinearLayout linearLayout;
     AsistenteBD asistenteBD;
-    onTelefonoFragmentListener telefonoListener;
     ArrayList<Telefono> telefonos = new ArrayList<>();
 
 
@@ -33,15 +32,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         linearLayout = findViewById(R.id.fragment_container);
-        telefonoListener = new onTelefonoFragmentListener() {
-            @Override
-            public Telefono obtenerTelefono(String numTelefono) {
-                Telefono tel = new Telefono(numTelefono);
-                int idx = telefonos.indexOf(tel);
-                tel = telefonos.get(idx);
-                return tel;
-            }
-        };
+
         telefonos = asistenteBD.obtenerTelefonos(asistenteBD.getReadableDatabase());
         int num_telefonos = telefonos.size();
         Operadora operadora = new Operadora(telefonos);
@@ -52,9 +43,18 @@ public class MainActivity extends AppCompatActivity {
             Telefono tel = telefonos.get(i);
             tel.setOperadora(operadora);
             tel.setListener(fragment);
-            fragment.setListener(telefonoListener , tel.getTelefono());
+            fragment.setListener(this , tel.getTelefono());
             getSupportFragmentManager().beginTransaction().add(container.getId(), fragment).commit();
             linearLayout.addView(container);
         }
+    }
+
+    @Override
+    public Telefono obtenerTelefono(String numTelefono) {
+        Telefono tel = new Telefono(numTelefono);
+        int idx = telefonos.indexOf(tel);
+        tel = telefonos.get(idx);
+        return tel;
+
     }
 }

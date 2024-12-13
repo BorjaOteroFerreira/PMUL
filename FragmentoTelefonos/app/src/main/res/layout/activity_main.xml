@@ -5,11 +5,20 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
+    android:background="@color/cardview_dark_background"
     tools:context=".MainActivity">
-    <LinearLayout
-        android:id="@+id/fragment_container"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-    </LinearLayout>
+        android:layout_height="wrap_content"
+        app:layout_constraintBaseline_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        >
+        <LinearLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+        </LinearLayout>
+     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
