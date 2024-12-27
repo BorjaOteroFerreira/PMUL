@@ -7,41 +7,34 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
-    <!-- Título -->
-
-    <!-- Botón Backend 1 -->
-
-    <TextView
-        android:id="@+id/titleText"
-        android:layout_width="275dp"
+    <EditText
+        android:id="@+id/etUrl"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        android:text="Selecciona el Backend"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        android:textStyle="bold"
-
+        android:layout_marginTop="16dp"
+        android:hint="URL servidor"
+        android:padding="12dp"
+        app:layout_constraintWidth_percent="0.8"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.461"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/btnBackend1"
-        android:layout_width="275dp"
-        android:layout_height="286dp"
-        android:layout_margin="16dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
         app:cardCornerRadius="16dp"
         app:cardElevation="8dp"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/titleText"
+        app:layout_constraintTop_toBottomOf="@id/etUrl"
         app:layout_constraintWidth_percent="0.8">
 
         <LinearLayout
-            android:layout_width="276dp"
-            android:layout_height="290dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -49,7 +42,6 @@
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:src="@drawable/lmstudio" />
-
 
             <TextView
                 android:layout_width="wrap_content"
@@ -62,12 +54,11 @@
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
-    <!-- Botón Backend 2 -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/btnBackend2"
-        android:layout_width="283dp"
-        android:layout_height="285dp"
-        android:layout_margin="16dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
         app:cardCornerRadius="16dp"
         app:cardElevation="8dp"
         app:layout_constraintDimensionRatio="1:1"
@@ -77,11 +68,10 @@
         app:layout_constraintWidth_percent="0.8">
 
         <LinearLayout
-            android:layout_width="283dp"
-            android:layout_height="283dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="vertical">
-
 
             <ImageView
                 android:layout_width="64dp"
@@ -98,17 +88,5 @@
 
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
-
-    <EditText
-        android:id="@+id/etUrl"
-        android:layout_width="281dp"
-        android:layout_height="42dp"
-        android:hint="URL servidor"
-        app:layout_constraintBottom_toTopOf="@+id/titleText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.469"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

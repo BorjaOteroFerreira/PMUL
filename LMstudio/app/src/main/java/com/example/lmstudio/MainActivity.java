@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.lmstudio.ChatActivity;
@@ -24,15 +25,24 @@ public class MainActivity extends AppCompatActivity {
         btnBackend1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                navigateToChatActivity("http://" + urlHost.getText().toString() +":1234/");
+                if (!urlHost.getText().toString().isEmpty()) {
+                    navigateToChatActivity("http://" + urlHost.getText().toString() + ":1234/");
+                } else{
+                    Toast.makeText(MainActivity.this, "Introduce una URL valida", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         btnBackend2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateToChatActivity("http://" + urlHost.getText().toString() +":11434/");
+                if (!urlHost.getText().toString().isEmpty()) {
+                    navigateToChatActivity("http://" + urlHost.getText().toString() +":11434/");
+                }
+                else{
+                    Toast.makeText(MainActivity.this, "Introduce una URL valida", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
     }
