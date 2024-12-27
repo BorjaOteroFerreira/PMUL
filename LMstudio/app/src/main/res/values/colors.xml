@@ -1,0 +1,9 @@
+<resources>
+    <color name="primaryColor">#0078D4</color> <!-- Azul similar al de ChatGPT -->
+    <color name="primaryVariant">#005A9C</color> <!-- Un azul más oscuro -->
+    <color name="white">#FFFFFF</color>
+    <color name="backgroundDark">#121212</color> <!-- Fondo oscuro -->
+    <color name="surfaceDark">#1E1E1E</color> <!-- Fondo de superficies -->
+    <color name="errorColor">#F44336</color> <!-- Color de error -->
+    <color name="windowBackground">#121212</color> <!-- Fondo de ventana -->
+</resources>

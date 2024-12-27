@@ -59,7 +59,6 @@ public class FragmentoTelefono extends Fragment implements onTelefonoListener {
                                             telefono.llamar(etDestino.getText().toString());
                                             });
         btnColgar.setOnClickListener(v -> telefono.colgar());
-
         if (mListener != null) {
             this.telefono = mListener.obtenerTelefono(numTelefono);
             String telefono = this.telefono.getTelefono();
@@ -84,4 +83,6 @@ public class FragmentoTelefono extends Fragment implements onTelefonoListener {
         etDestino.setEnabled(true);
         btnLlamar.setEnabled(true);
     }
+
+
 }

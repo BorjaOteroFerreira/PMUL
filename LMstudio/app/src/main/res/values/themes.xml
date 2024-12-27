@@ -1,0 +1,18 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme -->
+    <style name="Base.Theme.LMstudio" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSurface">@color/surfaceDark</item>
+        <item name="colorOnSurface">@color/white</item>
+        <item name="colorError">@color/errorColor</item>
+        <item name="colorOnError">@color/white</item>
+        <item name="colorPrimaryVariant">@color/primaryVariant</item>
+        <item name="android:windowBackground">@color/windowBackground</item>
+        <item name="android:statusBarColor">@android:color/black</item>
+    </style>
+
+    <style name="Theme.LMstudio" parent="Base.Theme.LMstudio" />
+
+</resources>

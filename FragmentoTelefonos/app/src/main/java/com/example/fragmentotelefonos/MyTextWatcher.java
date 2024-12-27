@@ -9,7 +9,6 @@ public class MyTextWatcher implements TextWatcher {
         TextInputLayout textInputLayout;
         public MyTextWatcher(TextInputLayout textInputLayout) {
             this.textInputLayout = textInputLayout;
-
         }
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

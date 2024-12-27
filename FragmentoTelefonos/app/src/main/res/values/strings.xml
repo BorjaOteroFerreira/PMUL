@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">Fragmento Telefonos</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="numero_destino">numero destino</string>
     <string name="campo_vacio" >Campo vacio</string>
-
 </resources>
