@@ -51,12 +51,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         // Alinear el label del rol según el rol del mensaje
         ConstraintLayout.LayoutParams roleLayoutParams = (ConstraintLayout.LayoutParams) holder.roleText.getLayoutParams();
         if (message.getRole().equals("user")) {
-            roleLayoutParams.startToStart = ConstraintLayout.LayoutParams.PARENT_ID;
-            roleLayoutParams.endToEnd = ConstraintLayout.LayoutParams.UNSET;
-            holder.roleText.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
-        } else {
+
             roleLayoutParams.startToStart = ConstraintLayout.LayoutParams.UNSET;
             roleLayoutParams.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID;
+            holder.roleText.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
+        } else {
+            roleLayoutParams.startToStart = ConstraintLayout.LayoutParams.PARENT_ID;
+            roleLayoutParams.endToEnd = ConstraintLayout.LayoutParams.UNSET;
             holder.roleText.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
         }
         holder.roleText.setLayoutParams(roleLayoutParams);
@@ -64,12 +65,14 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         // Alinear el mensaje según el rol
         ConstraintLayout.LayoutParams messageLayoutParams = (ConstraintLayout.LayoutParams) holder.messageText.getLayoutParams();
         if (message.getRole().equals("user")) {
-            messageLayoutParams.startToStart = ConstraintLayout.LayoutParams.PARENT_ID;
-            messageLayoutParams.endToEnd = ConstraintLayout.LayoutParams.UNSET;
-            holder.messageText.setBackgroundResource(R.drawable.bubble_user);
-        } else {
+
             messageLayoutParams.startToStart = ConstraintLayout.LayoutParams.UNSET;
             messageLayoutParams.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID;
+            holder.messageText.setBackgroundResource(R.drawable.bubble_user);
+            holder.messageText.setTextColor(holder.messageText.getResources().getColor(R.color.surfaceDark));
+        } else {
+            messageLayoutParams.startToStart = ConstraintLayout.LayoutParams.PARENT_ID;
+            messageLayoutParams.endToEnd = ConstraintLayout.LayoutParams.UNSET;
             holder.messageText.setTextColor(holder.messageText.getResources().getColor(R.color.white));
 
             holder.messageText.setBackgroundResource(R.drawable.bubble_assistant);
