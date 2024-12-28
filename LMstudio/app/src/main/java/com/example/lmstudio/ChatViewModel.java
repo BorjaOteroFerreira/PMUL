@@ -17,11 +17,9 @@ public class ChatViewModel extends ViewModel {
     private final MutableLiveData<List<ChatMessage>> messages = new MutableLiveData<>(new ArrayList<>());
     private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
     private ApiService apiService;
-    private String host = "http://192.168.1.47:1234/";
-
+    private String host;
 
     public ChatViewModel() {
-        initializeRetrofit();
     }
 
     public void initialize(String backendUrl) {
@@ -53,6 +51,8 @@ public class ChatViewModel extends ViewModel {
         return isLoading;
     }
 
+
+
     public void sendMessage(String userMessage) {
         isLoading.setValue(true);
         List<ChatMessage> currentMessages = new ArrayList<>(messages.getValue());
@@ -67,7 +67,6 @@ public class ChatViewModel extends ViewModel {
             public void onResponse(Call<ChatResponse> call, Response<ChatResponse> response) {
                 if (response.isSuccessful() && response.body() != null && !response.body().getChoices().isEmpty()) {
                     ChatMessage botMessage = response.body().getChoices().get(0).getMessage();
-
                     List<ChatMessage> updatedMessages = new ArrayList<>(messages.getValue());
                     updatedMessages.add(botMessage);
                     messages.postValue(updatedMessages);
@@ -89,9 +88,5 @@ public class ChatViewModel extends ViewModel {
         List<ChatMessage> currentMessages = new ArrayList<>(messages.getValue());
         currentMessages.add(new ChatMessage("assistant", errorMessage));
         messages.postValue(currentMessages);
-    }
-
-    public void setHost(String host){
-        this.host= host;
     }
 }

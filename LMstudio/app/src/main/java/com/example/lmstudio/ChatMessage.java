@@ -1,9 +1,8 @@
 package com.example.lmstudio;
 
-// ChatMessage.java
 public class ChatMessage {
-    private String role;
-    private String content;
+    private final String role;
+    private final String content;
 
     public ChatMessage(String role, String content) {
         this.role = role;

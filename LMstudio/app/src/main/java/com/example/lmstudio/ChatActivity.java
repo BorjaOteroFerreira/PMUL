@@ -1,10 +1,10 @@
-// ChatActivity.java
 package com.example.lmstudio;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,11 +12,13 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.json.JSONArray;
+
 public class ChatActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private EditText messageInput;
-    private Button sendButton;
+    private ImageButton sendButton;
     private ProgressBar progressBar;
     private MessageAdapter messageAdapter;
     private ChatViewModel viewModel;
@@ -25,44 +27,44 @@ public class ChatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat_activity);
-
-        // Initialize views
+        // Obtiene la URL del backend desde el Intent
+        String backendUrl = getIntent().getStringExtra("BACKEND_URL");
+        // Inicializa las vistas
         recyclerView = findViewById(R.id.recyclerView);
         messageInput = findViewById(R.id.messageInput);
         sendButton = findViewById(R.id.sendButton);
         progressBar = findViewById(R.id.progressBar);
-
-        // Setup RecyclerView
+        // Configura el RecyclerView
         messageAdapter = new MessageAdapter(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(messageAdapter);
-
-        // Initialize ViewModel
+        // Inicializa el ViewModel
         viewModel = new ViewModelProvider(this).get(ChatViewModel.class);
-        String backendUrl = getIntent().getStringExtra("BACKEND_URL");
-
         viewModel.initialize(backendUrl);
-
-        // Observe messages
+        // Observa cambios en los mensajes
         viewModel.getMessages().observe(this, messages -> {
             messageAdapter.setMessages(messages);
             recyclerView.smoothScrollToPosition(messageAdapter.getItemCount());
         });
 
-        // Observe loading state
+        // Observa cambios en el estado de carga
         viewModel.getIsLoading().observe(this, isLoading -> {
             progressBar.setVisibility(isLoading ? View.VISIBLE : View.GONE);
             sendButton.setEnabled(!isLoading);
             messageInput.setEnabled(!isLoading);
         });
 
-        // Setup send button
+        // Configura el botón de enviar
         sendButton.setOnClickListener(v -> {
             String message = messageInput.getText().toString().trim();
             if (!message.isEmpty()) {
+                JSONArray previousMessages = new JSONArray();
+                for (ChatMessage chatMessage : viewModel.getMessages().getValue()) {
+                    previousMessages.put(new JSONArray().put(chatMessage.getContent()).put(null));
+                }
                 viewModel.sendMessage(message);
-                messageInput.setText("");
             }
+            messageInput.setText("");
         });
     }
 }

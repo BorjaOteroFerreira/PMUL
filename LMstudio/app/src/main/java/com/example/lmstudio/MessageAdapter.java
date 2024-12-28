@@ -70,6 +70,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         } else {
             messageLayoutParams.startToStart = ConstraintLayout.LayoutParams.UNSET;
             messageLayoutParams.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID;
+            holder.messageText.setTextColor(holder.messageText.getResources().getColor(R.color.white));
+
             holder.messageText.setBackgroundResource(R.drawable.bubble_assistant);
         }
 
