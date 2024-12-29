@@ -44,6 +44,7 @@ public class ChatActivity extends AppCompatActivity {
         // Observa cambios en los mensajes
         viewModel.getMessages().observe(this, messages -> {
             messageAdapter.setMessages(messages);
+
             recyclerView.smoothScrollToPosition(messageAdapter.getItemCount());
         });
 

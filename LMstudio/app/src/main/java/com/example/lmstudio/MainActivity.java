@@ -39,8 +39,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Introduce una URL válida", Toast.LENGTH_SHORT).show();
             }
         });
-
-
     }
 
     private boolean isValidUrl(String url) {
