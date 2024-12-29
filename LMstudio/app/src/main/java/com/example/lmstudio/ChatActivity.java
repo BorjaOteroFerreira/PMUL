@@ -44,7 +44,6 @@ public class ChatActivity extends AppCompatActivity {
         // Observa cambios en los mensajes
         viewModel.getMessages().observe(this, messages -> {
             messageAdapter.setMessages(messages);
-
             recyclerView.smoothScrollToPosition(messageAdapter.getItemCount());
         });
 
@@ -55,17 +54,21 @@ public class ChatActivity extends AppCompatActivity {
             messageInput.setEnabled(!isLoading);
         });
 
-        // Configura el botón de enviar
         sendButton.setOnClickListener(v -> {
             String message = messageInput.getText().toString().trim();
             if (!message.isEmpty()) {
                 JSONArray previousMessages = new JSONArray();
                 for (ChatMessage chatMessage : viewModel.getMessages().getValue()) {
-                    previousMessages.put(new JSONArray().put(chatMessage.getContent()).put(null));
+                    // Usar el rol del mensaje en lugar
+                    previousMessages.put(new JSONArray()
+                            .put(chatMessage.getRole())
+                            .put(chatMessage.getContent())
+                    );
                 }
                 viewModel.sendMessage(message);
             }
             messageInput.setText("");
         });
+
     }
 }

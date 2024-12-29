@@ -1,4 +1,3 @@
-// ChatViewModel.java
 package com.example.lmstudio;
 
 import android.util.Log;
@@ -16,14 +15,12 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ChatViewModel extends ViewModel {
+
     private final MutableLiveData<List<ChatMessage>> messages = new MutableLiveData<>(new ArrayList<>());
     private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
     private final MutableLiveData<String> completionTokensText = new MutableLiveData<>("");
     private ApiService apiService;
     private String host;
-
-    public ChatViewModel() {
-    }
 
     public void initialize(String backendUrl) {
         this.host = backendUrl;
@@ -59,58 +56,33 @@ public class ChatViewModel extends ViewModel {
     }
 
     public void sendMessage(String userMessage) {
+        if (userMessage == null || userMessage.trim().isEmpty()) {
+            addErrorMessage("El mensaje del usuario está vacío.");
+            return;
+        }
+
         isLoading.setValue(true);
+        appendUserMessage(userMessage);
+        sendRequestToApi(new ChatRequest(new ArrayList<>(messages.getValue())));
+    }
+
+    private void appendUserMessage(String userMessage) {
         List<ChatMessage> currentMessages = new ArrayList<>(messages.getValue());
-        // El mensaje del usuario no tiene tokens de completion
         currentMessages.add(new ChatMessage("user", userMessage, ""));
         messages.setValue(currentMessages);
+    }
 
-        ChatRequest request = new ChatRequest(currentMessages);
+    private void sendRequestToApi(ChatRequest request) {
         apiService.sendMessage(request).enqueue(new Callback<ChatResponse>() {
             @Override
             public void onResponse(Call<ChatResponse> call, Response<ChatResponse> response) {
-                try {
-                    if (response.isSuccessful()) {
-                        ChatResponse chatResponse = response.body();
-                        if (chatResponse != null) {
-                            List<ChatResponse.Choice> choices = chatResponse.getChoices();
-                            if (choices != null && !choices.isEmpty()) {
-                                ChatMessage botMessage = choices.get(0).getMessage();
-                                if (botMessage != null) {
-                                    String completionTokens = "";
-                                    if (chatResponse.getUsage() != null) {
-                                        completionTokens = String.format("Tokens: %s",
-                                                chatResponse.getUsage().getCompletionTokens());
-                                    }
-
-                                    // Crear el mensaje del bot con los tokens
-                                    ChatMessage messageWithTokens = new ChatMessage(
-                                            botMessage.getRole(),
-                                            botMessage.getContent(),
-                                            completionTokens
-                                    );
-
-                                    List<ChatMessage> updatedMessages = new ArrayList<>(messages.getValue());
-                                    updatedMessages.add(messageWithTokens);
-                                    messages.postValue(updatedMessages);
-                                } else {
-                                    handleError("Mensaje del bot es nulo");
-                                }
-                            } else {
-                                handleError("No hay choices disponibles en la respuesta");
-                            }
-                        } else {
-                            handleError("Respuesta del servidor es nula");
-                        }
-                    } else {
-                        handleError("Error en la respuesta del servidor: " +
-                                response.code() + " - " + response.message());
-                    }
-                } catch (Exception e) {
-                    handleError("Error procesando la respuesta: " + e.getMessage());
-                } finally {
-                    isLoading.postValue(false);
+                if (response.isSuccessful() && response.body() != null) {
+                    handleSuccessfulResponse(response.body());
+                } else {
+                    handleError("Error en la respuesta del servidor: " +
+                            response.code() + " - " + response.message());
                 }
+                isLoading.postValue(false);
             }
 
             @Override
@@ -120,7 +92,48 @@ public class ChatViewModel extends ViewModel {
             }
         });
     }
+
+    private void handleSuccessfulResponse(ChatResponse chatResponse) {
+        ChatMessage botMessage = extractBotMessage(chatResponse);
+        if (botMessage != null) {
+            appendBotMessage(botMessage, generateCompletionTokensText(chatResponse));
+        } else {
+            handleError("Mensaje del bot es nulo.");
+        }
+    }
+
+    private ChatMessage extractBotMessage(ChatResponse chatResponse) {
+        List<ChatResponse.Choice> choices = chatResponse.getChoices();
+        if (choices != null && !choices.isEmpty()) {
+            return choices.get(0).getMessage();
+        }
+        handleError("No hay choices disponibles en la respuesta.");
+        return null;
+    }
+
+    private String generateCompletionTokensText(ChatResponse chatResponse) {
+        if (chatResponse.getUsage() != null) {
+            return "Respuesta: " + chatResponse.getUsage().getCompletionTokens() +
+                    " tokens - Total: " + chatResponse.getUsage().getTotalTokens() + " tokens";
+        }
+        return "Tokens - Información no disponible";
+    }
+
+    private void appendBotMessage(ChatMessage botMessage, String completionTokens) {
+        List<ChatMessage> updatedMessages = new ArrayList<>(messages.getValue());
+        updatedMessages.add(new ChatMessage(
+                botMessage.getRole(),
+                botMessage.getContent(),
+                completionTokens
+        ));
+        messages.postValue(updatedMessages);
+    }
+
     private void handleError(String errorMessage) {
+        addErrorMessage(errorMessage);
+    }
+
+    private void addErrorMessage(String errorMessage) {
         List<ChatMessage> currentMessages = new ArrayList<>(messages.getValue());
         currentMessages.add(new ChatMessage("assistant", errorMessage, "0"));
         messages.postValue(currentMessages);

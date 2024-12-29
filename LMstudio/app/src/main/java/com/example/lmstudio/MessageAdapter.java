@@ -38,10 +38,10 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         ChatMessage message = messages.get(position);
         holder.bind(message);
         markdwon.setMarkdown(holder.messageText, message.getContent());
-        alingItems(holder, message, position);
+        drawItems(holder, message, position);
     }
 
-    private void alingItems(MessageViewHolder holder, ChatMessage message, int position){
+    private void drawItems(MessageViewHolder holder, ChatMessage message, int position){
         holder.roleText.setText(message.getRole());
         ConstraintLayout.LayoutParams roleLayoutParams = (ConstraintLayout.LayoutParams) holder.roleText.getLayoutParams();
         ConstraintLayout.LayoutParams messageLayoutParams = (ConstraintLayout.LayoutParams) holder.messageText.getLayoutParams();
