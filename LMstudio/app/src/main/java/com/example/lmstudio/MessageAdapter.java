@@ -68,7 +68,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             holder.messageText.setTextColor(holder.messageText.getResources().getColor(R.color.white));
             holder.messageText.setBackgroundResource(R.drawable.bubble_assistant);
             holder.completionTokensText.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
-
         }
         holder.roleText.setLayoutParams(roleLayoutParams);
         holder.messageText.setLayoutParams(messageLayoutParams);
