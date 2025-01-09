@@ -58,8 +58,8 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
         }
+        return true;
         return super.onOptionsItemSelected(item);
     }
 
@@ -76,6 +76,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void EstamosDeVuelta(int resultCode) {
-        if(resultCode==RESULT_OK){ mostrarClientes(); };
+        if(resultCode==RESULT_OK){
+            mostrarClientes();
+
+        };
     }
 }
