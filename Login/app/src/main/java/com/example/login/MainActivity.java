@@ -37,17 +37,19 @@ public class MainActivity extends AppCompatActivity {
 
     private void login() {
         String nombre = etNombre.getText().toString();
-
+        String password = null;
         AsistenteBD asistenteBD = AsistenteBD.getInstance(this);
         ArrayList<String> usuario = asistenteBD.getUsuarioYPass(nombre);
-        String salt = usuario.get(2);
-        String password = PasswordHasher.hashPassword(etPassword.getText().toString(),salt);
-        if (usuario.isEmpty()) {
+        if (!usuario.isEmpty()) {
+            String salt = usuario.get(2);
+            password = PasswordHasher.hashPassword(etPassword.getText().toString(), salt);
+            if (password.equals(usuario.get(1)) && nombre.equals(usuario.get(0))) {
+                Snackbar.make(findViewById(R.id.main), "Login correcto", Snackbar.LENGTH_LONG).show();
+            }
+        }
+       else {
             Snackbar.make(findViewById(R.id.main),
                                         "Login Incorrecto", Snackbar.LENGTH_LONG).show();
-        } else if (password.equals(usuario.get(1)) && nombre.equals(usuario.get(0))) {
-                Snackbar.make(findViewById(R.id.main),
-                                        "Login correcto", Snackbar.LENGTH_LONG).show();
-            }
+        }
         }
 }
