@@ -9,7 +9,7 @@ buildscript {
     maven { url 'https://s01.oss.sonatype.org/content/repositories/snapshots/' }
   }
   dependencies {
-    classpath 'com.android.tools.build:gradle:8.6.0'
+    classpath "com.android.tools.build:gradle:8.5.2"
 
   }
 }
@@ -29,7 +29,7 @@ allprojects {
 
 configure(subprojects - project(':android')) {
   apply plugin: 'java-library'
-  sourceCompatibility = 17
+  sourceCompatibility = 23
 
   // From https://lyze.dev/2021/04/29/libGDX-Internal-Assets-List/
   // The article can be helpful when using assets.txt in your project.
@@ -57,8 +57,8 @@ configure(subprojects - project(':android')) {
 }
 
 subprojects {
-  version = '$projectVersion'
-  ext.appName = 'Corredor'
+  version = "$projectVersion"
+  ext.appName = 'Pescador'
   repositories {
     mavenCentral()
     maven { url 'https://s01.oss.sonatype.org' }
@@ -70,4 +70,4 @@ subprojects {
   }
 }
 
-eclipse.project.name = 'Corredor' + '-parent'
+eclipse.project.name = 'Pescador' + '-parent'
