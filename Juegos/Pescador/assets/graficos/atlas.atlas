@@ -1,0 +1,47 @@
+
+atlas.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+pescador
+  rotate: false
+  xy: 1, 99
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+pez_amarillo
+  rotate: false
+  xy: 259, 163
+  size: 288, 192
+  orig: 288, 192
+  offset: 0, 0
+  index: -1
+pez_lila
+  rotate: false
+  xy: 549, 259
+  size: 384, 96
+  orig: 384, 96
+  offset: 0, 0
+  index: -1
+pezAzul
+  rotate: false
+  xy: 1, 1
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
+anzuelo
+  rotate: false
+  xy: 259, 105
+  size: 35, 56
+  orig: 35, 56
+  offset: 0, 0
+  index: -1
+punto
+  rotate: false
+  xy: 549, 252
+  size: 5, 5
+  orig: 5, 5
+  offset: 0, 0
+  index: -1
