@@ -8,23 +8,28 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import io.github.Pescador.Assets;
 
 class PezAnimado extends Pez {
-    Animation animacion;
+    Animation<TextureRegion> animacion;
     float stateTimeCreacion; // para que se animen independientemente
 
-
-    public PezAnimado(Animation animacion) {
+    public PezAnimado(Animation<TextureRegion> animacion) {
         super(Assets.pez);
         this.animacion = animacion;
-        stateTimeCreacion=0;
+        stateTimeCreacion = 0;
     }
+
     @Override
     public void dibuja(SpriteBatch batch, ShapeRenderer sr) {
-        texture=((TextureRegion) animacion.getKeyFrame(stateTimeCreacion,true));
-        super.dibuja(batch,sr);
+        texture = animacion.getKeyFrame(stateTimeCreacion, true);
+        if (texture == null) {
+            System.err.println("Error: TextureRegion is null");
+            return;
+        }
+        super.dibuja(batch, sr);
     }
+
     @Override
     public void actualiza(float delta) {
-        stateTimeCreacion+=delta;
+        stateTimeCreacion += delta;
         super.actualiza(delta);
     }
 }

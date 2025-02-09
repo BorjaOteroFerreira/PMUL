@@ -13,8 +13,8 @@ public class JuegoPescador extends ApplicationAdapter {
     ShapeRenderer sr;
     @Override
     public void create() {
-        sb=new SpriteBatch();
-        sr=new ShapeRenderer();
+        sb = new SpriteBatch();
+        sr = new ShapeRenderer();
         Gdx.input.setInputProcessor(new ProcesadorDeEntrada());
         Assets.cargarRecursos();
         Mundo.reset();

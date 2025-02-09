@@ -21,7 +21,6 @@ public class Mundo {
     public static float TiempoBonificacionPesca1Pez = 6;
     public static float TiempoBonificacionPescaMultiPez = 3;
     private static float TIEMPO_MIN_ENTRE_PECES = 0.3f;
-    private static float TIEMPO_MAX_ENTRE_PECES = 0.6f;
     public static boolean ANZUELO_MULTI_PEZ = true;
     public static float TiempoBonificacionPesca = ANZUELO_MULTI_PEZ
         ? TiempoBonificacionPescaMultiPez
@@ -112,6 +111,7 @@ public class Mundo {
     }
 
     public static float getRandomProximoPez() {
+        float TIEMPO_MAX_ENTRE_PECES = 0.6f;
         return TIEMPO_MIN_ENTRE_PECES
             + random.nextFloat() * (TIEMPO_MAX_ENTRE_PECES - TIEMPO_MIN_ENTRE_PECES);
     }
