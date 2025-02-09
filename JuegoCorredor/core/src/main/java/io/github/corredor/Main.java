@@ -47,13 +47,7 @@ public class Main extends ApplicationAdapter {
         }
 
         // Load second row (next 4 frames)
-        for (int i = 0; i < 4; i++) {
-            // For left-facing frames (original orientation)
-            framesLeft[i + 4] = new TextureRegion(tmp[1][i]);
 
-            // For right-facing frames (flipped)
-            framesRight[i + 4] = new TextureRegion(tmp[1][i]);
-            framesRight[i + 4].flip(true, false);
         }
 
         // Create animations with all 8 frames
@@ -83,7 +77,6 @@ public class Main extends ApplicationAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.begin();
-        // Use appropriate animation based on direction
         TextureRegion currentFrame = facingRight ?
             runAnimationRight.getKeyFrame(stateTime, true) :
             runAnimationLeft.getKeyFrame(stateTime, true);

@@ -1,0 +1,28 @@
+{
+  "metadata": {
+    "query": "zitoxido@gmail.com",
+    "timestamp": "2025-01-26T20:54:58.693Z"
+  },
+  "data": {
+    "visitor": {
+      "hibp": {
+        "found": "10",
+        "leaks": [
+          "000webhost.com (2015-03-01)",
+          "Exploit.In (2016-10-13)",
+          "Kayo.moe Credential Stuffing List (2018-09-11)",
+          "Collection #1 (2019-01-07)",
+          "htcmania.com (2020-01-04)"
+        ]
+      },
+      "google": {
+        "id": "109041666087274853419",
+        "services": {
+          "google_maps": "https://www.google.com/maps/contrib/109041666087274853419",
+          "google_calendar": "https://calendar.google.com/calendar/u/0/embed?src=zitoxido@gmail.com",
+          "google_plus_archive": "https://web.archive.org/web/*/plus.google.com/109041666087274853419*"
+        }
+      }
+    }
+  }
+}
