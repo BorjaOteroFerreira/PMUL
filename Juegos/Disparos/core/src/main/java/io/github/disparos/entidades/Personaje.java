@@ -2,19 +2,33 @@ package io.github.disparos.entidades;
 import com.badlogic.gdx.math.Rectangle;
 
 public class Personaje {
-    private float ancho ;
-    private float alto ;
-    private float x ;
-    private float y ;
-    private float velocidad ;
+    protected float ancho ;
+    public float alto ;
+    public float x ;
+    public float y ;
+    protected float velocidad ;
     protected enum Estado {PARADO, ADELANTE, ATRAS};
-    private Estado estado;
-    private Rectangle hitbox;
+    protected Estado estado;
+    //Hitbox
+    protected Rectangle hitbox;
+
+    public Personaje(float ancho, float alto, float x, float y, Estado estado , float velocidad) {
+        this.ancho = ancho;
+        this.alto = alto;
+        this.x = x;
+        this.y = y;
+        this.estado = estado;
+        this.velocidad = velocidad;
+        hitbox = new Rectangle(x, y, ancho, alto);
+
+    }
+
+
 
     public Personaje() {
-        this.velocidad = 4f;
+        this.velocidad = 40f;
         this.estado = Estado.PARADO;
-        this.hitbox = new Rectangle(x, y, ancho, alto);
+
     }
 
     public Estado getEstado() {
@@ -23,5 +37,7 @@ public class Personaje {
     public void setEstado(Estado estado) {
         this.estado = estado;
     }
+
+
 
 }

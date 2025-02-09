@@ -14,13 +14,8 @@ public class ResourceManager {
     private static final AssetManager assetManager = new AssetManager();
     private static final int numSpritesDisparo = 18;
     private static final int numSpritesEnemigoMuerte = 13;
-    public static BitmapFont fuente;
-    public static TextureAtlas atlasBalaPistola, atlasEnemigo;
-    public static TextureRegion bala;
     public static Texture pistola;
     public static Animation<TextureRegion> disparo, enemigoMuerte;
-    public static Sound captura, finDelJuego;
-    public static Music musicaDeFondo;
 
     private ResourceManager() {
     }

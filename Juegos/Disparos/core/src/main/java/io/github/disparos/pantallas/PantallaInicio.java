@@ -13,9 +13,6 @@ import io.github.disparos.MainGame;
 
 public class PantallaInicio implements Screen {
     private MainGame game;
-    private SpriteBatch batch;
-    private Texture texturaPistola;
-    private Texture texturaFondo;
 
     public PantallaInicio(MainGame game) {
         this.game = game;
@@ -29,15 +26,8 @@ public class PantallaInicio implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(1, 1, 1, 1); // Fondo negro
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        game.batch.begin();
-        game.batch.end();
 
-        // Cambiar a la pantalla de juego al hacer clic
-        if (Gdx.input.isTouched()) {
-            game.setScreen(new PantallaJuego(game));
-        }
+
     }
 
     @Override
