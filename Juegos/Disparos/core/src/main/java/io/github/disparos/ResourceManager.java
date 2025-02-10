@@ -15,6 +15,8 @@ public class ResourceManager {
     private static final int numSpritesDisparo = 18;
     private static final int numSpritesEnemigoMuerte = 13;
     public static Texture pistola;
+    public static Texture bala;
+    public static Texture enemigo;
     public static Animation<TextureRegion> disparo, enemigoMuerte;
 
     private ResourceManager() {
@@ -22,6 +24,8 @@ public class ResourceManager {
 
     public static void cargarRecursos() {
         assetManager.load("pistola.png", Texture.class);
+        assetManager.load("bala.png", Texture.class);
+        assetManager.load("puñalin.png", Texture.class);
     }
 
     public static boolean assetsCargados() {
@@ -34,6 +38,8 @@ public class ResourceManager {
 
     public static void asignarRecursos() {
         pistola = assetManager.get("pistola.png", Texture.class);
+        bala = assetManager.get("bala.png", Texture.class);
+        enemigo = assetManager.get("puñalin.png", Texture.class);
     }
 
     public static void liberarRecursos() {

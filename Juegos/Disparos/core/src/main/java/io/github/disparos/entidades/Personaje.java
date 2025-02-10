@@ -1,4 +1,5 @@
 package io.github.disparos.entidades;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 
 public class Personaje {
@@ -29,6 +30,9 @@ public class Personaje {
         this.estado = estado;
     }
 
+    public Rectangle getHitbox() {
+        return hitbox;
+    }
 
 
 }
