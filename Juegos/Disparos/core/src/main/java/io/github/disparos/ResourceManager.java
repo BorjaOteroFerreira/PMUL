@@ -39,8 +39,4 @@ public class ResourceManager {
     public static void liberarRecursos() {
         assetManager.dispose();
     }
-
-
-
-
 }

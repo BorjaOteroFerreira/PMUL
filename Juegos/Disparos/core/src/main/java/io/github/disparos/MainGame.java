@@ -36,6 +36,8 @@ public class MainGame extends Game {
     public void setPantalla(Pantalla pantalla) {
         setScreen(pantalla);
     }
+
+
     public ShapeRenderer getShapeRenderer() {
         return shapeRenderer;
     }

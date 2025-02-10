@@ -1,23 +1,16 @@
 package io.github.disparos.entidades;
-
-public class Bala {
-    private float anchoImagen ;
-    private float altoImagen;
-    private float proporcionAncho = 0.1f;
-    private float proporcionAlto = 0.1f;
-    private float ancho;
-    private float alto;
-    private float x, y;
-    private float velocidad;
-    private boolean visible;
+public class Bala extends Personaje {
+    private static float anchoImagen = 400;
+    private static float altoImagen = 200;
+    private static float proporcionAncho = 0.1f;
+    private static float proporcionAlto = 0.1f;
 
 
-    public Bala() {
-        this.x = x;
-        this.y = y;
-        this.ancho = anchoImagen * proporcionAncho;
-        this.alto = altoImagen * proporcionAlto;
-        this.velocidad = 4f;
+
+    public Bala(float x , float y) {
+        super (anchoImagen * proporcionAncho,altoImagen * proporcionAlto, 0 , 600 ,  Personaje.Estado.ADELANTE , 120);
+        x = hitbox.x = 0;
+        y = hitbox.y = 0;
     }
 
     public void mover(float delta) {
@@ -32,11 +25,4 @@ public class Bala {
         return y;
     }
 
-    public boolean isVisible() {
-        return visible;
-    }
-
-    public void setVisible(boolean visible) {
-        this.visible = visible;
-    }
 }

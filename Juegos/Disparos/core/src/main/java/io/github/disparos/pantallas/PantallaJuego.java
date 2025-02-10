@@ -5,22 +5,28 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 import io.github.disparos.MainGame;
 import io.github.disparos.ResourceManager;
+import io.github.disparos.entidades.Bala;
+import io.github.disparos.entidades.Enemigo;
 import io.github.disparos.entidades.Pistola;
 import io.github.disparos.mundo.Mundo;
 
 public class PantallaJuego extends Pantalla {
-    private Pistola pistola ;
+    public static Pistola pistola = new Pistola();
     private MainGame game ;
-
+    private int NumEnemigos = 10;
+    private static final float tiempoEntreEnemigos = 1;
+    private float stateTime = 0;
+    private float stateTimeProximoEnemigo = tiempoEntreEnemigos ;
+    private Array<Enemigo> enemigos = new Array();
 
     public PantallaJuego(MainGame game) {
         super();
         this.game = game;
-        this.pistola = new Pistola();
     }
 
     @Override
@@ -37,13 +43,27 @@ public class PantallaJuego extends Pantalla {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // Clear the screen with the specified color
         if(ResourceManager.assetsCargados()) {
             ResourceManager.asignarRecursos();
+            stateTime += delta;
             SpriteBatch sb = game.getSpriteBatch();
             ShapeRenderer sr = game.getShapeRenderer();
+            if(stateTime >= stateTimeProximoEnemigo){
+                if(enemigos.size < NumEnemigos){
+                    Enemigo enemigo = new Enemigo();
+                    enemigos.add(enemigo);
+                }
+                stateTimeProximoEnemigo = stateTime + tiempoEntreEnemigos;
+            }
+            for(Enemigo enemigo : enemigos){
+                enemigo.update(delta);
+            }
             pistola.update(delta);
             sr.begin(ShapeRenderer.ShapeType.Line);
             sb.begin();
             sr.setColor(0, 0, 0, 1);
             pistola.dibuja(sb,sr);
+            for(Enemigo enemigo : enemigos){
+                enemigo.render(sb, sr);
+            }
             sb.end();
             sr.end();
         }
@@ -75,6 +95,9 @@ public class PantallaJuego extends Pantalla {
         }
         if (keycode == Input.Keys.DOWN) {
             pistola.moverAbajo();
+        }
+        if(keycode == Input.Keys.SPACE){
+
         }
         return true;
     }
