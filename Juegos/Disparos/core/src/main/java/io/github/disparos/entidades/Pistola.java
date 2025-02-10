@@ -2,11 +2,10 @@ package io.github.disparos.entidades;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Array;
-
 import io.github.disparos.ResourceManager;
 import io.github.disparos.mundo.Mundo;
 
-public class Pistola extends Personaje {
+public class Pistola extends Entidad {
     private static float anchoImagen = 1168;
     private static float altoImagen = 749;
     private static float proporcionAlto = 0.05f;
@@ -35,6 +34,7 @@ public class Pistola extends Personaje {
                 bala.setEstado(Estado.ADELANTE);
                 bala.setX(x + ancho);
                 bala.setY(y + alto  - bala.alto );
+                ResourceManager.disparoSound.play();
                 break;
             }
         }
@@ -42,7 +42,6 @@ public class Pistola extends Personaje {
     public void moverArriba() {
         super.setEstado(Estado.ADELANTE);
     }
-
     public void moverAbajo() {
         super.setEstado(Estado.ATRAS);
     }
@@ -67,7 +66,7 @@ public class Pistola extends Personaje {
             bala.render(sb, sr);
         }
         sb.draw(ResourceManager.pistola, x, y, ancho, alto);
-        sr.rect(hitbox.x, hitbox.y, ancho, alto);
+        //sr.rect(hitbox.x, hitbox.y, ancho, alto);
     }
 
     public Array<Bala> getCargador() {

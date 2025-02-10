@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.Rectangle;
 import io.github.disparos.ResourceManager;
 import io.github.disparos.mundo.Mundo;
 
-public class Bala extends Personaje {
+public class Bala extends Entidad {
     private static float anchoImagen = 300;
     private static float altoImagen = 300;
     private static float proporcionAncho = 0.05f;
@@ -17,7 +17,7 @@ public class Bala extends Personaje {
             0,
             0,
             Estado.PARADO,
-            120);
+            200);
             x = hitbox.x = 0;
             y = hitbox.y =  0;
     }

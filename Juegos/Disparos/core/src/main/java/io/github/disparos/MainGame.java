@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import io.github.disparos.pantallas.Pantalla;
+import io.github.disparos.pantallas.PantallaInicio;
 import io.github.disparos.pantallas.PantallaJuego;
 
 
@@ -16,7 +17,7 @@ public class MainGame extends Game {
     public void create () {
         batch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
-        setScreen(new PantallaJuego(this));
+        setScreen(new PantallaInicio(this));
     }
 
     public SpriteBatch getSpriteBatch() {
