@@ -26,8 +26,6 @@ public class Pistola extends Entidad {
         }
     }
 
-
-
     public void disparar() {
         for (Bala bala : cargador) {
             if (bala.getEstado() == Estado.PARADO) {

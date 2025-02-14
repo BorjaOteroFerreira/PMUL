@@ -1,8 +1,10 @@
 package io.github.disparos.pantallas;
 
+import io.github.disparos.MainGame;
+
 public class PantallaFin extends Pantalla {
-    public PantallaFin() {
-        super();
+    public PantallaFin(MainGame game) {
+        super(game);
     }
     @Override
     public void show() {

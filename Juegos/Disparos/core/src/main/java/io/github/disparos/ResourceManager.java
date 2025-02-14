@@ -36,8 +36,6 @@ public class ResourceManager {
         assetManager.load("valla.png", Texture.class);
         assetManager.load("segarro.mp3", Sound.class);
         assetManager.load("segarro2.mp3", Sound.class);
-
-
     }
 
     public static boolean assetsCargados() {

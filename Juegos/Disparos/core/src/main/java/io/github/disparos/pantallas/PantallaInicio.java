@@ -13,13 +13,12 @@ import io.github.disparos.mundo.Mundo;
 import io.github.disparos.MainGame;
 
 
-public class PantallaInicio implements Screen {
-    private MainGame game;
+public class PantallaInicio extends Pantalla {
+
     SpriteBatch sb ;
 
     public PantallaInicio(MainGame game) {
-        super();
-        this.game = game;
+        super(game);
         sb = game.getSpriteBatch();
     }
 
@@ -47,12 +46,15 @@ public class PantallaInicio implements Screen {
 
     }
 
+    @Override
+    public void resize(int width, int height) {
+
+    }
+
     public void SiguientePantalla() {
         game.setScreen(new PantallaJuego(game));
     }
 
-    @Override
-    public void resize(int width, int height) {}
 
     @Override
     public void pause() {}

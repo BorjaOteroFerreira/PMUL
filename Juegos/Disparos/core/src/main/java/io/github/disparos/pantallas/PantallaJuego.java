@@ -20,7 +20,6 @@ import io.github.disparos.mundo.Mundo;
 
 public class PantallaJuego extends Pantalla {
     public static Pistola pistola = new Pistola();
-    private MainGame game;
     private int NumEnemigos = 200;
     private static final float tiempoEntreEnemigos = 1.5f;
     private float stateTime = 0;
@@ -30,12 +29,11 @@ public class PantallaJuego extends Pantalla {
     private Random random;
 
     public void renderStats() {
-        ResourceManager.fuente.draw(game.getSpriteBatch(), "Enemigos Eliminados: " + enemigosEliminados, Mundo.ANCHO - 200, 10);
+        ResourceManager.fuente.draw(game.getSpriteBatch(), "Jovenlandeses Eliminados: " + enemigosEliminados, Mundo.ANCHO - 200, 10);
     }
 
     public PantallaJuego(MainGame game) {
-        super();
-        this.game = game;
+        super(game);
         random = new Random();
 
     }
@@ -88,28 +86,9 @@ public class PantallaJuego extends Pantalla {
         comprobarColisiones();
     }
 
-    @Override
-    public void resize(int width, int height) {
-        super.resize(width, height);
-        game.getSpriteBatch().setProjectionMatrix(camara.combined);
-        game.getShapeRenderer().setProjectionMatrix(camara.combined);
-    }
 
-    @Override
-    public void pause() {
-    }
 
-    @Override
-    public void resume() {
-    }
 
-    @Override
-    public void hide() {
-    }
-
-    @Override
-    public void dispose() {
-    }
 
     @Override
     public boolean keyDown(int keycode) {
