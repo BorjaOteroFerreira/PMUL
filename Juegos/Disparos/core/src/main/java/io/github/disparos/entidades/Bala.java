@@ -65,6 +65,8 @@ public class Bala extends Entidad {
                 x += velocidad * delta;
             }else{
                 super.setEstado(Estado.PARADO);
+                x = hitbox.x = 0;
+                y = hitbox.y = 0;
             }
         }
     }

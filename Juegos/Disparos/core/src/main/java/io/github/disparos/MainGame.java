@@ -24,8 +24,6 @@ public class MainGame extends Game {
         return batch;
     }
 
-
-
     @Override
     public void dispose () {
         getScreen().dispose();

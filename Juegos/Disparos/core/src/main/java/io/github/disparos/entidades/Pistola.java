@@ -10,7 +10,7 @@ public class Pistola extends Entidad {
     private static float altoImagen = 749;
     private static float proporcionAlto = 0.05f;
     private static float proporcionAncho = 0.05f;
-    private int maxBalas = 100;
+    private int maxBalas = 5;
     private Array<Bala> cargador ;
 
     public Pistola() {

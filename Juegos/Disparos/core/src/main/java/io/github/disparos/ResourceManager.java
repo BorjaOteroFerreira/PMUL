@@ -11,17 +11,15 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class ResourceManager {
     private static final AssetManager assetManager = new AssetManager();
-    private static final int numSpritesDisparo = 18;
-    private static final int numSpritesEnemigoMuerte = 13;
     public static Texture pistola;
     public static Texture bala;
     public static Texture enemigo;
     public static Sound disparoSound;
     public static Sound muerteSound;
-    public static Sound segarro2Sound;
-    public static Sound segarroSound;
+    public static Sound segarro2Sound, segarroSound;
+    public static Sound endSound;
     public static BitmapFont fuente;
-    public static Texture background ;
+    public static Texture background ,background2;
 
     public static Animation<TextureRegion> disparo, enemigoMuerte;
 
@@ -36,6 +34,8 @@ public class ResourceManager {
         assetManager.load("valla.png", Texture.class);
         assetManager.load("segarro.mp3", Sound.class);
         assetManager.load("segarro2.mp3", Sound.class);
+        assetManager.load("endbg.jpg", Texture.class);
+        assetManager.load("caralsolSound.mp3", Sound.class);
     }
 
     public static boolean assetsCargados() {
@@ -49,6 +49,7 @@ public class ResourceManager {
         fuente = new BitmapFont();
         fuente.setColor(Color.BLACK);
         background = assetManager.get("valla.png", Texture.class);
+        background2 = assetManager.get("endbg.jpg", Texture.class);
         pistola = assetManager.get("pistola.png", Texture.class);
         bala = assetManager.get("bala.png", Texture.class);
         enemigo = assetManager.get("puñalin.png", Texture.class);
@@ -56,6 +57,7 @@ public class ResourceManager {
         muerteSound = assetManager.get("muerte.mp3", Sound.class);
         segarroSound = assetManager.get("segarro.mp3", Sound.class);
         segarro2Sound = assetManager.get("segarro2.mp3", Sound.class);
+        endSound = assetManager.get("caralsolSound.mp3", Sound.class);
     }
 
     public static void liberarRecursos() {

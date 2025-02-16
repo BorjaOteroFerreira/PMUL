@@ -38,7 +38,7 @@ public class Enemigo extends Entidad {
     public void reset() {
         super.setEstado(Estado.PARADO);
         x = hitbox.x = Mundo.ANCHO + ancho;
-        y = hitbox.y = 0;
+        y = hitbox.y = new Random().nextInt(0, (int) Mundo.ALTO);
     }
 
     public void render(SpriteBatch sb, ShapeRenderer sr) {

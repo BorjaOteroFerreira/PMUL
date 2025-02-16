@@ -1,4 +1,5 @@
 package io.github.disparos.pantallas;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -15,7 +16,6 @@ public class Pantalla implements Screen, InputProcessor {
     protected float ANCHO ;
     protected float ALTO ;
     protected OrthographicCamera   camara;
-    protected Viewport vista;
     protected MainGame game;
 
     public Pantalla(MainGame game) {
@@ -23,14 +23,12 @@ public class Pantalla implements Screen, InputProcessor {
         ANCHO = Mundo.ANCHO;
         ALTO = Mundo.ALTO;
         camara = new OrthographicCamera();
-        //camara.position.set(ANCHO / 2, ALTO / 2, 0);
-
-        //vista = new FitViewport(ANCHO, ALTO, camara);
-
+        camara.setToOrtho(false, Mundo.ANCHO,Mundo.ALTO);
+        camara.update();
     }
 
     @Override public void show() {
-
+        Gdx.input.setInputProcessor(this);
     }
 
     @Override
@@ -42,8 +40,6 @@ public class Pantalla implements Screen, InputProcessor {
     @Override public void resume() {}
     @Override public void hide() {}
     @Override public void resize(int width, int height) {
-        //vista.update(width, height);
-        //camara.position.set(camara.viewportWidth / 2, camara.viewportHeight / 2, 0);
         camara.setToOrtho(false, Mundo.ANCHO,Mundo.ALTO);
         camara.update();
         game.getSpriteBatch().setProjectionMatrix(camara.combined);
