@@ -1,4 +1,4 @@
-package io.github.disparos.pantallas;
+package io.github.bloques.pantallas;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
@@ -12,7 +12,7 @@ import io.github.bloques.MainGame;
 import io.github.bloques.mundo.Mundo;
 
 public class Pantalla implements Screen, InputProcessor {
-    private boolean debug = false;
+    protected boolean debug = false;
     protected float ANCHO ;
     protected float ALTO ;
     protected OrthographicCamera   camara;
@@ -33,7 +33,10 @@ public class Pantalla implements Screen, InputProcessor {
 
     @Override
     public void render(float delta) {
-        ScreenUtils.clear(1, 1, 1, 1);
+        ScreenUtils.clear(1f, 1f, 1f, 1f);
+        camara.update();
+        game.getSpriteBatch().setProjectionMatrix(camara.combined);
+        game.getShapeRenderer().setProjectionMatrix(camara.combined);
     }
 
     @Override public void pause() {}

@@ -1,4 +1,4 @@
-package io.github.disparos;
+package io.github.bloques;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
@@ -26,7 +26,7 @@ public class ResourceManager {
     private ResourceManager() {}
 
     public static void cargarRecursos() {
-        assetManager.load("pistola.png", Texture.class);
+        //assetManager.load("pistola.png", Texture.class);
 
     }
 
@@ -40,7 +40,7 @@ public class ResourceManager {
     public static void asignarRecursos() {
         fuente = new BitmapFont();
         fuente.setColor(Color.BLACK);
-        background = assetManager.get("valla.png", Texture.class);
+        //background = assetManager.get("valla.png", Texture.class);
 
     }
 
