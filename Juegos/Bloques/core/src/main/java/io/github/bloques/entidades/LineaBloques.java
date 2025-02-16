@@ -1,5 +1,6 @@
 package io.github.bloques.entidades;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Array;
@@ -14,7 +15,13 @@ public class LineaBloques extends Entidad{
 
     private float anchoBloque = Mundo.ANCHO / Mundo.NUM_BLOQUES_POR_LINEA;
     private float altoBloque = Mundo.ALTO / Mundo.NUM_LINEAS_POR_PANTALLA;
-
+    private static final Color[] COLORES = new Color[]{
+        Color.RED,
+        Color.BLUE,
+        Color.GREEN,
+        Color.YELLOW,
+        Color.PURPLE
+    };
     public LineaBloques(float x, float y, float ancho, float alto) {
         super(x, y, ancho, alto);
         bloques = new Array<>();
@@ -24,7 +31,15 @@ public class LineaBloques extends Entidad{
 
     private void crearLineaBloques() {
         for (int i = 0; i < Mundo.NUM_BLOQUES_POR_LINEA; i++) {
-            bloques.add(new Bloque(x + i * anchoBloque, y, anchoBloque, altoBloque,rnd.nextInt(1, (int) Mundo.NUM_BLOQUES_POR_LINEA)));
+            Color colorAleatorio = COLORES[rnd.nextInt(COLORES.length)];
+            bloques.add(new Bloque(
+                x + i * anchoBloque,
+                y,
+                anchoBloque,
+                altoBloque,
+                rnd.nextInt(1, (int) Mundo.NUM_BLOQUES_POR_LINEA),
+                colorAleatorio
+            ));
         }
     }
 

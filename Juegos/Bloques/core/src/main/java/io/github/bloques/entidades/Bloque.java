@@ -1,5 +1,6 @@
 package io.github.bloques.entidades;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
@@ -8,11 +9,19 @@ import io.github.bloques.mundo.Mundo;
 public class Bloque extends Entidad {
     protected boolean destruido = false;
     protected boolean primeraFila = true;
-    protected int numero ;
-    public Bloque(float x, float y, float ancho , float alto, int numero) {
+    protected int numero;
+    protected Color color;
+
+    public Bloque(float x, float y, float ancho, float alto, int numero, Color color) {
         super(x, y, ancho, alto);
         this.numero = numero;
+        this.color = color;
     }
+
+    public Color getColor() {
+        return color;
+    }
+
 
     public void update() {
         if (!destruido) {
