@@ -18,18 +18,20 @@ import io.github.disparos.mundo.Mundo;
 
 public class PantallaJuego extends Pantalla {
     public static Pistola pistola = new Pistola();
-    private int NumEnemigos = 10;
+    private int NumEnemigos = 50;
     private static  float tiempoEntreEnemigos = 1.5f;
     private float stateTime = 0;
     private float stateTimeProximoEnemigo = tiempoEntreEnemigos;
     private Array<Enemigo> enemigos = new Array();
     public int enemigosEliminados = 0;
-    private int maxEnemigos = 10;
-    private Random random;
+    private  int maxEnemigos = 10;
+    private final Random random;
     private boolean crearEnemigo;
     SpriteBatch sb ;
     ShapeRenderer sr;
     private boolean recursosAsignados = false;
+    private boolean isPressedTouchUp = false;
+    private boolean isPressedTouchDown = false;
 
     public void renderStats() {
         ResourceManager.fuente.draw(game.getSpriteBatch(), "EArray" + enemigos.size + " Eliminados: " + enemigosEliminados, Mundo.ANCHO - 250, 20);
@@ -55,29 +57,7 @@ public class PantallaJuego extends Pantalla {
         stateTime += delta;
         sb = game.getSpriteBatch();
         sr = game.getShapeRenderer();
-        if (stateTime >= stateTimeProximoEnemigo) {
-             crearEnemigo = true;
-            if(enemigos.size > 0) {
-                for (Enemigo enemigo : enemigos) {
-                    if (enemigo.getEstado() == Entidad.Estado.PARADO) {
-                        enemigo.setEstado(Entidad.Estado.ADELANTE);
-                        crearEnemigo = false;
-                        break;
-                    }
-                }
-            }else {
-                crearEnemigo = true;
-            }
-            if (crearEnemigo) {
-                crearEnemigo();
-            }
-            int ran = random.nextInt(0, 10);
-            if (ran >= 5)
-                ResourceManager.segarro2Sound.play();
-            else
-                ResourceManager.segarroSound.play();
-            stateTimeProximoEnemigo = stateTime + tiempoEntreEnemigos;
-        }
+        construirEnemigos();
         for (Enemigo enemigo : enemigos) {
             enemigo.update(delta);
         }
@@ -96,7 +76,29 @@ public class PantallaJuego extends Pantalla {
         tiempoEntreEnemigos -= 0.0001f;
         comprobarColisiones();
     }
-
+    private void construirEnemigos() {
+        if (stateTime >= stateTimeProximoEnemigo) {
+            crearEnemigo = true;
+            if(enemigos.size > 0) {
+                for (Enemigo enemigo : enemigos) {
+                    if (enemigo.getEstado() == Entidad.Estado.PARADO) {
+                        enemigo.setEstado(Entidad.Estado.ADELANTE);
+                        crearEnemigo = false;
+                        break;
+                    }
+                }
+            }
+            if (crearEnemigo) {
+                crearEnemigo();
+            }
+            int ran = random.nextInt(0, 10);
+            if (ran >= 5)
+                ResourceManager.segarro2Sound.play();
+            else
+                ResourceManager.segarroSound.play();
+            stateTimeProximoEnemigo = stateTime + tiempoEntreEnemigos;
+        }
+    }
     private void crearEnemigo() {
         if (enemigos.size <= maxEnemigos) {
             Enemigo nuevoEnemigo = new Enemigo();
@@ -106,7 +108,7 @@ public class PantallaJuego extends Pantalla {
     }
     @Override
     public boolean keyDown(int keycode) {
-        if (keycode == Input.Keys.UP) {
+        if (keycode == Input.Keys.UP ) {
             pistola.moverArriba();
         }
         if (keycode == Input.Keys.DOWN) {
@@ -119,16 +121,50 @@ public class PantallaJuego extends Pantalla {
     }
 
     @Override
+    public boolean keyUp(int keycode) {
+        if ((keycode == Input.Keys.UP || keycode == Input.Keys.DOWN) ) {
+            if(Gdx.input.isKeyPressed(Input.Keys.UP)){
+                pistola.moverArriba();
+            }else if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
+                pistola.moverAbajo();
+            }else
+                pistola.setEstado(Entidad.Estado.PARADO);
+        }
+        return true;
+    }
+
+
+    @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         Vector3 vector = new Vector3(screenX, screenY, 0);
         camara.unproject(vector);
         if (vector.y > Mundo.ALTO / 2 && vector.x < Mundo.ANCHO / 2) {
             pistola.moverArriba();
+            isPressedTouchUp = true;
         } else if (vector.y < Mundo.ALTO / 2 && vector.x < Mundo.ANCHO / 2) {
             pistola.moverAbajo();
+            isPressedTouchDown = true;
         }
         if (vector.x > Mundo.ANCHO / 2) {
             pistola.disparar();
+        }
+        return true;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        Vector3 vector = new Vector3(screenX, screenY, 0);
+        camara.unproject(vector);
+        if (vector.y > Mundo.ALTO / 2 && vector.x < Mundo.ANCHO / 2) {
+            if (!isPressedTouchDown) {
+                pistola.setEstado(Entidad.Estado.PARADO);
+            }
+            isPressedTouchUp = false;
+        } else if (vector.y < Mundo.ALTO / 2 && vector.x < Mundo.ANCHO / 2) {
+            if (!isPressedTouchUp) {
+                pistola.setEstado(Entidad.Estado.PARADO);
+            }
+            isPressedTouchDown = false;
         }
         return true;
     }

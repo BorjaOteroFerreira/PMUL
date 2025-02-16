@@ -35,11 +35,4 @@ public class PantallaFin extends Pantalla {
             Mundo.ALTO - 20);
         sb.end();
     }
-    @Override
-    public void resize(int width, int height) {
-    }
-
-    @Override
-    public void dispose() {
-    }
 }

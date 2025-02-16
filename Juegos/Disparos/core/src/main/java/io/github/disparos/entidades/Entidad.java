@@ -28,7 +28,6 @@ public class Entidad {
     public void setEstado(Estado estado) {
         this.estado = estado;
     }
-
     public Rectangle getHitbox() {
         return hitbox;
     }
