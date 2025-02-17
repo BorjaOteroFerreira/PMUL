@@ -23,7 +23,7 @@ public class LineaBloques extends Entidad{
         Color.PURPLE
     };
     public LineaBloques(float x, float y, float ancho, float alto) {
-        super(x, y, ancho, alto);
+        super(x, y + (Mundo.ALTO / Mundo.NUM_LINEAS_POR_PANTALLA), ancho, alto);
         bloques = new Array<>();
         rnd = new Random();
         crearLineaBloques();
@@ -34,7 +34,7 @@ public class LineaBloques extends Entidad{
             Color colorAleatorio = COLORES[rnd.nextInt(COLORES.length)];
             bloques.add(new Bloque(
                 x + i * anchoBloque,
-                y,
+                y + altoBloque,
                 anchoBloque,
                 altoBloque,
                 rnd.nextInt(1, (int) Mundo.NUM_BLOQUES_POR_LINEA),
@@ -58,7 +58,6 @@ public class LineaBloques extends Entidad{
             bloques.get(i).render(sb, sr);
         }
     }
-
 
 }
 

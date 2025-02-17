@@ -64,6 +64,9 @@ public class PantallaJuego extends Pantalla {
                     bloque.hitbox.y = posY;
                 }
                 posY += ALTO / Mundo.NUM_LINEAS_POR_PANTALLA;
+                if(posY >= ALTO){
+                    game.setScreen(new PantallaFin(game));
+                }
             }
         }
         // Limpieza de pantalla
@@ -86,17 +89,7 @@ public class PantallaJuego extends Pantalla {
                 }
             }
             sr.end();
-            // Dibujar bordes
-            sr.begin(ShapeRenderer.ShapeType.Line);
-            sr.setColor(0f, 0f, 0f, 1f);
-            for (LineaBloques linea : lineasBloques) {
-                for (Bloque bloque : linea.getBloques()) {
-                    if (!bloque.isDestruido()) {
-                        sr.rect(bloque.x, bloque.y, bloque.ancho, bloque.alto);
-                    }
-                }
-            }
-            sr.end();
+
         }else{
             // Dibujar números
             sb = game.getSpriteBatch();
@@ -111,8 +104,19 @@ public class PantallaJuego extends Pantalla {
                 }
             }
             sb.end();
-            sr.end();
+
         }
+        // Dibujar bordes
+        sr.begin(ShapeRenderer.ShapeType.Line);
+        sr.setColor(0f, 0f, 0f, 1f);
+        for (LineaBloques linea : lineasBloques) {
+            for (Bloque bloque : linea.getBloques()) {
+                if (!bloque.isDestruido()) {
+                    sr.rect(bloque.x, bloque.y, bloque.ancho, bloque.alto);
+                }
+            }
+        }
+        sr.end();
     }
 
     @Override

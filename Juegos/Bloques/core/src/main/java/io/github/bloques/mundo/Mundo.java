@@ -6,4 +6,5 @@ public class Mundo {
     public static final float NUM_BLOQUES_POR_LINEA = 8f;
     public static final float NUM_LINEAS_POR_PANTALLA = 10f;
     public static final boolean DEBUG = true;
+
 }

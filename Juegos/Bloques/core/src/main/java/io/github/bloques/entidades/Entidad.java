@@ -2,6 +2,8 @@ package io.github.bloques.entidades;
 
 import com.badlogic.gdx.math.Rectangle;
 
+import io.github.bloques.mundo.Mundo;
+
 public class Entidad {
     public float x;
     public float y;
