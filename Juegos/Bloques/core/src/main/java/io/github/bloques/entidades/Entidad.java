@@ -10,7 +10,7 @@ public class Entidad {
     public float ancho;
     public float alto;
     public Rectangle hitbox ;
-    public
+
 
 
      Entidad(float x, float y, float ancho, float alto) {
@@ -19,7 +19,6 @@ public class Entidad {
         this.ancho = ancho;
         this.alto = alto;
         hitbox = new Rectangle(x, y, ancho, alto);
-
     }
 
 }

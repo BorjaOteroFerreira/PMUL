@@ -9,9 +9,9 @@ import java.util.Random;
 
 import io.github.bloques.mundo.Mundo;
 
-public class LineaBloques extends Entidad{
+public class LineaBloques extends Entidad {
     private Array<Bloque> bloques;
-    private Random rnd ;
+    private Random rnd;
 
     private float anchoBloque = Mundo.ANCHO / Mundo.NUM_BLOQUES_POR_LINEA;
     private float altoBloque = Mundo.ALTO / Mundo.NUM_LINEAS_POR_PANTALLA;
@@ -22,6 +22,7 @@ public class LineaBloques extends Entidad{
         Color.YELLOW,
         Color.PURPLE
     };
+
     public LineaBloques(float x, float y, float ancho, float alto) {
         super(x, y + (Mundo.ALTO / Mundo.NUM_LINEAS_POR_PANTALLA), ancho, alto);
         bloques = new Array<>();
@@ -47,7 +48,7 @@ public class LineaBloques extends Entidad{
         return bloques;
     }
 
-    public void update(){
+    public void update() {
         for (int i = 0; i < bloques.size; i++) {
             bloques.get(i).update();
         }
@@ -57,7 +58,6 @@ public class LineaBloques extends Entidad{
         for (int i = 0; i < bloques.size; i++) {
             bloques.get(i).render(sb, sr);
         }
+
     }
-
 }
-

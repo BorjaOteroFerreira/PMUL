@@ -22,31 +22,32 @@ public class Bloque extends Entidad {
         return color;
     }
 
-
     public void update() {
         if (!destruido) {
-            if(primeraFila){
+            if (primeraFila) {
                 y = 0;
-                primeraFila= !primeraFila;
-            } else{
-                y += Mundo.ALTO / Mundo.NUM_LINEAS_POR_PANTALLA ;
+                primeraFila = !primeraFila;
+            } else {
+                y += Mundo.ALTO / Mundo.NUM_LINEAS_POR_PANTALLA;
             }
-
             hitbox.setPosition(x, y);
         }
     }
+
     public void render(SpriteBatch sb, ShapeRenderer sr) {
         if (!destruido) {
             sr.rect(x, y, ancho, alto);
         }
+
     }
-    public void  eliminar() {
+
+    public void eliminar() {
         destruido = true;
     }
+
     public boolean isDestruido() {
         return destruido;
     }
-
 
     public int getNumero() {
         return numero;

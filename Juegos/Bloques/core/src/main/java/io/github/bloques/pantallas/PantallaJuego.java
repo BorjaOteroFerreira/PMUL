@@ -1,5 +1,6 @@
 package io.github.bloques.pantallas;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -22,13 +23,15 @@ public class PantallaJuego extends Pantalla {
     private Bloque bloque1;
     private Bloque bloque2;
     private float aumentoVelocidad = 0.0001f;
-
+    public static  int puntos = 0;
+    Preferences prefs ;
     public PantallaJuego(MainGame game) {
         super(game);
         lineasBloques = new Array<>();
         if (ResourceManager.assetsCargados()) {
             ResourceManager.asignarRecursos();
         }
+        prefs = Gdx.app.getPreferences("Records");
     }
     @Override
     public void render(float delta) {
@@ -89,7 +92,6 @@ public class PantallaJuego extends Pantalla {
                 }
             }
             sr.end();
-
         }else{
             // Dibujar números
             sb = game.getSpriteBatch();
@@ -104,7 +106,6 @@ public class PantallaJuego extends Pantalla {
                 }
             }
             sb.end();
-
         }
         // Dibujar bordes
         sr.begin(ShapeRenderer.ShapeType.Line);
@@ -147,6 +148,7 @@ public class PantallaJuego extends Pantalla {
                         if(condicionEliminar){
                                 bloque1.eliminar();
                                 bloque2.eliminar();
+                                puntos++;
                         }
                         bloque1 = null;
                         bloque2 = null;
@@ -156,6 +158,12 @@ public class PantallaJuego extends Pantalla {
             }
         }
         return false;
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+
     }
 }
 
