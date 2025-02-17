@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 
+import io.github.bloques.pantallas.PantallaInicio;
 import io.github.bloques.pantallas.PantallaJuego;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
@@ -20,7 +21,7 @@ public class MainGame extends Game {
     public void create() {
         batch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
-        setScreen(new PantallaJuego(this)); // Add this line
+        setScreen(new PantallaInicio(this));
 
     }
 

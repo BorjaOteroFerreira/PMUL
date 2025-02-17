@@ -59,26 +59,6 @@ public class LineaBloques extends Entidad{
         }
     }
 
-    public void reordenarBloques() {
-        Array<Bloque> bloquesActivos = new Array<>();
 
-        // Mantener solo los bloques no destruidos
-        for (Bloque bloque : bloques) {
-            if (!bloque.isDestruido()) {
-                bloquesActivos.add(bloque);
-            }
-        }
-
-        // Reemplazar la lista de bloques
-        bloques.clear();
-        bloques.addAll(bloquesActivos);
-
-        // Reposicionar los bloques
-        for (int i = 0; i < bloques.size; i++) {
-            Bloque bloque = bloques.get(i);
-            bloque.x = x + i * (Mundo.ANCHO / Mundo.NUM_BLOQUES_POR_LINEA);
-            bloque.hitbox.x = bloque.x;
-        }
-    }
 }
 

@@ -30,12 +30,11 @@ public class PantallaJuego extends Pantalla {
             ResourceManager.asignarRecursos();
         }
     }
-
     @Override
     public void render(float delta) {
         super.render(delta);
         tiempoEntreLineas -= aumentoVelocidad;
-        // Actualización
+        //Actualización
         stateTime += delta;
         stateTimeProximaLinea += delta;
         // Eliminar líneas con todos los bloques destruidos
@@ -67,7 +66,6 @@ public class PantallaJuego extends Pantalla {
                 posY += ALTO / Mundo.NUM_LINEAS_POR_PANTALLA;
             }
         }
-
         // Limpieza de pantalla
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         ScreenUtils.clear(0.9f, 0.9f, 0.9f, 1f);
@@ -87,7 +85,7 @@ public class PantallaJuego extends Pantalla {
                     }
                 }
             }
-        }else{
+            sr.end();
             // Dibujar bordes
             sr.begin(ShapeRenderer.ShapeType.Line);
             sr.setColor(0f, 0f, 0f, 1f);
@@ -98,22 +96,23 @@ public class PantallaJuego extends Pantalla {
                     }
                 }
             }
-
-        }
-        // Dibujar números
-        SpriteBatch sb = game.getSpriteBatch();
-        sb.begin();
-        for (LineaBloques linea : lineasBloques) {
-            for (Bloque bloque : linea.getBloques()) {
-                if (!bloque.isDestruido()) {
-                    ResourceManager.fuente.draw(sb, String.valueOf(bloque.getNumero()),
-                        bloque.x + bloque.ancho / 2 - 10,
-                        bloque.y + bloque.alto / 2 + 10);
+            sr.end();
+        }else{
+            // Dibujar números
+            sb = game.getSpriteBatch();
+            sb.begin();
+            for (LineaBloques linea : lineasBloques) {
+                for (Bloque bloque : linea.getBloques()) {
+                    if (!bloque.isDestruido()) {
+                        ResourceManager.fuente.draw(sb, String.valueOf(bloque.getNumero()),
+                            bloque.x + bloque.ancho / 2 - 10,
+                            bloque.y + bloque.alto / 2 + 10);
+                    }
                 }
             }
+            sb.end();
+            sr.end();
         }
-        sb.end();
-        sr.end();
     }
 
     @Override

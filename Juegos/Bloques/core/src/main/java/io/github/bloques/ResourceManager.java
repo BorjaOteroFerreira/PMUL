@@ -19,7 +19,7 @@ public class ResourceManager {
     public static Sound segarro2Sound, segarroSound;
     public static Sound endSound;
     public static BitmapFont fuente;
-    public static Texture background ,background2;
+    public static Texture bgIntro ,background2;
 
     public static Animation<TextureRegion> disparo, enemigoMuerte;
 
@@ -27,6 +27,7 @@ public class ResourceManager {
 
     public static void cargarRecursos() {
         //assetManager.load("pistola.png", Texture.class);
+        assetManager.load("bgIntro.png", Texture.class);
 
     }
 
@@ -40,6 +41,7 @@ public class ResourceManager {
     public static void asignarRecursos() {
         fuente = new BitmapFont();
         fuente.setColor(Color.BLACK);
+        bgIntro = assetManager.get("bgIntro.png", Texture.class);
         //background = assetManager.get("valla.png", Texture.class);
 
     }
