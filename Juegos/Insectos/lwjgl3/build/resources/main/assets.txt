@@ -1,8 +1,0 @@
-bala.png
-muerte.mp3
-pistola.mp3
-pistola.png
-puñalin.png
-segarro.mp3
-segarro2.mp3
-valla.png
