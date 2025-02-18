@@ -1,34 +1,53 @@
 package io.github.Insectos;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 
+import java.awt.Font;
+import java.awt.Shape;
+
+import io.github.Insectos.pantallas.PantallaInicio;
+import io.github.Insectos.pantallas.PantallaJuego;
+
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
-public class MainGame extends ApplicationAdapter {
-    private SpriteBatch batch;
-    private Texture image;
+public class MainGame extends Game {
+    private SpriteBatch sb;
+    private ShapeRenderer sr;
+
 
     @Override
     public void create() {
-        batch = new SpriteBatch();
-        image = new Texture("libgdx.png");
+        sb = new SpriteBatch();
+        sr = new ShapeRenderer();
+        ResourceManager.asignarRecursos();
+        setScreen(new PantallaInicio(this));
+
     }
 
     @Override
     public void render() {
-        ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
-        batch.begin();
-        batch.draw(image, 140, 210);
-        batch.end();
+        ScreenUtils.clear(1f, 1f, 1f, 1f);
     }
 
     @Override
     public void dispose() {
-        batch.dispose();
-        image.dispose();
+        getScreen().dispose();
+        sb.dispose();
+
     }
+
+    public SpriteBatch getSpriteBatch() {
+        return sb;
+    }
+    public ShapeRenderer getShapeRenderer() {
+        return sr;
+    }
+
 }
