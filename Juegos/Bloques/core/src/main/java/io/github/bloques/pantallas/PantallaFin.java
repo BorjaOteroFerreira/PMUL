@@ -30,7 +30,6 @@ public class PantallaFin extends Pantalla {
         sb.draw(ResourceManager.bgFinal, 0, 0, ANCHO, ALTO);
         // Aumentar el tamaño de la fuente
         ResourceManager.fuente.draw(sb, mensaje, (ANCHO / 2) - 90, (ALTO / 2) + 50);
-
         sb.end();
         sr.end();
     }
