@@ -27,7 +27,7 @@ public class PantallaFin extends Pantalla {
         sr = game.getShapeRenderer();
         sr.begin(ShapeRenderer.ShapeType.Line);
         sb.begin();
-        sb.draw(ResourceManager.bgIntro, 0, 0, ANCHO, ALTO);
+        sb.draw(ResourceManager.bgFinal, 0, 0, ANCHO, ALTO);
         // Aumentar el tamaño de la fuente
         ResourceManager.fuente.draw(sb, mensaje, (ANCHO / 2) - 90, (ALTO / 2) + 50);
 
@@ -46,6 +46,7 @@ public class PantallaFin extends Pantalla {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         PantallaJuego.puntos = 0;
+        ResourceManager.bso.stop();
         game.setScreen(new PantallaInicio(game));
         return true;
     }

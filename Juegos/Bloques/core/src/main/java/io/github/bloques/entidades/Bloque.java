@@ -1,6 +1,7 @@
 package io.github.bloques.entidades;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
@@ -10,16 +11,16 @@ public class Bloque extends Entidad {
     protected boolean destruido = false;
     protected boolean primeraFila = true;
     protected int numero;
-    protected Color color;
+    protected Texture gelatina;
 
-    public Bloque(float x, float y, float ancho, float alto, int numero, Color color) {
+    public Bloque(float x, float y, float ancho, float alto, int numero, Texture gelatina) {
         super(x, y, ancho, alto);
         this.numero = numero;
-        this.color = color;
+        this.gelatina = gelatina;
     }
 
-    public Color getColor() {
-        return color;
+    public Texture getGelatina() {
+        return gelatina;
     }
 
     public void update() {
@@ -37,6 +38,7 @@ public class Bloque extends Entidad {
     public void render(SpriteBatch sb, ShapeRenderer sr) {
         if (!destruido) {
             sr.rect(x, y, ancho, alto);
+            sb.draw(gelatina, x, y, ancho, alto);
         }
 
     }
