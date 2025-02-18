@@ -30,12 +30,12 @@ public class PantallaInicio extends Pantalla {
             ResourceManager.asignarRecursos();
             ResourceManager.fuente.getData().setScale(2.0f); // Aumentar el tamaño de la fuente
             sb.draw(ResourceManager.bgIntro, 0, 0, ANCHO, ALTO);
-            ResourceManager.fuente.draw(sb, "Toca para empezar", (ANCHO /2) -80, (ALTO /2) -50 );
+            //ResourceManager.fuente.draw(sb, "Toca para empezar", (ANCHO /2) -80, (ALTO /2) -50 );
             // Dibujar texto en formato párrafo
-            String parrafo = "\nDestruye los bloques haciendo parejas del mismo tipo.\n"+
-                "La velocidad de aparición de los bloques irá aumentando con el tiempo.\n"+
-                "Intenta evitar que los bloques lleguen a la parte superior de la pantalla.";
-            ResourceManager.fuente.draw(sb, parrafo, 10, ALTO - 150, ANCHO - 20, Align.center, true);
+            //String parrafo = "\nDestruye los bloques haciendo parejas del mismo tipo.\n"+
+            //    "La velocidad de aparición de los bloques irá aumentando con el tiempo.\n"+
+             //   "Intenta evitar que los bloques lleguen a la parte superior de la pantalla.";
+            //ResourceManager.fuente.draw(sb, parrafo, 10, ALTO - 150, ANCHO - 20, Align.center, true);
         }
         sb.end();
         sr.end();

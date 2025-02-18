@@ -1,12 +1,14 @@
 package io.github.bloques.entidades;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Array;
 
 import java.util.Random;
 
+import io.github.bloques.ResourceManager;
 import io.github.bloques.mundo.Mundo;
 
 public class LineaBloques extends Entidad {
@@ -15,12 +17,14 @@ public class LineaBloques extends Entidad {
 
     private float anchoBloque = Mundo.ANCHO / Mundo.NUM_BLOQUES_POR_LINEA;
     private float altoBloque = Mundo.ALTO / Mundo.NUM_LINEAS_POR_PANTALLA;
-    private static final Color[] COLORES = new Color[]{
-        Color.RED,
-        Color.BLUE,
-        Color.GREEN,
-        Color.YELLOW,
-        Color.PURPLE
+    private static final Texture[] GELATINAS = new Texture[]{
+        ResourceManager.gelatina1,
+        ResourceManager.gelatina2,
+        ResourceManager.gelatina3,
+        ResourceManager.gelatina4,
+        ResourceManager.gelatina5,
+        ResourceManager.gelatina6,
+
     };
 
     public LineaBloques(float x, float y, float ancho, float alto) {
@@ -32,7 +36,7 @@ public class LineaBloques extends Entidad {
 
     private void crearLineaBloques() {
         for (int i = 0; i < Mundo.NUM_BLOQUES_POR_LINEA; i++) {
-            Color colorAleatorio = COLORES[rnd.nextInt(COLORES.length)];
+            Texture colorAleatorio = GELATINAS[rnd.nextInt(GELATINAS.length)];
             bloques.add(new Bloque(
                 x + i * anchoBloque,
                 y + altoBloque,

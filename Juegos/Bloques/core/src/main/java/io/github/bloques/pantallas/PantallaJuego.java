@@ -23,8 +23,9 @@ public class PantallaJuego extends Pantalla {
     private Bloque bloque1;
     private Bloque bloque2;
     private float aumentoVelocidad = 0.0001f;
-    public static  int puntos = 0;
+    public static int puntos = 0;
     Preferences prefs ;
+
     public PantallaJuego(MainGame game) {
         super(game);
         lineasBloques = new Array<>();
@@ -81,20 +82,24 @@ public class PantallaJuego extends Pantalla {
         game.getShapeRenderer().setProjectionMatrix(camara.combined);
         // Renderizado
         sr = game.getShapeRenderer();
+        sb = game.getSpriteBatch();
         if(Mundo.DEBUG){
             sr.begin(ShapeRenderer.ShapeType.Filled);
+            sb.begin();
             for (LineaBloques linea : lineasBloques) {
                 for (Bloque bloque : linea.getBloques()) {
                     if (!bloque.isDestruido()) {
-                        sr.setColor(bloque.getColor());
-                        sr.rect(bloque.x, bloque.y, bloque.ancho, bloque.alto);
+                        //sr.setColor(bloque.getColor());
+                        sb.draw(bloque.getGelatina(), bloque.x, bloque.y, bloque.ancho, bloque.alto);
+                        //sr.rect(bloque.x, bloque.y, bloque.ancho, bloque.alto);
                     }
                 }
             }
+            sb.end();
             sr.end();
         }else{
             // Dibujar números
-            sb = game.getSpriteBatch();
+
             sb.begin();
             for (LineaBloques linea : lineasBloques) {
                 for (Bloque bloque : linea.getBloques()) {
@@ -107,7 +112,7 @@ public class PantallaJuego extends Pantalla {
             }
             sb.end();
         }
-        // Dibujar bordes
+       /* // Dibujar bordes
         sr.begin(ShapeRenderer.ShapeType.Line);
         sr.setColor(0f, 0f, 0f, 1f);
         for (LineaBloques linea : lineasBloques) {
@@ -118,12 +123,15 @@ public class PantallaJuego extends Pantalla {
             }
         }
         sr.end();
+        */
+
     }
 
     @Override
     public void show() {
         super.show();
-        ResourceManager.cargarRecursos();
+        ResourceManager.bso.loop(1f);
+
     }
 
     @Override
@@ -143,7 +151,7 @@ public class PantallaJuego extends Pantalla {
                         return true;
                     } else {
                         bloque2 = bloque;
-                        Boolean condicionEliminar = Mundo.DEBUG ? bloque1.getColor() == bloque2.getColor() && bloque1 != bloque2 :
+                        Boolean condicionEliminar = Mundo.DEBUG ? bloque1.getGelatina().equals(bloque2.getGelatina()) && bloque1 != bloque2 :
                                                                   bloque1.getNumero() == bloque2.getNumero() && bloque1 != bloque2;
                         if(condicionEliminar){
                                 bloque1.eliminar();
