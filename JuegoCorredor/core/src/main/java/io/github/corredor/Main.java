@@ -31,23 +31,16 @@ public class Main extends ApplicationAdapter {
         TextureRegion[][] tmp = TextureRegion.split(spriteSheet,
             spriteSheet.getWidth() / 4,
             spriteSheet.getHeight() / 2);
-
         // Initialize arrays for 8 frames
         framesRight = new TextureRegion[8];
         framesLeft = new TextureRegion[8];
-
         // Load first row (first 4 frames)
         for (int i = 0; i < 4; i++) {
             // For left-facing frames (original orientation)
             framesLeft[i] = new TextureRegion(tmp[0][i]);
-
             // For right-facing frames (flipped)
             framesRight[i] = new TextureRegion(tmp[0][i]);
             framesRight[i].flip(true, false);
-        }
-
-        // Load second row (next 4 frames)
-
         }
 
         // Create animations with all 8 frames

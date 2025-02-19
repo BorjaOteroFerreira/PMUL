@@ -15,8 +15,6 @@ public class Insecto extends Entidad {
 
     public void render(SpriteBatch sb, ShapeRenderer sr ) {
 
-
-        return;
     }
 
 

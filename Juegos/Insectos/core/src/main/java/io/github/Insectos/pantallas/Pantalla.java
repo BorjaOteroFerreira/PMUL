@@ -24,6 +24,19 @@ public abstract class Pantalla implements Screen, InputProcessor {
     }
 
     @Override
+    public void resize(int width, int height) {
+        camera.setToOrtho(false, ANCHO, ALTO);
+        camera.update();
+        game.getSpriteBatch().setProjectionMatrix(camera.combined);
+        game.getShapeRenderer().setProjectionMatrix(camera.combined);
+    }
+
+    @Override
+    public void render(float delta) {
+        ScreenUtils.clear(1,1,1,1);
+    }
+
+    @Override
     public void show(){
        Gdx.input.setInputProcessor(this);
     }
@@ -58,6 +71,8 @@ public abstract class Pantalla implements Screen, InputProcessor {
         return false;
     }
 
+
+    .
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
         return false;
@@ -71,19 +86,6 @@ public abstract class Pantalla implements Screen, InputProcessor {
     @Override
     public boolean scrolled(float amountX, float amountY) {
         return false;
-    }
-
-    @Override
-    public void render(float delta) {
-        ScreenUtils.clear(1,1,1,1);
-    }
-
-    @Override
-    public void resize(int width, int height) {
-        camera.setToOrtho(false, ANCHO, ALTO);
-        camera.update();
-        game.getSpriteBatch().setProjectionMatrix(camera.combined);
-        game.getShapeRenderer().setProjectionMatrix(camera.combined);
     }
 
     @Override

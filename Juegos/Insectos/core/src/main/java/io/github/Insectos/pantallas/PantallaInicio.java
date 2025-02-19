@@ -17,7 +17,6 @@ public class PantallaInicio extends Pantalla{
         sb = game.getSpriteBatch();
     }
 
-
     @Override
     public void show(){
         super.show();
@@ -31,5 +30,4 @@ public class PantallaInicio extends Pantalla{
         ResourceManager.fuente.draw(sb,"INICIO", Mundo.ANCHO / 2 , Mundo.ALTO / 2);
         sb.end();
     }
-
 }
