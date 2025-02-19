@@ -25,22 +25,23 @@ public class PantallaJuego extends Pantalla {
     private float aumentoVelocidad = 0.0001f;
     public static int puntos = 0;
     Preferences prefs ;
+    public boolean recursosAsignados = false;
 
     public PantallaJuego(MainGame game) {
         super(game);
         lineasBloques = new Array<>();
-        if (ResourceManager.assetsCargados()) {
-            ResourceManager.asignarRecursos();
-        }
+
         prefs = Gdx.app.getPreferences("Records");
     }
+
+
     @Override
-    public void render(float delta) {
-        super.render(delta);
-        tiempoEntreLineas -= aumentoVelocidad;
-        //Actualización
-        stateTime += delta;
-        stateTimeProximaLinea += delta;
+    public void show() {
+        super.show();
+        ResourceManager.bso.loop(1f);
+    }
+
+    public void eliminarLineasVacias(){
         // Eliminar líneas con todos los bloques destruidos
         for (int i = lineasBloques.size - 1; i >= 0; i--) {
             LineaBloques linea = lineasBloques.get(i);
@@ -55,32 +56,24 @@ public class PantallaJuego extends Pantalla {
                 lineasBloques.removeIndex(i);
             }
         }
-        // Crear nueva línea cuando corresponda
-        if (stateTimeProximaLinea >= tiempoEntreLineas) {
-            LineaBloques linea = new LineaBloques(0, 0, ANCHO, ALTO / Mundo.NUM_LINEAS_POR_PANTALLA);
-            lineasBloques.insert(0, linea); // Añadir al principio del array
-            stateTimeProximaLinea = 0;
-            // Actualizar posición de todas las líneas
-            float posY = 0;
-            for (LineaBloques lineaExistente : lineasBloques) {
-                for (Bloque bloque : lineaExistente.getBloques()) {
-                    bloque.y = posY;
-                    bloque.hitbox.y = posY;
-                }
-                posY += ALTO / Mundo.NUM_LINEAS_POR_PANTALLA;
-                if(posY >= ALTO){
-                    game.setScreen(new PantallaFin(game));
-                }
-            }
-        }
-        // Limpieza de pantalla
+    }
+
+
+
+    @Override
+    public void render(float delta) {
+
+        super.render(delta);
+        tiempoEntreLineas -= aumentoVelocidad;
+        stateTime += delta;
+        stateTimeProximaLinea += delta;
+        eliminarLineasVacias();
+        crearNuevaLinea();
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         ScreenUtils.clear(0.9f, 0.9f, 0.9f, 1f);
-        // Actualizar cámara
         camara.update();
         game.getSpriteBatch().setProjectionMatrix(camara.combined);
         game.getShapeRenderer().setProjectionMatrix(camara.combined);
-        // Renderizado
         sr = game.getShapeRenderer();
         sb = game.getSpriteBatch();
         if(Mundo.DEBUG){
@@ -99,7 +92,6 @@ public class PantallaJuego extends Pantalla {
             sr.end();
         }else{
             // Dibujar números
-
             sb.begin();
             for (LineaBloques linea : lineasBloques) {
                 for (Bloque bloque : linea.getBloques()) {
@@ -112,7 +104,10 @@ public class PantallaJuego extends Pantalla {
             }
             sb.end();
         }
-       /* // Dibujar bordes
+       //dibujarBordes();
+    }
+
+    public void dibujarBordes(){
         sr.begin(ShapeRenderer.ShapeType.Line);
         sr.setColor(0f, 0f, 0f, 1f);
         for (LineaBloques linea : lineasBloques) {
@@ -123,16 +118,29 @@ public class PantallaJuego extends Pantalla {
             }
         }
         sr.end();
-        */
-
+    }
+    public void crearNuevaLinea(){
+        // Crear nueva línea cuando corresponda
+        if (stateTimeProximaLinea >= tiempoEntreLineas) {
+            LineaBloques linea = new LineaBloques(0, 0, ANCHO, ALTO / Mundo.NUM_LINEAS_POR_PANTALLA);
+            lineasBloques.insert(0, linea); // Añadir al principio del array
+            stateTimeProximaLinea = 0;
+            // Actualizar posición de todas las líneas
+            float posY = 0;
+            for (LineaBloques lineaExistente : lineasBloques) {
+                for (Bloque bloque : lineaExistente.getBloques()) {
+                    bloque.y = posY;
+                    bloque.hitbox.y = posY;
+                }
+                posY += ALTO / Mundo.NUM_LINEAS_POR_PANTALLA;
+                if(posY >= ALTO){
+                    game.mostrarPantallaFin();
+                }
+            }
+        }
     }
 
-    @Override
-    public void show() {
-        super.show();
-        ResourceManager.bso.loop(1f);
 
-    }
 
     @Override
     public void resize(int width, int height) {
@@ -168,10 +176,16 @@ public class PantallaJuego extends Pantalla {
         return false;
     }
 
+    public void reset(){
+        lineasBloques.clear();
+        tiempoEntreLineas = 3.5f;
+        stateTimeProximaLinea = tiempoEntreLineas;
+        puntos = 0;
+    }
+
     @Override
     public void dispose() {
         super.dispose();
-
     }
 }
 

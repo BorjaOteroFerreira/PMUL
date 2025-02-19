@@ -23,24 +23,11 @@ public class Bloque extends Entidad {
         return gelatina;
     }
 
-    public void update() {
-        if (!destruido) {
-            if (primeraFila) {
-                y = 0;
-                primeraFila = !primeraFila;
-            } else {
-                y += Mundo.ALTO / Mundo.NUM_LINEAS_POR_PANTALLA;
-            }
-            hitbox.setPosition(x, y);
-        }
-    }
-
     public void render(SpriteBatch sb, ShapeRenderer sr) {
         if (!destruido) {
             sr.rect(x, y, ancho, alto);
             sb.draw(gelatina, x, y, ancho, alto);
         }
-
     }
 
     public void eliminar() {

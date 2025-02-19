@@ -48,7 +48,11 @@ public class Pantalla implements Screen, InputProcessor {
         game.getSpriteBatch().setProjectionMatrix(camara.combined);
         game.getShapeRenderer().setProjectionMatrix(camara.combined);
 
+
     }
+
+
+
     @Override public void dispose() {
 
 

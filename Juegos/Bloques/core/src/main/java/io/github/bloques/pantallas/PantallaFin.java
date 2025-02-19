@@ -12,14 +12,21 @@ public class PantallaFin extends Pantalla {
     ShapeRenderer sr;
     Preferences prefs ;
     String mensaje ;
+    public boolean recursosAsignados = false;
+
     public PantallaFin(MainGame game) {
         super(game);
-        ResourceManager.fuente.getData().setScale(2.0f);
         prefs = Gdx.app.getPreferences("Records");
         mensaje = "Puntuación: " + PantallaJuego.puntos + "\nRecord anterior: " + prefs.getInteger("record", 0);
         comprobarRecord();
     }
 
+    @Override
+    public void show() {
+        super.show();
+        ResourceManager.fuente.getData().setScale(2.0f);
+
+    }
     @Override
     public void render(float delta) {
         super.render(delta);
@@ -46,7 +53,12 @@ public class PantallaFin extends Pantalla {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         PantallaJuego.puntos = 0;
         ResourceManager.bso.stop();
-        game.setScreen(new PantallaInicio(game));
+        game.mostrarPantallaInicio();
         return true;
+    }
+
+    public void reset(){
+        mensaje = "Puntuación: " + PantallaJuego.puntos + "\nRecord anterior: " + prefs.getInteger("record", 0);
+        comprobarRecord();
     }
 }

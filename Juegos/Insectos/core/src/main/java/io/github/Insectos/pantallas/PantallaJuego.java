@@ -27,4 +27,8 @@ public class PantallaJuego extends Pantalla{
         ResourceManager.fuente.draw(sb, "Juego", Mundo.ANCHO / 2, Mundo.ALTO / 2);
         sb.end();
     }
+
+    public void dispose() {
+        super.dispose();
+    }
 }

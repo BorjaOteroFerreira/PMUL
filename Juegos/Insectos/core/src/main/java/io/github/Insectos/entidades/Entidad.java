@@ -2,7 +2,7 @@ package io.github.Insectos.entidades;
 
 import com.badlogic.gdx.math.Rectangle;
 
-public class Entidad {
+public abstract class Entidad {
     protected float x, y;
     protected float ancho, alto ;
     protected float velocidad = 1f;
@@ -19,8 +19,8 @@ public class Entidad {
         estado = Estado.PARADO;
         hitbox = new Rectangle(x,y,ancho,alto);
     }
-    public void actualizar(float delta) {
-    }
+
+
 
     public Estado getEstado() {
         return estado;
@@ -31,6 +31,4 @@ public class Entidad {
     public Rectangle getHitbox(){
         return hitbox;
     }
-
-
 }

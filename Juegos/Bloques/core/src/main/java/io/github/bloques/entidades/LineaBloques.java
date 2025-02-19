@@ -52,11 +52,7 @@ public class LineaBloques extends Entidad {
         return bloques;
     }
 
-    public void update() {
-        for (int i = 0; i < bloques.size; i++) {
-            bloques.get(i).update();
-        }
-    }
+
 
     public void render(SpriteBatch sb, ShapeRenderer sr) {
         for (int i = 0; i < bloques.size; i++) {

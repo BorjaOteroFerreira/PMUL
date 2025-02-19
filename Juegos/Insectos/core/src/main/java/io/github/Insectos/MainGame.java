@@ -27,20 +27,14 @@ public class MainGame extends Game {
         sb = new SpriteBatch();
         sr = new ShapeRenderer();
         ResourceManager.asignarRecursos();
-        setScreen(new PantallaInicio(this));
-
+        setScreen(new PantallaJuego(this));
     }
 
-    @Override
-    public void render() {
-        ScreenUtils.clear(1f, 1f, 1f, 1f);
-    }
 
     @Override
     public void dispose() {
         getScreen().dispose();
         sb.dispose();
-
     }
 
     public SpriteBatch getSpriteBatch() {

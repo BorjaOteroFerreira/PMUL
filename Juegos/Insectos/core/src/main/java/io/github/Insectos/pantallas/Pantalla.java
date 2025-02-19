@@ -9,7 +9,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import io.github.Insectos.MainGame;
 import io.github.Insectos.mundo.Mundo;
 
-public class Pantalla implements Screen, InputProcessor {
+public abstract class Pantalla implements Screen, InputProcessor {
     public float ANCHO, ALTO;
     protected OrthographicCamera camera ;
     protected MainGame game;

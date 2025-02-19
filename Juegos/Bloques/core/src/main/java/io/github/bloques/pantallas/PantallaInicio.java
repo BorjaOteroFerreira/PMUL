@@ -9,6 +9,7 @@ import io.github.bloques.MainGame;
 public class PantallaInicio extends Pantalla {
     SpriteBatch sb;
     ShapeRenderer sr;
+    private boolean recursosAsignados = false;
 
     public PantallaInicio(MainGame game) {
         super(game);
@@ -17,17 +18,21 @@ public class PantallaInicio extends Pantalla {
     @Override
     public void show() {
         super.show();
-        ResourceManager.cargarRecursos();
+
+
     }
 
     public void render(float delta) {
         super.render(delta);
+        if(ResourceManager.assetsCargados()){
+            ResourceManager.asignarRecursos();
+            recursosAsignados = true;
+        }
         sb = game.getSpriteBatch();
         sr = game.getShapeRenderer();
         sr.begin(ShapeRenderer.ShapeType.Line);
         sb.begin();
-        if(ResourceManager.assetsCargados()){
-            ResourceManager.asignarRecursos();
+        if(recursosAsignados){
             ResourceManager.fuente.getData().setScale(2.0f); // Aumentar el tamaño de la fuente
             sb.draw(ResourceManager.bgIntro, 0, 0, ANCHO, ALTO);
             //ResourceManager.fuente.draw(sb, "Toca para empezar", (ANCHO /2) -80, (ALTO /2) -50 );
@@ -41,14 +46,17 @@ public class PantallaInicio extends Pantalla {
         sr.end();
     }
 
+    public void reset(){
 
+    }
     public void resize(int width, int height) {
         super.resize(width, height);
     }
 
+    // En PantallaInicio.java
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        game.setScreen(new PantallaJuego(game));
+        game.mostrarPantallaJuego();
         return false;
     }
 
