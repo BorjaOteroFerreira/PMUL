@@ -27,7 +27,11 @@ public class MainGame extends Game {
         sb = new SpriteBatch();
         sr = new ShapeRenderer();
         ResourceManager.asignarRecursos();
+<<<<<<< Updated upstream
         setScreen(new PantallaJuego(this));
+=======
+        setScreen(new PantallaInicio(this));
+>>>>>>> Stashed changes
     }
 
 
