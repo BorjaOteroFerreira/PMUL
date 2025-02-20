@@ -71,8 +71,6 @@ public abstract class Pantalla implements Screen, InputProcessor {
         return false;
     }
 
-
-    .
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
         return false;

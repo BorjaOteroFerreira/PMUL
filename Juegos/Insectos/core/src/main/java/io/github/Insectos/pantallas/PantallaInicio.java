@@ -10,8 +10,6 @@ import io.github.Insectos.mundo.Mundo;
 public class PantallaInicio extends Pantalla{
     SpriteBatch sb;
 
-
-
     public PantallaInicio(MainGame game) {
         super(game);
         sb = game.getSpriteBatch();
