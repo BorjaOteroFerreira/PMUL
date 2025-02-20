@@ -1,5 +1,6 @@
 package io.github.Insectos.entidades;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 
 public abstract class Entidad {
@@ -9,8 +10,8 @@ public abstract class Entidad {
     public enum Estado {PARADO, ADELANTE , ATRAS, ARRIBA, ABAJO};
     public Estado estado;
     protected Rectangle hitbox;
-
-    public Entidad(float x, float y, float ancho, float alto, float velocidad) {
+    protected  Texture imagen;
+    public Entidad(float x, float y, float ancho, float alto, float velocidad ) {
         this.x = x;
         this.y = y;
         this.ancho = ancho;
@@ -19,7 +20,6 @@ public abstract class Entidad {
         estado = Estado.PARADO;
         hitbox = new Rectangle(x,y,ancho,alto);
     }
-
 
 
     public Estado getEstado() {

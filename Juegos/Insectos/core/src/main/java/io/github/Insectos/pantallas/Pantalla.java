@@ -29,6 +29,7 @@ public abstract class Pantalla implements Screen, InputProcessor {
         camera.update();
         game.getSpriteBatch().setProjectionMatrix(camera.combined);
         game.getShapeRenderer().setProjectionMatrix(camera.combined);
+        
     }
 
     @Override
