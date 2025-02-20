@@ -27,7 +27,8 @@ public class Pantalla implements Screen, InputProcessor {
         camara.update();
     }
 
-    @Override public void show() {
+    @Override
+    public void show() {
         Gdx.input.setInputProcessor(this);
     }
 
