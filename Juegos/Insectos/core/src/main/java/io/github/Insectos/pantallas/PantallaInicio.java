@@ -30,6 +30,9 @@ public class PantallaInicio extends Pantalla{
     @Override
     public void show(){
         super.show();
+        stateTime = 0;
+        numInsectos = 0;
+        proximoInsecto = 0;
         insecto = new Insecto(Mundo.ANCHO / 2 - anchoImagen / 2, Mundo.ALTO / 2 - altoImagen / 2, anchoImagen, altoImagen, 10);
     }
 
@@ -48,7 +51,7 @@ public class PantallaInicio extends Pantalla{
         }
         sr.begin(ShapeRenderer.ShapeType.Line);
         sb.begin();
-        insecto.render(sb, game.getShapeRenderer());
+        insecto.render(sb,sr);
         int fnumInssectos = numInsectos == 0  ? 9 : numInsectos;
         ResourceManager.fuente.draw(sb, "Insectos: " + (fnumInssectos ) + "/" + ResourceManager.getInsectosSize(),
             Mundo.ANCHO / 2, Mundo.ALTO / 2);
@@ -72,7 +75,7 @@ public class PantallaInicio extends Pantalla{
                 break;
             case Input.Keys.NUM_1, Input.Keys.NUM_2, Input.Keys.NUM_3, Input.Keys.NUM_4, Input.Keys.NUM_5, Input.Keys.NUM_6, Input.Keys.NUM_7, Input.Keys.NUM_8, Input.Keys.NUM_9:
                 Mundo.setInsectos(keycode - Input.Keys.NUM_1 + 1);
-                game.setScreen(new PantallaJuego(game));
+                game.cargarPantallaJuego();
                 break;
         }
         if(keycode == Input.Keys.F){

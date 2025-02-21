@@ -9,7 +9,7 @@ public abstract class Entidad {
     protected float velocidad = 1f;
     public enum Estado {PARADO, ADELANTE , ATRAS, ARRIBA, ABAJO};
     public Estado estado;
-    protected Rectangle hitbox;
+    public Rectangle hitbox;
     protected  Texture imagen;
     public Entidad(float x, float y, float ancho, float alto, float velocidad ) {
         this.x = x;
