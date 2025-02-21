@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import io.github.Insectos.MainGame;
@@ -40,13 +41,26 @@ public class PantallaJuego extends Pantalla{
         sr.begin(ShapeRenderer.ShapeType.Line);
         sb.begin();
         insecto.render(sb, sr);
-        ResourceManager.fuente.draw(sb, "Juego", Mundo.ANCHO / 2, Mundo.ALTO / 2);
+
         sb.end();
         sr.end();
     }
 
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        Vector3 touchPos = new Vector3();
+        touchPos.set(screenX, screenY, 0);
+        camera.unproject(touchPos);
+        if (insecto.hitbox.contains(touchPos.x, touchPos.y)) {
+            insectoActual++;
 
+            if (insectoActual >= numInsectos) {
+               game.setScreen(new PantallaFin(game));
+            }
 
+            insecto.setImagen(ResourceManager.getInsecto(insectoActual));
+        }
+        return false;
+    }
     public void dispose() {
         super.dispose();
     }
