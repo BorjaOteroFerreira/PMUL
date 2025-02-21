@@ -10,7 +10,7 @@ public class ResourceManager  {
     private static final AssetManager assetManager =  new AssetManager();
     public static BitmapFont fuente;
     public static Array<Texture> insectos = new Array<>();
-
+    public static Texture mancha ;
 
 
     public static void cargarRecursos(){
@@ -24,8 +24,8 @@ public class ResourceManager  {
         assetManager.load("arana.png", Texture.class);
         assetManager.load("cucaracha.png", Texture.class);
         assetManager.load("avispa.png", Texture.class);
-        assetManager.load("juan.png", Texture.class);
-
+        assetManager.load("bicho.png", Texture.class);
+        assetManager.load("mancha.png", Texture.class);
     }
 
     public static void asignarRecursos(){
@@ -37,8 +37,8 @@ public class ResourceManager  {
         insectos.add(assetManager.get("arana.png"));
         insectos.add(assetManager.get("cucaracha.png"));
         insectos.add(assetManager.get("avispa.png"));
-        insectos.add(assetManager.get("juan.png"));
-
+        insectos.add(assetManager.get("bicho.png"));
+        mancha =  assetManager.get("mancha.png");
     }
 
     public static float getProgress(){

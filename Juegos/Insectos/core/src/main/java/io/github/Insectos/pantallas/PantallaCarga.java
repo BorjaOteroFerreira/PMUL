@@ -113,7 +113,7 @@ public class PantallaCarga extends Pantalla {
         if (alpha <= 0) {
             try {
                 dispose();
-                game.setScreen(new PantallaInicio(game));
+                game.cargarPantallaInicio();
             } catch (Exception e) {
                 handleError("Error transitioning to game screen: " + e.getMessage());
             }
