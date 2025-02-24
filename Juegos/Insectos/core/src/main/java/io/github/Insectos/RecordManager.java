@@ -1,4 +1,4 @@
-package com.sktrd12.manager;
+package io.github.Insectos;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
@@ -21,7 +21,6 @@ public class RecordManager {
 
     public boolean saveRecord(String record, float stateTimeJuego) {
         return comprobarRecord(record, stateTimeJuego);
-
     }
 
     private boolean comprobarRecord(String record, float stateTimeJuego) {
