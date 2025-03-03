@@ -1,6 +1,5 @@
 package io.github.examen.entidades;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import io.github.examen.Formas;
@@ -44,34 +43,26 @@ public class Jugador extends Entidad {
     }
 
     public void movimientoAumentarDisminuir() {
-        // Verificar límites antes de cambiar el tamaño
+        // Calcular nuevas dimensiones
         float newAncho = aumentar ? ancho + aumento : ancho - aumento;
         float newAlto = aumentar ? alto + aumento : alto - aumento;
         float newX = aumentar ? x - aumento / 2 : x + aumento / 2;
         float newY = aumentar ? y - aumento / 2 : y + aumento / 2;
+
         // Verificar límites antes de aplicar cambios
         boolean dentroDeLimites = (newY >= Mundo.yJuego) && (newY + newAlto <= Mundo.ALTO);
-        if (aumentar) {
-            if (ancho < tamMax && dentroDeLimites) {
-                ancho = newAncho;
-                alto = newAlto;
-                x = hitbox.x = newX;
-                y = hitbox.y = newY;
-            } else {
-                aumentar = false;
-            }
+        boolean tamanioValido = aumentar ? (ancho < tamMax) : (ancho > tamMin);
+
+        if (tamanioValido && dentroDeLimites) {
+            // Aplicar cambios
+            ancho = newAncho;
+            alto = newAlto;
+            x = hitbox.x = newX;
+            y = hitbox.y = newY;
         } else {
-            if (ancho > tamMin && dentroDeLimites) {
-                ancho = newAncho;
-                alto = newAlto;
-                x = hitbox.x = newX;
-                y = hitbox.y = newY;
-            } else {
-                aumentar = true;
-            }
+            // Cambiar dirección de escalado
+            aumentar = !aumentar;
         }
-        hitbox.setSize(ancho, alto);
-        hitbox.setPosition(x, y);
     }
 
     public void update(float delta) {
