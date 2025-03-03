@@ -7,6 +7,7 @@ public  class Formas {
     public static void pintarCuadrado(ShapeRenderer sr, float x, float y , float ancho, float alto){
         sr.rect(x, y, ancho, alto);
     }
+
     public static void pintarCirculo(ShapeRenderer sr, float x, float y , float ancho, float alto){
         sr.rect(x, y, ancho, alto);
         sr.circle(x + ancho / 2, y + alto / 2, ancho / 2);

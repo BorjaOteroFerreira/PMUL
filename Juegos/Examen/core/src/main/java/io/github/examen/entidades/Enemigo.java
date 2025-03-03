@@ -27,13 +27,14 @@ public class Enemigo extends Entidad {
     }
 
     public void update(float delta) {
-        if (super.getEstado() == Estado.ADELANTE) { // Movimiento hacia la izquierda
-            moverDerecha(delta);
+        switch (super.getEstado()) {
+            case ADELANTE:
+                moverDerecha(delta);
+                break;
+            case ATRAS:
+                moverIzquierda(delta);
+                break;
         }
-        if (super.getEstado() == Estado.ATRAS) { // Movimiento hacia la derecha
-            moverIzquierda(delta);
-        }
-        hitbox.setPosition(x, y);
     }
 
 
