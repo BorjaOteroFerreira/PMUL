@@ -26,7 +26,7 @@ public class RecordManager {
     private boolean comprobarRecord(String record, float stateTimeJuego) {
         boolean guardado = false;
         float recordGuardado = getRecord(record);
-        if (stateTimeJuego < recordGuardado || recordGuardado == -1) {
+        if (stateTimeJuego > recordGuardado || recordGuardado == -1) {
             prefs.putFloat(record, stateTimeJuego);
             prefs.flush();
             guardado = true;

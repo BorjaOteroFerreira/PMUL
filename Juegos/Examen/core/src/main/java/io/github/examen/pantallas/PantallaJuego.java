@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import java.util.Random;
 
 import io.github.examen.MainGame;
+import io.github.examen.RecordManager;
 import io.github.examen.ResourceManager;
 import io.github.examen.entidades.Enemigo;
 import io.github.examen.entidades.Entidad;
@@ -36,11 +37,12 @@ public class PantallaJuego extends Pantalla{
 
     private static Random rnd = new Random();
     Jugador jugador ;
+
     public PantallaJuego(MainGame game) {
         super(game);
         sb = game.getSpriteBatch();
         sr = game.getShapeRenderer();
-        jugador = new Jugador(Mundo.ANCHO / 2 - anchoJugador / 2, Mundo.ALTO / 2 - altoJugador / 2, anchoJugador, altoJugador , velocidadJugador);
+        jugador = new Jugador(Mundo.anchoJuego/ 2 - anchoJugador / 2, Mundo.altoJuego / 2 - altoJugador / 2, anchoJugador, altoJugador , velocidadJugador);
         enemigos = new Array<>();
         numVidas = Mundo.numColisiones;
     }
@@ -62,25 +64,32 @@ public class PantallaJuego extends Pantalla{
         }
         jugador.update(delta);
         sr.begin(ShapeRenderer.ShapeType.Filled);
-        sr.setColor(0, 0, 0, 1);
         jugador.render(sr);
         sr.end();
         sr.begin(ShapeRenderer.ShapeType.Line);
+        sr.setColor(Color.GRAY);
+        sr.rect(Mundo.xRecord, Mundo.yRecord, Mundo.anchoRecord, Mundo.altoRecord);
         sb.begin();
         for (Enemigo enemigo : enemigos) {
             enemigo.render(sr,sb);
         }
+        ResourceManager.fuente.draw(sb, "Vidas: " + numVidas +  " Tiempo: "+ stateTime, Mundo.xRecord + 10, Mundo.yRecord + 20);
         sb.end();
         sr.end();
-
     }
 
     public void comprobarColisiones(){
         for(Enemigo e : enemigos){
             if(e.getHitbox().overlaps(jugador.getHitbox())){
-                numVidas --;
+                if(!e.tocado){
+                    e.tocado = true;
+                    numVidas --;
+                    e.restarVida();
+                }
             }
             if(numVidas <= 0){
+                RecordManager.getInstance().guardarRecord("record_"+ Mundo.numColisiones, stateTime);
+                stateTime = 0;
                 game.cargarPantallaInicio();
                 numVidas = Mundo.numColisiones;
                 dispose();
@@ -109,8 +118,8 @@ public class PantallaJuego extends Pantalla{
     private void crearEnemigo() {
             float x ;
             Enemigo nuevoEnemigo;
-            x = derecha ? Mundo.ANCHO - anchoEnemigo : 0 + anchoEnemigo  ;
-                nuevoEnemigo = new Enemigo(x, rnd.nextFloat(0 +anchoEnemigo, Mundo.ALTO - altoEnemigo), anchoEnemigo, altoEnemigo, 50f );
+            x = derecha ? Mundo.anchoJuego - anchoEnemigo : 0 + anchoEnemigo  ;
+                nuevoEnemigo = new Enemigo(x, rnd.nextFloat(Mundo.yJuego +anchoEnemigo, Mundo.ALTO - altoEnemigo), anchoEnemigo, altoEnemigo, 50f );
             enemigos.add(nuevoEnemigo);
             nuevoEnemigo.setEstado(Entidad.Estado.ADELANTE);
     }
