@@ -45,7 +45,7 @@ public class PantallaInicio extends Pantalla {
         ResourceManager.fuente.draw(sb, "Jugar (1...9)" , Mundo.ANCHO / 2 - 75 ,(Mundo.ALTO / 2) + Mundo.ALTO / 4 );
         record = recordManager.getRecord("record_"+ Mundo.numColisiones);
         if(recordManager.existeRecord("record_"+ Mundo.numColisiones)) {
-            ResourceManager.fuente.draw(sb, "Record :" + record, Mundo.ANCHO / 2 - 150, Mundo.ALTO / 4);
+            ResourceManager.fuente.draw(sb, "Record: " + record, Mundo.ANCHO / 2 - 130, Mundo.ALTO / 4);
         }
         sb.end();
     }
