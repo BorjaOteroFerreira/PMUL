@@ -4,6 +4,7 @@ import static io.github.examen.entidades.Entidad.Tipo.*;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 
 import java.util.Random;
@@ -21,10 +22,16 @@ public class Enemigo extends Entidad {
         super(x, y, ancho, alto, velocidad);
         Random rnd = new Random();
         int tipo = rnd.nextInt(3) + 1;
+
         switch(tipo){
             case 1 : super.tipo = CUADRADO; numVidas = 3 ; break;
             case 2 : super.tipo = CIRCULO; numVidas = 2; break;
             case 3 : super.tipo = CRUZ; numVidas = 1; break;
+        }
+        if (super.tipo != Tipo.CIRCULO) {
+            super.hitbox = new Rectangle(x, y, ancho, alto);
+        } else {
+            super.hitboxCircle = new Circle(x + ancho / 2, y + alto / 2, ancho / 2);
         }
     }
 
@@ -44,12 +51,19 @@ public class Enemigo extends Entidad {
                 case CIRCULO: Formas.pintarCirculo(sr, x, y, ancho, alto); break;
                 case CRUZ: Formas.pintarCruz(sr, x, y, ancho, alto); break;
             }
-            ResourceManager.fuente.draw(sprite, "" + numVidas, x + ancho/2 -2, y + alto/2 + 5);
+            if(tipo != CRUZ)
+                ResourceManager.fuente.draw(sprite, "" + numVidas, x + ancho/2 -2, y + alto/2 + 5);
         }
     }
 
     public void moverIzquierda(float delta){
-        x = hitbox.x -= velocidad * delta;
+        if(tipo == Tipo.CIRCULO){
+            x  -= velocidad * delta;
+            hitboxCircle.setX(x);
+        }
+        else{
+            x = hitbox.x -= velocidad * delta;
+        }
         if (x < 0) { // Rebote en el borde izquierdo
             super.setEstado(Estado.ATRAS);
             tocado = false;
@@ -57,7 +71,13 @@ public class Enemigo extends Entidad {
     }
 
     public void moverDerecha(float delta){
-        x = hitbox.x += velocidad * delta;
+        if(tipo == Tipo.CIRCULO){
+            x  += velocidad * delta;
+            hitboxCircle.setX(x);
+        }
+        else{
+            x = hitbox.x += velocidad * delta;
+        }
         if (x + ancho > Mundo.ANCHO) { // Rebote en el borde derecho
             super.setEstado(Estado.ADELANTE);
             tocado = false;

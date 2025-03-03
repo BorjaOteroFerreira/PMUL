@@ -1,37 +1,50 @@
 package io.github.examen.entidades;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 
 public abstract class Entidad {
     public float x;
     public float y;
-    protected float ancho, alto ;
+    protected float ancho, alto;
     protected float velocidad = 1f;
-    public enum Estado {PARADO, ADELANTE , ATRAS, ARRIBA, ABAJO};
+    public enum Estado {PARADO, ADELANTE, ATRAS, ARRIBA, ABAJO};
     public enum Tipo {CRUZ, CIRCULO, CUADRADO};
-    public Tipo tipo ;
+    public Tipo tipo;
     public Estado estado;
+    protected Texture imagen;
     public Rectangle hitbox;
-    protected  Texture imagen;
+    public Circle hitboxCircle;
 
-    public Entidad(float x, float y, float ancho, float alto, float velocidad ) {
+    public Entidad(float x, float y, float ancho, float alto, float velocidad) {
         this.x = x;
         this.y = y;
         this.ancho = ancho;
         this.alto = alto;
         this.velocidad = velocidad;
         estado = Estado.PARADO;
-        hitbox = new Rectangle(x,y,ancho,alto);
+        if (tipo != Tipo.CIRCULO) {
+          hitbox = new Rectangle(x, y, ancho, alto);
+        } else {
+           hitboxCircle = new Circle(x + ancho / 2, y + alto / 2, ancho / 2);
+        }
+
     }
 
     public Estado getEstado() {
         return estado;
     }
+
     public void setEstado(Estado estado) {
         this.estado = estado;
     }
-    public Rectangle getHitbox(){
+
+    public Rectangle getHitbox() {
         return hitbox;
+    }
+
+    public Circle getHitboxCircle() {
+        return hitboxCircle;
     }
 }

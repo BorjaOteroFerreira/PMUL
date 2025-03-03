@@ -1,6 +1,8 @@
 package io.github.examen.entidades;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Rectangle;
 
 import io.github.examen.Formas;
 import io.github.examen.mundo.Mundo;
@@ -14,13 +16,18 @@ public class Jugador extends Entidad {
     public Jugador(float x, float y, float ancho, float alto, float velocidad) {
         super(x, y, ancho, alto, velocidad);
         super.tipo = Tipo.CUADRADO;
+
     }
 
     public void cambiarForma(){
         switch(tipo){
-            case CUADRADO: tipo = Tipo.CIRCULO; break;
+            case CUADRADO: {
+                hitboxCircle = new Circle(x + ancho / 2, y + alto / 2, ancho / 2);
+                tipo = Tipo.CIRCULO; break;
+            }
             case CIRCULO: tipo = Tipo.CRUZ; break;
             case CRUZ: tipo = Tipo.CUADRADO; break;
+
         }
     }
 
@@ -57,8 +64,15 @@ public class Jugador extends Entidad {
             // Aplicar cambios
             ancho = newAncho;
             alto = newAlto;
-            x = hitbox.x = newX;
-            y = hitbox.y = newY;
+            if(tipo == Tipo.CIRCULO){
+              x = newX;
+              y = newY;
+              hitboxCircle.setX(x);
+              hitboxCircle.setY(y);
+            }else{
+                x = hitbox.x = newX;
+                y = hitbox.y = newY;
+            }
         } else {
             // Cambiar dirección de escalado
             aumentar = !aumentar;
@@ -69,12 +83,25 @@ public class Jugador extends Entidad {
         movimientoAumentarDisminuir();
         if (super.getEstado() == Estado.ADELANTE) {
             if(y < Mundo.ALTO - alto + alto / 2)
-                y = hitbox.y += velocidad * delta;
+                if(tipo == Tipo.CIRCULO){
+                    y += velocidad * delta;
+                    hitboxCircle.setY(y);
+                }else{
+                    y = hitbox.y += velocidad * delta;
+                    hitbox.setPosition(x, y);
+                }
         } else if (super.getEstado() == Estado.ATRAS) {
             if(y > Mundo.yJuego)
-                y = hitbox.y -= velocidad * delta;
+                if(tipo == Tipo.CIRCULO) {
+                    y -= velocidad * delta;
+                    hitboxCircle.setY(y);
+                }else{
+                    y = hitbox.y -= velocidad * delta;
+                    hitbox.setPosition(x, y);
+                }
+
         }
-        hitbox.setPosition(x, y);
+
     }
 
     public void reset(){
