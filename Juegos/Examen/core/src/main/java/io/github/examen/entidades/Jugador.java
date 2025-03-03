@@ -51,7 +51,6 @@ public class Jugador extends Entidad {
         }
         // Mantener el jugador en el centro
         x = Mundo.anchoJuego / 2 - ancho / 2;
-
         hitbox.setPosition(x, y);
     }
 

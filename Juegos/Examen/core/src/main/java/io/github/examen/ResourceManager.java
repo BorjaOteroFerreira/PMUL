@@ -19,10 +19,6 @@ public class ResourceManager  {
         fuente.setColor(Color.BLACK);
     }
 
-    public static void asignarRecursos(){
-
-    }
-
     public static float getProgress(){
         return assetManager.getProgress();
     }

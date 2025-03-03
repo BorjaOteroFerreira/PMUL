@@ -1,5 +1,4 @@
 package io.github.examen.pantallas;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
@@ -8,9 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
-
 import java.util.Random;
-
 import io.github.examen.MainGame;
 import io.github.examen.RecordManager;
 import io.github.examen.ResourceManager;
@@ -26,7 +23,7 @@ public class PantallaJuego extends Pantalla{
     private int numVidas;
     private float anchoJugador = 20;
     private float altoJugador = anchoJugador;
-    private float altoEnemigo = 50 ;
+    private float altoEnemigo = 50;
     private float anchoEnemigo = 50;
     private float velocidadJugador = 500f;
     private float stateTime = 0f;
@@ -40,6 +37,7 @@ public class PantallaJuego extends Pantalla{
 
     public PantallaJuego(MainGame game) {
         super(game);
+
         sb = game.getSpriteBatch();
         sr = game.getShapeRenderer();
         jugador = new Jugador(Mundo.anchoJuego/ 2 - anchoJugador / 2, Mundo.altoJuego / 2 - altoJugador / 2, anchoJugador, altoJugador , velocidadJugador);
@@ -49,6 +47,7 @@ public class PantallaJuego extends Pantalla{
 
     @Override
     public void render(float delta){
+        ResourceManager.fuente.getData().setScale(1f);
         ScreenUtils.clear(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // Clear the screen with the specified color
         comprobarColisiones();
@@ -68,7 +67,11 @@ public class PantallaJuego extends Pantalla{
         for (Enemigo enemigo : enemigos) {
             enemigo.render(sr,sb);
         }
-        ResourceManager.fuente.draw(sb, "Vidas: " + numVidas +  " Tiempo: "+ stateTime, Mundo.xRecord + 10, Mundo.yRecord + 20);
+        int colisiones  = Mundo.numColisiones - numVidas;
+        ResourceManager.fuente.getData().setScale(2f);
+        ResourceManager.fuente.draw(sb,
+            "Vidas: " + numVidas +" Colisiones: " + colisiones +  " Tiempo: "+ (int)stateTime,
+            Mundo.xRecord + 10, Mundo.yRecord + 75);
         sb.end();
         sr.end();
     }

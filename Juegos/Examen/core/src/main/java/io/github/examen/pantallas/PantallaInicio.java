@@ -41,10 +41,11 @@ public class PantallaInicio extends Pantalla {
         sr.rect(0, 0, Mundo.ANCHO, Mundo.ALTO /2 );
         sr.end();
         sb.begin();
-        ResourceManager.fuente.draw(sb, "Jugar (1...9)" , Mundo.ANCHO / 2 ,(Mundo.ALTO / 2) + Mundo.ALTO / 4 );
+        ResourceManager.fuente.getData().setScale(2f);
+        ResourceManager.fuente.draw(sb, "Jugar (1...9)" , Mundo.ANCHO / 2 - 75 ,(Mundo.ALTO / 2) + Mundo.ALTO / 4 );
         record = recordManager.getRecord("record_"+ Mundo.numColisiones);
         if(recordManager.existeRecord("record_"+ Mundo.numColisiones)) {
-            ResourceManager.fuente.draw(sb, "Record :" + record, Mundo.ANCHO / 2, Mundo.ALTO / 4);
+            ResourceManager.fuente.draw(sb, "Record :" + record, Mundo.ANCHO / 2 - 150, Mundo.ALTO / 4);
         }
         sb.end();
     }
@@ -62,7 +63,9 @@ public class PantallaInicio extends Pantalla {
             case Input.Keys.F:
                 Gdx.app.exit();
                 break;
-            case Input.Keys.NUM_1, Input.Keys.NUM_2, Input.Keys.NUM_3, Input.Keys.NUM_4, Input.Keys.NUM_5, Input.Keys.NUM_6, Input.Keys.NUM_7, Input.Keys.NUM_8, Input.Keys.NUM_9:
+            case Input.Keys.NUM_1, Input.Keys.NUM_2, Input.Keys.NUM_3,
+                 Input.Keys.NUM_4, Input.Keys.NUM_5, Input.Keys.NUM_6,
+                 Input.Keys.NUM_7, Input.Keys.NUM_8, Input.Keys.NUM_9:
                 Mundo.setNumColisiones(keycode - Input.Keys.NUM_1 + 1);
                 game.cargarPantallaJuego();
                 break;
