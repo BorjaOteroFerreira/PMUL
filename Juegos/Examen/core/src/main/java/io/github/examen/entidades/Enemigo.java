@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Rectangle;
 
 import java.util.Random;
 
+import io.github.examen.Formas;
 import io.github.examen.ResourceManager;
 import io.github.examen.mundo.Mundo;
 
@@ -19,28 +20,53 @@ public class Enemigo extends Entidad {
         Random rnd = new Random();
         int tipo = rnd.nextInt(3) + 1;
         switch(tipo){
-            case 1 : super.tipo = Tipo.CUADRADO; numVidas = 2 ; break;
-            case 2 : super.tipo = Tipo.CIRCULO; numVidas = 3; break;
+            case 1 : super.tipo = Tipo.CUADRADO; numVidas = 3 ; break;
+            case 2 : super.tipo = Tipo.CIRCULO; numVidas = 2; break;
             case 3 : super.tipo = Tipo.CRUZ; numVidas = 1; break;
         }
     }
 
     public void update(float delta) {
         if (super.getEstado() == Estado.ADELANTE) { // Movimiento hacia la izquierda
-            x = hitbox.x -= velocidad * delta;
-            if (x < 0) { // Rebote en el borde izquierdo
-                super.setEstado(Estado.ATRAS);
-                tocado = false; // Reiniciar el tocado
-            }
+            moverDerecha(delta);
         }
         if (super.getEstado() == Estado.ATRAS) { // Movimiento hacia la derecha
-            x = hitbox.x += velocidad * delta;
-            if (x + ancho > Mundo.ANCHO) { // Rebote en el borde derecho
-                super.setEstado(Estado.ADELANTE);
-                tocado = false; // Reiniciar el tocado
-            }
+            moverIzquierda(delta);
         }
         hitbox.setPosition(x, y);
+    }
+
+
+    public void render(ShapeRenderer sr, SpriteBatch sb) {
+        SpriteBatch sprite = sb;
+        if (estado != Estado.PARADO) {
+            switch (tipo){
+                case CUADRADO: Formas.pintarCuadrado(sr, x, y, ancho, alto); break;
+                case CIRCULO: Formas.pintarCirculo(sr, x, y, ancho, alto); break;
+                case CRUZ: Formas.pintarCruz(sr, x, y, ancho, alto); break;
+            }
+            ResourceManager.fuente.draw(sprite, "" + numVidas, x + ancho/2 -2, y + alto/2 + 5);
+        }
+    }
+
+    public void moverDerecha(float delta){
+        x = hitbox.x -= velocidad * delta;
+        if (x < 0) { // Rebote en el borde izquierdo
+            super.setEstado(Estado.ATRAS);
+            tocado = false;
+        }
+    }
+
+    public void moverIzquierda(float delta){
+        x = hitbox.x += velocidad * delta;
+        if (x + ancho > Mundo.ANCHO) { // Rebote en el borde derecho
+            super.setEstado(Estado.ADELANTE);
+            tocado = false;
+        }
+    }
+
+    public void restarVida() {
+        numVidas--;
     }
 
     public void reset() {
@@ -48,39 +74,5 @@ public class Enemigo extends Entidad {
         tocado = false;
         x = hitbox.x = Mundo.anchoJuego + ancho;
         y = hitbox.y = Mundo.yJuego + new Random().nextInt((int)(Mundo.ALTO - Mundo.yJuego));
-    }
-
-    public void render(ShapeRenderer sr, SpriteBatch sb) {
-        //Dibujar enemigo segun su tipo
-        SpriteBatch sprite = sb;
-        if (estado != Estado.PARADO) {
-            switch (tipo){
-                case CUADRADO:
-                    sr.rect(x, y, ancho, alto);
-                    break;
-                case CIRCULO:
-                    sr.rect(x, y, ancho, alto);
-                    // Centrar el circulo en la hitbox
-                    sr.circle(x + ancho/2, y + alto/2, ancho/2);
-                    break;
-                case CRUZ:
-                    sr.rect(x, y, ancho, alto);
-                    // Línea horizontal en el centro
-                    sr.line(x, y + alto/2, x + ancho, y + alto/2);
-                    // Línea vertical en el centro
-                    sr.line(x + ancho/2, y, x + ancho/2, y + alto);
-                    break;
-            }
-            //Centrar el texto en la figura
-            ResourceManager.fuente.draw(sprite, "" + numVidas, x + ancho/2 -2, y + alto/2 + 5);
-        }
-    }
-
-    public int getVidas() {
-        return numVidas;
-    }
-
-    public void restarVida() {
-        numVidas--;
     }
 }

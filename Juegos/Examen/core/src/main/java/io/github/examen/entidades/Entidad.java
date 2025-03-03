@@ -13,6 +13,7 @@ public abstract class Entidad {
     public Estado estado;
     public Rectangle hitbox;
     protected  Texture imagen;
+
     public Entidad(float x, float y, float ancho, float alto, float velocidad ) {
         this.x = x;
         this.y = y;
@@ -22,7 +23,6 @@ public abstract class Entidad {
         estado = Estado.PARADO;
         hitbox = new Rectangle(x,y,ancho,alto);
     }
-
 
     public Estado getEstado() {
         return estado;

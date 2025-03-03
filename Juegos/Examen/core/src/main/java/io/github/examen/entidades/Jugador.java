@@ -3,6 +3,7 @@ package io.github.examen.entidades;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
+import io.github.examen.Formas;
 import io.github.examen.mundo.Mundo;
 
 public class Jugador extends Entidad {
@@ -18,36 +19,17 @@ public class Jugador extends Entidad {
 
     public void cambiarForma(){
         switch(tipo){
-            case CUADRADO:
-                tipo = Tipo.CIRCULO;
-                break;
-            case CIRCULO:
-                tipo = Tipo.CRUZ;
-                break;
-            case CRUZ:
-                tipo = Tipo.CUADRADO;
-                break;
+            case CUADRADO: tipo = Tipo.CIRCULO; break;
+            case CIRCULO: tipo = Tipo.CRUZ; break;
+            case CRUZ: tipo = Tipo.CUADRADO; break;
         }
     }
 
-
     public void render(ShapeRenderer sr) {
         switch (tipo) {
-            case CUADRADO:
-                sr.rect(x, y, ancho, alto);
-                break;
-            case CIRCULO:
-                sr.rect(x, y, ancho, alto);
-                // Centrar el circulo en la hitbox
-                sr.circle(x + ancho / 2, y + alto / 2, ancho / 2);
-                break;
-            case CRUZ:
-                sr.rect(x, y, ancho, alto);
-                // Línea horizontal en el centro
-                sr.line(x, y + alto / 2, x + ancho, y + alto / 2);
-                // Línea vertical en el centro
-                sr.line(x + ancho / 2, y, x + ancho / 2, y + alto);
-                break;
+            case CUADRADO: Formas.pintarCuadrado(sr, x, y, ancho, alto); break;
+            case CIRCULO: Formas.pintarCirculo(sr, x, y, ancho, alto); break;
+            case CRUZ: Formas.pintarCruz(sr, x, y, ancho, alto); break;
         }
         // Mantener el jugador en el centro
         x = Mundo.anchoJuego / 2 - ancho / 2;
