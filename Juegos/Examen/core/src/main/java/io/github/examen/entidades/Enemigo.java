@@ -30,8 +30,8 @@ public class Enemigo extends Entidad {
 
     public void update(float delta) {
         switch (super.getEstado()) {
-            case ADELANTE: moverDerecha(delta); break;
-            case ATRAS: moverIzquierda(delta); break;
+            case ADELANTE: moverIzquierda(delta); break;
+            case ATRAS: moverDerecha(delta); break;
         }
     }
 
@@ -48,7 +48,7 @@ public class Enemigo extends Entidad {
         }
     }
 
-    public void moverDerecha(float delta){
+    public void moverIzquierda(float delta){
         x = hitbox.x -= velocidad * delta;
         if (x < 0) { // Rebote en el borde izquierdo
             super.setEstado(Estado.ATRAS);
@@ -56,7 +56,7 @@ public class Enemigo extends Entidad {
         }
     }
 
-    public void moverIzquierda(float delta){
+    public void moverDerecha(float delta){
         x = hitbox.x += velocidad * delta;
         if (x + ancho > Mundo.ANCHO) { // Rebote en el borde derecho
             super.setEstado(Estado.ADELANTE);
