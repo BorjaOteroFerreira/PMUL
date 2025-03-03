@@ -6,17 +6,53 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import io.github.examen.mundo.Mundo;
 
 public class Jugador extends Entidad {
-    float tamMax = 200;
-    float tamMin = ancho;
-    float aumento = 0.5f ;
+    float tamMax = ancho * 2;
+    float tamMin = ancho / 2;
+    float aumento = 0.09f ;
     boolean aumentar = true;
 
     public Jugador(float x, float y, float ancho, float alto, float velocidad) {
         super(x, y, ancho, alto, velocidad);
+        super.tipo = Tipo.CUADRADO;
     }
 
-    public void render(ShapeRenderer sr){
-        sr.rect(x, y, ancho, alto);
+    public void cambiarForma(){
+        switch(tipo){
+            case CUADRADO:
+                tipo = Tipo.CIRCULO;
+                break;
+            case CIRCULO:
+                tipo = Tipo.CRUZ;
+                break;
+            case CRUZ:
+                tipo = Tipo.CUADRADO;
+                break;
+        }
+    }
+
+
+    public void render(ShapeRenderer sr) {
+        switch (tipo) {
+            case CUADRADO:
+                sr.rect(x, y, ancho, alto);
+                break;
+            case CIRCULO:
+                sr.rect(x, y, ancho, alto);
+                // Centrar el circulo en la hitbox
+                sr.circle(x + ancho / 2, y + alto / 2, ancho / 2);
+                break;
+            case CRUZ:
+                sr.rect(x, y, ancho, alto);
+                // Línea horizontal en el centro
+                sr.line(x, y + alto / 2, x + ancho, y + alto / 2);
+                // Línea vertical en el centro
+                sr.line(x + ancho / 2, y, x + ancho / 2, y + alto);
+                break;
+        }
+        // Mantener el jugador en el centro
+        x = Mundo.anchoJuego / 2 - ancho / 2;
+
+        hitbox.setPosition(x, y);
     }
 
     public void moverArriba() {
@@ -27,16 +63,11 @@ public class Jugador extends Entidad {
     }
 
     public void movimientoAumentarDisminuir() {
-        //Asegurarnos de que sigue centrado y crece en tama��o proporcional constantemente se contrae y estira
-
-
-
         // Verificar límites antes de cambiar el tamaño
         float newAncho = aumentar ? ancho + aumento : ancho - aumento;
         float newAlto = aumentar ? alto + aumento : alto - aumento;
         float newX = aumentar ? x - aumento / 2 : x + aumento / 2;
         float newY = aumentar ? y - aumento / 2 : y + aumento / 2;
-
         // Verificar límites antes de aplicar cambios
         boolean dentroDeLimites = (newY >= Mundo.yJuego) && (newY + newAlto <= Mundo.ALTO);
         if (aumentar) {
@@ -58,8 +89,6 @@ public class Jugador extends Entidad {
                 aumentar = true;
             }
         }
-
-        // Update hitbox dimensions as well as position
         hitbox.setSize(ancho, alto);
         hitbox.setPosition(x, y);
     }
@@ -73,7 +102,6 @@ public class Jugador extends Entidad {
             if(y > Mundo.yJuego)
                 y = hitbox.y -= velocidad * delta;
         }
-        // Update hitbox position
         hitbox.setPosition(x, y);
     }
 

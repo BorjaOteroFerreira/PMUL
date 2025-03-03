@@ -47,11 +47,6 @@ public class PantallaJuego extends Pantalla{
         numVidas = Mundo.numColisiones;
     }
 
-    public void Show(){
-    }
-
-
-
     @Override
     public void render(float delta){
         ScreenUtils.clear(1, 1, 1, 1);
@@ -63,7 +58,7 @@ public class PantallaJuego extends Pantalla{
             enemigo.update(delta);
         }
         jugador.update(delta);
-        sr.begin(ShapeRenderer.ShapeType.Filled);
+        sr.begin(ShapeRenderer.ShapeType.Line);
         jugador.render(sr);
         sr.end();
         sr.begin(ShapeRenderer.ShapeType.Line);
@@ -80,7 +75,7 @@ public class PantallaJuego extends Pantalla{
 
     public void comprobarColisiones(){
         for(Enemigo e : enemigos){
-            if(e.getHitbox().overlaps(jugador.getHitbox())){
+            if(e.getHitbox().overlaps(jugador.getHitbox()) && e.tipo != jugador.tipo){
                 if(!e.tocado){
                     e.tocado = true;
                     numVidas --;
@@ -116,12 +111,20 @@ public class PantallaJuego extends Pantalla{
         }
     }
     private void crearEnemigo() {
-            float x ;
-            Enemigo nuevoEnemigo;
-            x = derecha ? Mundo.anchoJuego - anchoEnemigo : 0 + anchoEnemigo  ;
-                nuevoEnemigo = new Enemigo(x, rnd.nextFloat(Mundo.yJuego +anchoEnemigo, Mundo.ALTO - altoEnemigo), anchoEnemigo, altoEnemigo, 50f );
-            enemigos.add(nuevoEnemigo);
-            nuevoEnemigo.setEstado(Entidad.Estado.ADELANTE);
+        float x;
+        Enemigo nuevoEnemigo;
+        boolean salePorDerecha = rnd.nextBoolean();
+        float posY = Mundo.yJuego + rnd.nextFloat() * (Mundo.ALTO - Mundo.yJuego - altoEnemigo);
+        if (salePorDerecha) {
+            x = Mundo.ANCHO - anchoEnemigo; // Sale por la derecha
+            nuevoEnemigo = new Enemigo(x, posY, anchoEnemigo, altoEnemigo, rnd.nextFloat() * 100 + 50);
+            nuevoEnemigo.setEstado(Entidad.Estado.ADELANTE); // Se mueve hacia la izquierda
+        } else {
+            x = 0; // Sale por la izquierda
+            nuevoEnemigo = new Enemigo(x, posY, anchoEnemigo, altoEnemigo, rnd.nextFloat() * 100 + 50);
+            nuevoEnemigo.setEstado(Entidad.Estado.ATRAS); // Se mueve hacia la derecha
+        }
+        enemigos.add(nuevoEnemigo);
     }
 
     @Override
@@ -134,6 +137,9 @@ public class PantallaJuego extends Pantalla{
         }
         if(keycode == Input.Keys.P)
             game.cargarPantallaPausa();
+        if(keycode == Input.Keys.SPACE){
+            jugador.cambiarForma();
+        }
         return true;
     }
 
