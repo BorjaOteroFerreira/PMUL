@@ -37,11 +37,11 @@ public class PantallaJuego extends Pantalla{
 
     public PantallaJuego(MainGame game) {
         super(game);
-
+        enemigos = new Array<>();
         sb = game.getSpriteBatch();
         sr = game.getShapeRenderer();
         jugador = new Jugador(Mundo.anchoJuego/ 2 - anchoJugador / 2, Mundo.altoJuego / 2 - altoJugador / 2, anchoJugador, altoJugador , velocidadJugador);
-        enemigos = new Array<>();
+
 
     }
     @Override
@@ -49,7 +49,9 @@ public class PantallaJuego extends Pantalla{
         super.show();
         if(!pause){
             numVidas = Mundo.numColisiones;
-
+            stateTime = 0;
+            stateTimeProximoEnemigo = tiempoEntreEnemigos;
+            crearEnemigo = true;
         }else{
             pause = false;
         }
