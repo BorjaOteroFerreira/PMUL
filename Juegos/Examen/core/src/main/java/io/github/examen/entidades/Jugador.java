@@ -31,7 +31,7 @@ public class Jugador extends Entidad {
             case CRUZ: Formas.pintarCruz(sr, x, y, ancho, alto); break;
         }
         // Mantener el jugador en el centro
-        x = Mundo.anchoJuego / 2 - ancho / 2;
+        x = hitbox.x = Mundo.anchoJuego / 2 - ancho / 2;
         hitbox.setPosition(x, y);
     }
 
@@ -81,5 +81,6 @@ public class Jugador extends Entidad {
         y = Mundo.altoJuego / 2;
         x = Mundo.anchoJuego / 2;
         super.estado = Estado.PARADO;
+
     }
 }

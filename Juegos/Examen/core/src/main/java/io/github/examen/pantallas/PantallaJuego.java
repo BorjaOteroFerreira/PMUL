@@ -30,6 +30,7 @@ public class PantallaJuego extends Pantalla{
     private float tiempoEntreEnemigos = 3f;
     private float stateTimeProximoEnemigo = tiempoEntreEnemigos;
     private boolean crearEnemigo = true;
+    private boolean pause = false;
     boolean derecha = true;
 
     private static Random rnd = new Random();
@@ -42,9 +43,19 @@ public class PantallaJuego extends Pantalla{
         sr = game.getShapeRenderer();
         jugador = new Jugador(Mundo.anchoJuego/ 2 - anchoJugador / 2, Mundo.altoJuego / 2 - altoJugador / 2, anchoJugador, altoJugador , velocidadJugador);
         enemigos = new Array<>();
-        numVidas = Mundo.numColisiones;
-    }
 
+    }
+    @Override
+    public void show(){
+        super.show();
+        if(!pause){
+            numVidas = Mundo.numColisiones;
+
+        }else{
+            pause = false;
+        }
+
+    }
     @Override
     public void render(float delta){
         ResourceManager.fuente.getData().setScale(1f);
@@ -138,8 +149,11 @@ public class PantallaJuego extends Pantalla{
         if (keycode == Input.Keys.DOWN) {
             jugador.moverAbajo();
         }
-        if(keycode == Input.Keys.P)
+        if(keycode == Input.Keys.P){
             game.cargarPantallaPausa();
+            pause = true;
+        }
+
         if(keycode == Input.Keys.SPACE){
             jugador.cambiarForma();
         }
@@ -161,7 +175,7 @@ public class PantallaJuego extends Pantalla{
     @Override
     public void dispose(){
         enemigos.clear();
-        numVidas = Mundo.numColisiones;
         jugador.reset();
+
     }
 }

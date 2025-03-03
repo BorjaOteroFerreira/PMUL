@@ -28,12 +28,8 @@ public class Enemigo extends Entidad {
 
     public void update(float delta) {
         switch (super.getEstado()) {
-            case ADELANTE:
-                moverDerecha(delta);
-                break;
-            case ATRAS:
-                moverIzquierda(delta);
-                break;
+            case ADELANTE: moverDerecha(delta); break;
+            case ATRAS: moverIzquierda(delta); break;
         }
     }
 
