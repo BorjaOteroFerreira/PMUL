@@ -31,7 +31,6 @@ public class PantallaJuego extends Pantalla{
     private float stateTimeProximoEnemigo = tiempoEntreEnemigos;
     private boolean crearEnemigo = true;
     private boolean pause = false;
-    boolean derecha = true;
 
     private static Random rnd = new Random();
     Jugador jugador ;
@@ -89,11 +88,17 @@ public class PantallaJuego extends Pantalla{
 
     public void comprobarColisiones(){
         for(Enemigo e : enemigos){
-            if(e.getHitbox().overlaps(jugador.getHitbox()) && e.tipo != jugador.tipo){
+            if(e.getHitbox().overlaps(jugador.getHitbox()) ){
                 if(!e.tocado){
-                    e.tocado = true;
-                    numVidas --;
                     e.restarVida();
+                    e.tocado = true;
+                    if(e.tipo != jugador.tipo){
+                        numVidas --;
+                    }
+                    if(e.numVidas < 1 ){
+                        e.reset();
+
+                    }
                 }
             }
             if(numVidas <= 0){
@@ -112,7 +117,15 @@ public class PantallaJuego extends Pantalla{
             if(enemigos.size > 0) {
                 for (Enemigo enemigo : enemigos) {
                     if (enemigo.getEstado() == Entidad.Estado.PARADO) {
-                        enemigo.setEstado(Entidad.Estado.ADELANTE);
+                        boolean salePorDerecha = rnd.nextBoolean();
+                        if (salePorDerecha) {
+                            enemigo.x = enemigo.hitbox.x = Mundo.ANCHO - anchoEnemigo; // Sale por la derecha
+                            enemigo.setEstado(Entidad.Estado.ADELANTE);
+                        }else{
+                            enemigo.x = enemigo.hitbox.x = 0; // Sale por la izquierda
+                            enemigo.setEstado(Entidad.Estado.ATRAS); // Se mueve hacia la derecha
+                        }
+                        enemigo.y = enemigo.hitbox.y = Mundo.yJuego + rnd.nextFloat() * (Mundo.ALTO - Mundo.yJuego - altoEnemigo);
                         crearEnemigo = false;
                         break;
                     }

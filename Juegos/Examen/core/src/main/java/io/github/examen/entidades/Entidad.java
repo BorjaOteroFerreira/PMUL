@@ -4,7 +4,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 
 public abstract class Entidad {
-    protected float x, y;
+    public float x;
+    public float y;
     protected float ancho, alto ;
     protected float velocidad = 1f;
     public enum Estado {PARADO, ADELANTE , ATRAS, ARRIBA, ABAJO};

@@ -1,5 +1,7 @@
 package io.github.examen.entidades;
 
+import static io.github.examen.entidades.Entidad.Tipo.*;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
@@ -11,7 +13,7 @@ import io.github.examen.ResourceManager;
 import io.github.examen.mundo.Mundo;
 
 public class Enemigo extends Entidad {
-    int numVidas ;
+    public int numVidas ;
     boolean derecha = true;
     public boolean tocado = false;
 
@@ -20,9 +22,9 @@ public class Enemigo extends Entidad {
         Random rnd = new Random();
         int tipo = rnd.nextInt(3) + 1;
         switch(tipo){
-            case 1 : super.tipo = Tipo.CUADRADO; numVidas = 3 ; break;
-            case 2 : super.tipo = Tipo.CIRCULO; numVidas = 2; break;
-            case 3 : super.tipo = Tipo.CRUZ; numVidas = 1; break;
+            case 1 : super.tipo = CUADRADO; numVidas = 3 ; break;
+            case 2 : super.tipo = CIRCULO; numVidas = 2; break;
+            case 3 : super.tipo = CRUZ; numVidas = 1; break;
         }
     }
 
@@ -68,6 +70,11 @@ public class Enemigo extends Entidad {
 
     public void reset() {
         super.setEstado(Estado.PARADO);
+        switch(super.tipo){
+            case CUADRADO: numVidas = 3 ; break;
+            case CIRCULO: numVidas = 2; break;
+            case  CRUZ: numVidas = 1; break;
+        }
         tocado = false;
         x = hitbox.x = Mundo.anchoJuego + ancho;
         y = hitbox.y = Mundo.yJuego + new Random().nextInt((int)(Mundo.ALTO - Mundo.yJuego));
