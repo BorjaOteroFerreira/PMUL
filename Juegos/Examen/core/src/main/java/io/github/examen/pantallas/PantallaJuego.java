@@ -56,7 +56,6 @@ public class PantallaJuego extends Pantalla{
             pause = false;
         }
     }
-
     @Override
     public void render(float delta){
         ResourceManager.fuente.getData().setScale(1f);
@@ -186,7 +185,6 @@ public class PantallaJuego extends Pantalla{
         }
         return true;
     }
-
     @Override
     public void dispose(){
         enemigos.clear();

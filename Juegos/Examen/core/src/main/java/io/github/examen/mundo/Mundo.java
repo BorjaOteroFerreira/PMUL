@@ -11,6 +11,8 @@ public class Mundo {
     public static float xRecord = 0;
     public static float yRecord = 0;
     public static float yJuego = altoRecord;
+    public static boolean debugMode = false;
+
     public static void setNumColisiones(int colisiones) {
         numColisiones = colisiones;
     }
