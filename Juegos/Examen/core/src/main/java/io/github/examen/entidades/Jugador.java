@@ -16,12 +16,16 @@ public class Jugador extends Entidad {
         super.tipo = Tipo.CUADRADO;
     }
 
-    public void cambiarForma(){
-        switch(tipo){
-            case CUADRADO: tipo = Tipo.CIRCULO; break;
-            case CIRCULO: tipo = Tipo.CRUZ; break;
-            case CRUZ: tipo = Tipo.CUADRADO; break;
+    public void update(float delta) {
+        movimientoAumentarDisminuir();
+        if (super.getEstado() == Estado.ADELANTE) {
+            if(y < Mundo.ALTO - alto + alto / 2)
+                y = hitbox.y += velocidad * delta;
+        } else if (super.getEstado() == Estado.ATRAS) {
+            if(y > Mundo.yJuego)
+                y = hitbox.y -= velocidad * delta;
         }
+        hitbox.setPosition(x, y);
     }
 
     public void render(ShapeRenderer sr) {
@@ -29,10 +33,25 @@ public class Jugador extends Entidad {
             case CUADRADO: Formas.pintarCuadrado(sr, x, y, ancho, alto); break;
             case CIRCULO: Formas.pintarCirculo(sr, x, y, ancho, alto); break;
             case CRUZ: Formas.pintarCruz(sr, x, y, ancho, alto); break;
+            case ROMBO: Formas.pintarRombo(sr, x, y, ancho, alto); break;
+            case TRIANGULO: Formas.pintarTriangulo(sr, x, y, ancho, alto); break;
+            case EQUIS: Formas.pintarEquis(sr, x, y, ancho, alto); break;
         }
         // Mantener el jugador en el centro
         x = hitbox.x = Mundo.anchoJuego / 2 - ancho / 2;
         hitbox.setPosition(x, y);
+    }
+
+
+    public void cambiarForma(){
+        switch(tipo){
+            case CUADRADO: tipo = Tipo.CIRCULO; break;
+            case CIRCULO: tipo = Tipo.CRUZ; break;
+            case CRUZ: tipo = Tipo.TRIANGULO; break;
+            case TRIANGULO: tipo = Tipo.ROMBO; break;
+            case ROMBO: tipo = Tipo.EQUIS; break;
+            case EQUIS: tipo = Tipo.CUADRADO;break;
+        }
     }
 
     public void moverArriba() {
@@ -48,34 +67,29 @@ public class Jugador extends Entidad {
         float newAlto = aumentar ? alto + aumento : alto - aumento;
         float newX = aumentar ? x - aumento / 2 : x + aumento / 2;
         float newY = aumentar ? y - aumento / 2 : y + aumento / 2;
-
         // Verificar límites antes de aplicar cambios
         boolean dentroDeLimites = (newY >= Mundo.yJuego) && (newY + newAlto <= Mundo.ALTO);
         boolean tamanioValido = aumentar ? (ancho < tamMax) : (ancho > tamMin);
-
-        if (tamanioValido && dentroDeLimites) {
+        if (tamanioValido) {
             // Aplicar cambios
             ancho = newAncho;
             alto = newAlto;
-            x = hitbox.x = newX;
-            y = hitbox.y = newY;
+            if (dentroDeLimites) {
+                x = hitbox.x = newX;
+                y = hitbox.y = newY;
+            } else if (newY < Mundo.yJuego) {
+                // Reposicionar si sale por el borde inferior
+                y = hitbox.y = Mundo.yJuego;
+            } else if (newY + newAlto > Mundo.ALTO) {
+                // Reposicionar si sale por el borde superior
+                y = hitbox.y = Mundo.ALTO - newAlto;
+            }
         } else {
             // Cambiar dirección de escalado
             aumentar = !aumentar;
         }
     }
 
-    public void update(float delta) {
-        movimientoAumentarDisminuir();
-        if (super.getEstado() == Estado.ADELANTE) {
-            if(y < Mundo.ALTO - alto + alto / 2)
-                y = hitbox.y += velocidad * delta;
-        } else if (super.getEstado() == Estado.ATRAS) {
-            if(y > Mundo.yJuego)
-                y = hitbox.y -= velocidad * delta;
-        }
-        hitbox.setPosition(x, y);
-    }
 
     public void reset(){
         y = Mundo.altoJuego / 2;

@@ -22,9 +22,9 @@ public class Enemigo extends Entidad {
         Random rnd = new Random();
         int tipo = rnd.nextInt(3) + 1;
         switch(tipo){
-            case 1 : super.tipo = CUADRADO; numVidas = 3 ; break;
-            case 2 : super.tipo = CIRCULO; numVidas = 2; break;
-            case 3 : super.tipo = CRUZ; numVidas = 1; break;
+            case 1 : super.tipo = CRUZ; numVidas = tipo; break;
+            case 2 : super.tipo = CIRCULO; numVidas = tipo; break;
+            case 3 : super.tipo = CUADRADO; numVidas = tipo ; break;
         }
     }
 

@@ -8,8 +8,8 @@ public abstract class Entidad {
     public float y;
     protected float ancho, alto ;
     protected float velocidad = 1f;
-    public enum Estado {PARADO, ADELANTE , ATRAS, ARRIBA, ABAJO};
-    public enum Tipo {CRUZ, CIRCULO, CUADRADO};
+    public enum Estado {PARADO, ADELANTE , ATRAS};
+    public enum Tipo {CRUZ, CIRCULO, CUADRADO, TRIANGULO, ROMBO, EQUIS};
     public Tipo tipo ;
     public Estado estado;
     public Rectangle hitbox;

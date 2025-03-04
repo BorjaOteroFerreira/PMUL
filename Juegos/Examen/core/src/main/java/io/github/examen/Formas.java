@@ -22,4 +22,26 @@ public  class Formas {
         // Línea vertical en el centro
         sr.line(x + ancho / 2, y, x + ancho / 2, y + alto);
     }
+
+    public static void pintarTriangulo(ShapeRenderer sr, float x, float y , float ancho, float alto){
+        if (Mundo.debugMode) sr.rect(x, y, ancho, alto);
+        // Línea horizontal en el centro
+        sr.triangle(x, y, x + ancho, y, x + ancho / 2, y + alto);
+    }
+
+    public static void pintarRombo(ShapeRenderer sr, float x, float y , float ancho, float alto){
+        if (Mundo.debugMode) sr.rect(x, y, ancho, alto);
+        sr.triangle(x, y + alto / 2, x + ancho, y + alto / 2, x + ancho / 2, y + alto);
+        sr.triangle(x, y + alto / 2, x + ancho, y + alto / 2, x + ancho / 2, y);
+
+    }
+
+    public static void pintarEquis(ShapeRenderer sr, float x, float y , float ancho, float alto){
+        // Línea horizontal en el centro
+        sr.line(x, y, x + ancho, y + alto);
+        // Línea vertical en el centro
+        sr.line(x + ancho, y, x, y + alto);
+
+    }
+
 }
