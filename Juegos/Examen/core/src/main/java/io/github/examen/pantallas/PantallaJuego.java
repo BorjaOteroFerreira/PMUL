@@ -120,10 +120,10 @@ public class PantallaJuego extends Pantalla{
                         boolean salePorDerecha = rnd.nextBoolean();
                         if (salePorDerecha) {
                             enemigo.x = enemigo.hitbox.x = Mundo.ANCHO - anchoEnemigo; // Sale por la derecha
-                            enemigo.setEstado(Entidad.Estado.ADELANTE);
+                            enemigo.setEstado(Entidad.Estado.ATRAS);
                         }else{
                             enemigo.x = enemigo.hitbox.x = 0; // Sale por la izquierda
-                            enemigo.setEstado(Entidad.Estado.ATRAS); // Se mueve hacia la derecha
+                            enemigo.setEstado(Entidad.Estado.ADELANTE); // Se mueve hacia la derecha
                         }
                         enemigo.y = enemigo.hitbox.y = Mundo.yJuego + rnd.nextFloat() * (Mundo.ALTO - Mundo.yJuego - altoEnemigo);
                         crearEnemigo = false;
@@ -145,11 +145,11 @@ public class PantallaJuego extends Pantalla{
         if (salePorDerecha) {
             x = Mundo.ANCHO - anchoEnemigo; // Sale por la derecha
             nuevoEnemigo = new Enemigo(x, posY, anchoEnemigo, altoEnemigo, rnd.nextFloat() * 100 + 50);
-            nuevoEnemigo.setEstado(Entidad.Estado.ADELANTE); // Se mueve hacia la izquierda
+            nuevoEnemigo.setEstado(Entidad.Estado.ATRAS); // Se mueve hacia la izquierda
         } else {
             x = 0; // Sale por la izquierda
             nuevoEnemigo = new Enemigo(x, posY, anchoEnemigo, altoEnemigo, rnd.nextFloat() * 100 + 50);
-            nuevoEnemigo.setEstado(Entidad.Estado.ATRAS); // Se mueve hacia la derecha
+            nuevoEnemigo.setEstado(Entidad.Estado.ADELANTE); // Se mueve hacia la derecha
         }
         enemigos.add(nuevoEnemigo);
     }

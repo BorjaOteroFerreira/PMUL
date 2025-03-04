@@ -15,4 +15,5 @@ public class Mundo {
     public static void setNumColisiones(int colisiones) {
         numColisiones = colisiones;
     }
+
 }
