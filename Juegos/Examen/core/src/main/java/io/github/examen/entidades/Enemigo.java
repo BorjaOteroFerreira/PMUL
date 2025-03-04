@@ -75,7 +75,7 @@ public class Enemigo extends Entidad {
         switch(super.tipo){
             case CUADRADO: numVidas = 3 ; break;
             case CIRCULO: numVidas = 2; break;
-            case  CRUZ: numVidas = 1; break;
+            case CRUZ: numVidas = 1; break;
         }
         tocado = false;
         x = hitbox.x = Mundo.anchoJuego + ancho;
