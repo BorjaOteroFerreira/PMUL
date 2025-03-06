@@ -25,7 +25,7 @@ public class Jugador extends Entidad {
             if(y > Mundo.yJuego)
                 y = hitbox.y -= velocidad * delta;
         }
-        hitbox.setPosition(x, y);
+        //hitbox.setPosition(x, y);
     }
 
     public void render(ShapeRenderer sr) {
@@ -33,9 +33,9 @@ public class Jugador extends Entidad {
             case CUADRADO: Formas.pintarCuadrado(sr, x, y, ancho, alto); break;
             case CIRCULO: Formas.pintarCirculo(sr, x, y, ancho, alto); break;
             case CRUZ: Formas.pintarCruz(sr, x, y, ancho, alto); break;
-            case ROMBO: Formas.pintarRombo(sr, x, y, ancho, alto); break;
-            case TRIANGULO: Formas.pintarTriangulo(sr, x, y, ancho, alto); break;
-            case EQUIS: Formas.pintarEquis(sr, x, y, ancho, alto); break;
+            //case ROMBO: Formas.pintarRombo(sr, x, y, ancho, alto); break;
+            //case TRIANGULO: Formas.pintarTriangulo(sr, x, y, ancho, alto); break;
+            //case EQUIS: Formas.pintarEquis(sr, x, y, ancho, alto); break;
         }
         // Mantener el jugador en el centro
         x = hitbox.x = Mundo.anchoJuego / 2 - ancho / 2;
@@ -47,10 +47,10 @@ public class Jugador extends Entidad {
         switch(tipo){
             case CUADRADO: tipo = Tipo.CIRCULO; break;
             case CIRCULO: tipo = Tipo.CRUZ; break;
-            case CRUZ: tipo = Tipo.TRIANGULO; break;
-            case TRIANGULO: tipo = Tipo.ROMBO; break;
-            case ROMBO: tipo = Tipo.EQUIS; break;
-            case EQUIS: tipo = Tipo.CUADRADO;break;
+            case CRUZ: tipo = Tipo.CUADRADO ; break; //Tipo.TRIANGULO; break;
+            //case TRIANGULO: tipo = Tipo.ROMBO; break;
+            //case ROMBO: tipo = Tipo.EQUIS; break;
+           // case EQUIS: tipo = Tipo.CUADRADO;break;
         }
     }
 

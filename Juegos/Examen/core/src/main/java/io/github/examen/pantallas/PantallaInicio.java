@@ -17,6 +17,8 @@ public class PantallaInicio extends Pantalla {
     SpriteBatch sb;
     float record ;
     RecordManager recordManager;
+    float ultimoRecord;
+
 
     public PantallaInicio(MainGame game) {
         super(game);
@@ -43,10 +45,9 @@ public class PantallaInicio extends Pantalla {
         sb.begin();
         ResourceManager.fuente.getData().setScale(2f);
         ResourceManager.fuente.draw(sb, "Jugar (1...9)" , Mundo.ANCHO / 2 - 75 ,(Mundo.ALTO / 2) + Mundo.ALTO / 4 );
-        record = recordManager.getRecord("record_"+ Mundo.numColisiones);
-        if(recordManager.existeRecord("record_"+ Mundo.numColisiones)) {
-            ResourceManager.fuente.draw(sb, "Record: " + record, Mundo.ANCHO / 2 - 130, Mundo.ALTO / 4);
-        }
+        ultimoRecord = recordManager.existeRecord("ultimoRecord") ?  recordManager.getRecord("ultimoRecord") : 0f;
+        record = recordManager.existeRecord("record_"+ Mundo.numColisiones) ? recordManager.getRecord("record_"+ Mundo.numColisiones) : ultimoRecord;
+        ResourceManager.fuente.draw(sb, "Record: " + record, Mundo.ANCHO / 2 - 130, Mundo.ALTO / 4);
         sb.end();
     }
 

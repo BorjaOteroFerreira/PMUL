@@ -24,7 +24,7 @@ public class Enemigo extends Entidad {
         switch(tipo){
             case 1 : super.tipo = CRUZ; break;
             case 2 : super.tipo = CIRCULO; break;
-            case 3 : super.tipo = CUADRADO;  break;
+            case 3 : super.tipo = CUADRADO; break;
         }
     }
 
@@ -78,7 +78,7 @@ public class Enemigo extends Entidad {
 
     public void reset() {
         super.setEstado(Estado.PARADO);
-        int numRebotes = rnd.nextInt(5) + 1 ;
+        numRebotes = rnd.nextInt(5) + 1 ;
         tocado = false;
         x = hitbox.x = Mundo.anchoJuego + ancho;
         y = hitbox.y = Mundo.yJuego + new Random().nextInt((int)(Mundo.ALTO - Mundo.yJuego));

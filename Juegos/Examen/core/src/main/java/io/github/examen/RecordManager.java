@@ -28,6 +28,7 @@ public class RecordManager {
         float recordGuardado = getRecord(record);
         if (stateTimeJuego > recordGuardado || recordGuardado == -1) {
             prefs.putFloat(record, stateTimeJuego);
+            prefs.putFloat("utlimoRecord", stateTimeJuego);
             prefs.flush();
             guardado = true;
         }
