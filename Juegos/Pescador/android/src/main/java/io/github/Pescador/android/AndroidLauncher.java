@@ -1,10 +1,10 @@
-package io.github.Pescador.android;
+package io.github.pescador.android;
 
 import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import io.github.Pescador.JuegoPescador;
+import io.github.pescador.MainGame;
 
 /** Launches the Android application. */
 public class AndroidLauncher extends AndroidApplication {
@@ -13,6 +13,6 @@ public class AndroidLauncher extends AndroidApplication {
         super.onCreate(savedInstanceState);
         AndroidApplicationConfiguration configuration = new AndroidApplicationConfiguration();
         configuration.useImmersiveMode = true; // Recommended, but not required.
-        initialize(new JuegoPescador(), configuration);
+        initialize(new MainGame(), configuration);
     }
 }

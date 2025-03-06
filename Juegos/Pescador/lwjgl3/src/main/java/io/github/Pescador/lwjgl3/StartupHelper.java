@@ -14,7 +14,7 @@
  */
 //Note, the above license and copyright applies to this file only.
 
-package io.github.Pescador.lwjgl3;
+package io.github.pescador.lwjgl3;
 
 import org.lwjgl.system.macosx.LibC;
 

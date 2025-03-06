@@ -13,18 +13,18 @@ import io.github.examen.ResourceManager;
 import io.github.examen.mundo.Mundo;
 
 public class Enemigo extends Entidad {
-    public int numVidas ;
-    boolean derecha = true;
+    public int numRebotes ;
     public boolean tocado = false;
 
+    Random rnd = new Random();
     public Enemigo(float x, float y, float ancho, float alto, float velocidad) {
         super(x, y, ancho, alto, velocidad);
-        Random rnd = new Random();
+        numRebotes  = rnd.nextInt(5) + 1;
         int tipo = rnd.nextInt(3) + 1;
         switch(tipo){
-            case 1 : super.tipo = CRUZ; numVidas = tipo; break;
-            case 2 : super.tipo = CIRCULO; numVidas = tipo; break;
-            case 3 : super.tipo = CUADRADO; numVidas = tipo ; break;
+            case 1 : super.tipo = CRUZ; break;
+            case 2 : super.tipo = CIRCULO; break;
+            case 3 : super.tipo = CUADRADO;  break;
         }
     }
 
@@ -45,38 +45,40 @@ public class Enemigo extends Entidad {
                 case CRUZ: Formas.pintarCruz(sr, x, y, ancho, alto); break;
             }
             if(tipo != Tipo.CRUZ){
-                ResourceManager.fuente.draw(sprite, "" + numVidas, x + ancho/2 -2, y + alto/2 + 5);
+                ResourceManager.fuente.draw(sprite, "" + numRebotes, x + ancho/2 -2, y + alto/2 + 5);
             }
         }
     }
 
     public void moverIzquierda(float delta){
         x = hitbox.x -= velocidad * delta;
-        if (x < 0) { // Rebote en el borde izquierdo
+        if (x < 0 && numRebotes > 0) { // Rebote en el borde izquierdo
             super.setEstado(Estado.ADELANTE);
+            restarRebote();
             tocado = false;
+        }else if(numRebotes < 0){
+            reset();
         }
     }
 
     public void moverDerecha(float delta){
         x = hitbox.x += velocidad * delta;
-        if (x + ancho > Mundo.ANCHO) { // Rebote en el borde derecho
+        if (x + ancho > Mundo.ANCHO && numRebotes > 0) { // Rebote en el borde derecho
             super.setEstado(Estado.ATRAS);
+            restarRebote();
             tocado = false;
+        }else if(numRebotes < 0){
+            reset();
         }
     }
 
-    public void restarVida() {
-        numVidas--;
+    public void restarRebote() {
+        numRebotes--;
     }
 
     public void reset() {
         super.setEstado(Estado.PARADO);
-        switch(super.tipo){
-            case CUADRADO: numVidas = 3 ; break;
-            case CIRCULO: numVidas = 2; break;
-            case CRUZ: numVidas = 1; break;
-        }
+        int numRebotes = rnd.nextInt(5) + 1 ;
         tocado = false;
         x = hitbox.x = Mundo.anchoJuego + ancho;
         y = hitbox.y = Mundo.yJuego + new Random().nextInt((int)(Mundo.ALTO - Mundo.yJuego));

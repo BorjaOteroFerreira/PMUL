@@ -13,7 +13,10 @@ public abstract class Personaje {
     protected float ancho, alto;
     protected int velocidad;
     public Personaje(float x,float y,float ancho,float alto,int velocidad, Estado estado) {
-        this.x=x; this.y=y; this.alto=alto; this.ancho=ancho;
+        this.x=x;
+        this.y=y;
+        this.alto=alto;
+        this.ancho=ancho;
         this.velocidad=velocidad;
         this.estado=estado;
         hitBox=new Rectangle(x,y,ancho,alto);

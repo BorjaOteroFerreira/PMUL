@@ -41,9 +41,9 @@ public class PantallaJuego extends Pantalla{
         sb = game.getSpriteBatch();
         sr = game.getShapeRenderer();
         jugador = new Jugador(Mundo.anchoJuego/ 2 - anchoJugador / 2, Mundo.altoJuego / 2 - altoJugador / 2, anchoJugador, altoJugador , velocidadJugador);
-
-
     }
+
+
     @Override
     public void show(){
         super.show();
@@ -91,13 +91,10 @@ public class PantallaJuego extends Pantalla{
         for(Enemigo e : enemigos){
             if(e.getHitbox().overlaps(jugador.getHitbox()) ){
                 if(!e.tocado){
-                    e.restarVida();
+                    //e.restarVida();
                     e.tocado = true;
                     if(e.tipo != jugador.tipo){
                         numVidas --;
-                    }
-                    if(e.numVidas < 1 ){
-                        e.reset();
                     }
                 }
             }
@@ -166,7 +163,6 @@ public class PantallaJuego extends Pantalla{
             game.cargarPantallaPausa();
             pause = true;
         }
-
         if(keycode == Input.Keys.SPACE){
             jugador.cambiarForma();
         }

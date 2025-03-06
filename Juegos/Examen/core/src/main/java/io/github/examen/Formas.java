@@ -1,7 +1,6 @@
 package io.github.examen;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-
 import io.github.examen.mundo.Mundo;
 
 public  class Formas {
@@ -33,7 +32,6 @@ public  class Formas {
         if (Mundo.debugMode) sr.rect(x, y, ancho, alto);
         sr.triangle(x, y + alto / 2, x + ancho, y + alto / 2, x + ancho / 2, y + alto);
         sr.triangle(x, y + alto / 2, x + ancho, y + alto / 2, x + ancho / 2, y);
-
     }
 
     public static void pintarEquis(ShapeRenderer sr, float x, float y , float ancho, float alto){
