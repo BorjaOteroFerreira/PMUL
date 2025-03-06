@@ -25,7 +25,6 @@ public class Jugador extends Entidad {
             if(y > Mundo.yJuego)
                 y = hitbox.y -= velocidad * delta;
         }
-        //hitbox.setPosition(x, y);
     }
 
     public void render(ShapeRenderer sr) {
@@ -39,7 +38,6 @@ public class Jugador extends Entidad {
         }
         // Mantener el jugador en el centro
         x = hitbox.x = Mundo.anchoJuego / 2 - ancho / 2;
-        //hitbox.setPosition(x, y);
     }
 
 
@@ -90,11 +88,9 @@ public class Jugador extends Entidad {
         }
     }
 
-
     public void reset(){
         y = Mundo.altoJuego / 2;
         x = Mundo.anchoJuego / 2;
         super.estado = Estado.PARADO;
-
     }
 }

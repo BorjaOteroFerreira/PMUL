@@ -19,7 +19,6 @@ public class PantallaInicio extends Pantalla {
     RecordManager recordManager;
     float ultimoRecord;
 
-
     public PantallaInicio(MainGame game) {
         super(game);
         sb= game.getSpriteBatch();
@@ -60,7 +59,7 @@ public class PantallaInicio extends Pantalla {
     public boolean keyDown(int keycode){
         switch(keycode){
             case Input.Keys.R:
-                break;
+                recordManager.resetearRecords(); break;
             case Input.Keys.F:
                 Gdx.app.exit();
                 break;

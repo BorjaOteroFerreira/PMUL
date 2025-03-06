@@ -81,7 +81,7 @@ public class PantallaJuego extends Pantalla{
         int colisiones  = Mundo.numColisiones - numVidas;
         ResourceManager.fuente.getData().setScale(2f);
         ResourceManager.fuente.draw(sb,
-            "Vidas: " + numVidas +" Colisiones: " + colisiones +  " Tiempo: "+ (int)stateTime,
+            "Vidas: " + numVidas +" Colisiones: " + colisiones +  " Tiempo: "+ (int)stateTime+"s",
             Mundo.xRecord + 10, Mundo.yRecord + 75);
         sb.end();
         sr.end();
@@ -185,6 +185,5 @@ public class PantallaJuego extends Pantalla{
     public void dispose(){
         enemigos.clear();
         jugador.reset();
-
     }
 }
