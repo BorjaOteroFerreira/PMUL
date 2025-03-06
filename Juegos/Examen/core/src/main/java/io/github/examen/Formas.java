@@ -41,5 +41,8 @@ public  class Formas {
         sr.line(x + ancho, y, x, y + alto);
 
     }
+    public static void pintarRectangulo(ShapeRenderer sr, float x, float y , float ancho, float alto){
+        sr.rect(x - ancho / 2, y, ancho * 2, alto);
+    }
 
 }

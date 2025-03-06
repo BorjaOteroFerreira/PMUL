@@ -24,7 +24,7 @@ public class Enemigo extends Entidad {
         switch(tipo){
             case 1 : super.tipo = CRUZ; break;
             case 2 : super.tipo = CIRCULO; break;
-            case 3 : super.tipo = CUADRADO; break;
+            case 3 : super.tipo = RECTANGULO; break;
         }
     }
 
@@ -40,13 +40,15 @@ public class Enemigo extends Entidad {
         SpriteBatch sprite = sb;
         if (estado != Estado.PARADO) {
             switch (tipo){
-                case CUADRADO: Formas.pintarCuadrado(sr, x, y, ancho, alto); break;
+                case RECTANGULO: Formas.pintarRectangulo(sr, x, y, ancho, alto); break;
                 case CIRCULO: Formas.pintarCirculo(sr, x, y, ancho, alto); break;
                 case CRUZ: Formas.pintarCruz(sr, x, y, ancho, alto); break;
             }
-            if(tipo != Tipo.CRUZ){
+
+             if (tipo != CRUZ){
                 ResourceManager.fuente.draw(sprite, "" + numRebotes, x + ancho/2 -2, y + alto/2 + 5);
             }
+
         }
     }
 
