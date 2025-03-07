@@ -9,11 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
-
-import java.awt.Shape;
-
 import java.util.Random;
-
 import io.github.pescador.MainGame;
 import io.github.pescador.ResourceManager;
 import io.github.pescador.entidades.Entidad;

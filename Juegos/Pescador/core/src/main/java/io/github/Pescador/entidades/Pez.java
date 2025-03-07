@@ -24,7 +24,6 @@ public class Pez extends Entidad {
                 reset();
             }
         } else if (super.getEstado() == ATRAS) {
-
             if (x > 0 - ancho) {
                 x = hitbox.x -= velocidad * delta;
             }else{
