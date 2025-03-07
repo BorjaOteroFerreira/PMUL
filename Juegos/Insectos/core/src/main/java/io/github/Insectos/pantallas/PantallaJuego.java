@@ -37,7 +37,7 @@ public class PantallaJuego extends Pantalla{
         insectoActual = 0;
         insecto.setImagen(ResourceManager.getInsecto(insectoActual));
         tengoManchas = !manchas.isEmpty();
-
+        
     }
 
     public void render(float delta) {
