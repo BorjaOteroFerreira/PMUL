@@ -18,7 +18,7 @@ public class Pez extends Entidad {
     public void update(float delta) {
         stateTime += delta;
         if (super.getEstado() == ADELANTE) {
-            if (x < Mundo.ANCHO - ancho) {
+            if (x < Mundo.ANCHO + ancho) {
                 x = hitbox.x += velocidad * delta;
             }else{
                 reset();
