@@ -1,7 +1,7 @@
 package io.github.examen.entidades;
-
+import static io.github.examen.entidades.Entidad.Estado.*;
+import static io.github.examen.entidades.Entidad.Tipo.*;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-
 import io.github.examen.Formas;
 import io.github.examen.mundo.Mundo;
 
@@ -13,15 +13,15 @@ public class Jugador extends Entidad {
 
     public Jugador(float x, float y, float ancho, float alto, float velocidad) {
         super(x, y, ancho, alto, velocidad);
-        super.tipo = Tipo.CUADRADO;
+        super.tipo = CUADRADO;
     }
 
     public void update(float delta) {
         movimientoAumentarDisminuir();
-        if (super.getEstado() == Estado.ADELANTE) {
+        if (super.getEstado() == ADELANTE) {
             if(y < Mundo.ALTO - alto + alto / 2)
                 y = hitbox.y += velocidad * delta;
-        } else if (super.getEstado() == Estado.ATRAS) {
+        } else if (super.getEstado() == ATRAS) {
             if(y > Mundo.yJuego)
                 y = hitbox.y -= velocidad * delta;
         }
@@ -33,9 +33,6 @@ public class Jugador extends Entidad {
             case CIRCULO: Formas.pintarCirculo(sr, x, y, ancho, alto); break;
             case CRUZ: Formas.pintarCruz(sr, x, y, ancho, alto); break;
             case RECTANGULO: Formas.pintarRectangulo(sr, x, y, ancho, alto); break;
-            //case ROMBO: Formas.pintarRombo(sr, x, y, ancho, alto); break;
-            //case TRIANGULO: Formas.pintarTriangulo(sr, x, y, ancho, alto); break;
-            //case EQUIS: Formas.pintarEquis(sr, x, y, ancho, alto); break;
         }
         // Mantener el jugador en el centro
         x = hitbox.x = Mundo.anchoJuego / 2 - ancho / 2;
@@ -44,21 +41,18 @@ public class Jugador extends Entidad {
 
     public void cambiarForma(){
         switch(tipo){
-            case CUADRADO: tipo = Tipo.CIRCULO; break;
-            case CIRCULO: tipo = Tipo.CRUZ; break;
-            case CRUZ: tipo = Tipo.RECTANGULO ; break;
-            case RECTANGULO: tipo = Tipo.CUADRADO; break;//Tipo.TRIANGULO; break;
-            //case TRIANGULO: tipo = Tipo.ROMBO; break;
-            //case ROMBO: tipo = Tipo.EQUIS; break;
-           // case EQUIS: tipo = Tipo.CUADRADO;break;
+            case CUADRADO: tipo = CIRCULO; break;
+            case CIRCULO: tipo = CRUZ; break;
+            case CRUZ: tipo = RECTANGULO ; break;
+            case RECTANGULO: tipo = CUADRADO; break;
         }
     }
 
     public void moverArriba() {
-        super.setEstado(Estado.ADELANTE);
+        super.setEstado(ADELANTE);
     }
     public void moverAbajo() {
-        super.setEstado(Estado.ATRAS);
+        super.setEstado(ATRAS);
     }
 
     public void movimientoAumentarDisminuir() {
@@ -93,6 +87,6 @@ public class Jugador extends Entidad {
     public void reset(){
         y = Mundo.altoJuego / 2;
         x = Mundo.anchoJuego / 2;
-        super.estado = Estado.PARADO;
+        super.estado = PARADO;
     }
 }

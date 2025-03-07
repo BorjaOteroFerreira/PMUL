@@ -43,7 +43,6 @@ public class PantallaJuego extends Pantalla{
         jugador = new Jugador(Mundo.anchoJuego/ 2 - anchoJugador / 2, Mundo.altoJuego / 2 - altoJugador / 2, anchoJugador, altoJugador , velocidadJugador);
     }
 
-
     @Override
     public void show(){
         super.show();

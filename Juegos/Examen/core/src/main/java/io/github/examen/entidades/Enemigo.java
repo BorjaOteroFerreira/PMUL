@@ -15,8 +15,8 @@ import io.github.examen.mundo.Mundo;
 public class Enemigo extends Entidad {
     public int numRebotes ;
     public boolean tocado = false;
-
     Random rnd = new Random();
+
     public Enemigo(float x, float y, float ancho, float alto, float velocidad) {
         super(x, y, ancho, alto, velocidad);
         numRebotes  = rnd.nextInt(5) + 1;
@@ -44,11 +44,9 @@ public class Enemigo extends Entidad {
                 case CIRCULO: Formas.pintarCirculo(sr, x, y, ancho, alto); break;
                 case CRUZ: Formas.pintarCruz(sr, x, y, ancho, alto); break;
             }
-
              if (tipo != CRUZ){
                 ResourceManager.fuente.draw(sprite, "" + numRebotes, x + ancho/2 -2, y + alto/2 + 5);
             }
-
         }
     }
 
